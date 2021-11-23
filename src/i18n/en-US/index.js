@@ -82,10 +82,17 @@ export default {
 	menu: {
 		settings: {
 			title: 'Settings'
-		},
-		openSource: 'Open Source'
+		}
+	},
+	openSource: {
+		license: 'License',
+		resource: 'Resource'
 	},
 	success: 'Action was successful',
+	titles: {
+		settings: 'Settings',
+		openSource: 'Open Source'
+	},
 	validation: {
 		required: 'Field is required.'
 	},

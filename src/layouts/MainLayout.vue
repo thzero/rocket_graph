@@ -26,9 +26,9 @@
 							<q-separator />
 							<q-item
 								clickable
-								@click="clickOpenSource"
+								to="/openSource"
 							>
-								<q-item-section>{{ $t('menu.openSource') }}</q-item-section>
+								<q-item-section>{{ $t('titles.openSource') }}</q-item-section>
 							</q-item>
 						</q-list>
 					</q-menu>
