@@ -5,30 +5,41 @@
 		>
 			{{ $t('titles.settings') }}
 		</q-card-section>
-		<q-card-section class="pt-2" style="max-width: 400px">
+		<q-card-section style="max-width: 400px">
 			<q-form
+				ref="form"
 				@submit="onSubmit"
 				@reset="onReset"
 				class="q-gutter-md"
 				>
-				<q-select
-					ref="measurementUnits"
-					filled
-					v-model="measurementUnits"
-					:options="measurementUnitsOptions"
-					option-value="id"
-					option-label="name"
-					emit-value
-					map-options
-					:label="$t('flightInfo.measurementUnits')"
-					:rules="[val => !!val || $t('validation.required')]"
-				/>
-
 				<div>
-					<q-btn label="Submit" type="submit" color="primary"/>
-					<q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+					<q-select
+						ref="measurementUnits"
+						filled
+						v-model="measurementUnits"
+						:options="measurementUnitsOptions"
+						option-value="id"
+						option-label="name"
+						emit-value
+						map-options
+						:label="$t('forms.measurementUnits')"
+						:rules="[val => !!val || $t('validation.required')]"
+					/>
 				</div>
-				</q-form>
+				<div class="float-right">
+					<q-btn
+						type="submit"
+						color="primary"
+						:label="$t('buttons.submit')"
+					/>
+					<q-btn
+						type="reset"
+						color="primary"
+						flat class="q-ml-sm"
+						:label="$t('buttons.reset')"
+					/>
+				</div>
+			</q-form>
 		</q-card-section>
 	</q-card>
 </template>
@@ -40,41 +51,47 @@ import { ref } from 'vue';
 import AppUtility from '../utility';
 
 export default {
-	name: 'BaseOpenSource',
+	name: 'Settings',
 	setup () {
-		const $q = useQuasar()
+		const $q = useQuasar();
 
-		const name = ref(null)
-		const age = ref(null)
-		const accept = ref(false)
+		const form = ref(null);
 
-		const measurementUnits = ref(AppUtility.measurementUnitEnglish);
-		const measurementUnitsOptions = ref(AppUtility.selectOptions(AppUtility.measurementUnits(), this.$t, 'measurementUnits'));
+		const disabled = false;
+
+		const measurementUnits = ref(AppUtility.$store.state.measurementUnits);
+		const measurementUnitsOptions = ref(AppUtility.selectOptions(AppUtility.measurementUnits(), $q.lang, 'measurementUnits'));
 
 		return {
-			name,
-			age,
-			accept,
+			disabled,
 			measurementUnits,
 			measurementUnitsOptions,
 
 			onSubmit () {
-				measurementUnits.value.validate();
-				if (measurementUnits.value.hasError())
-					return;
+				try {
+					disabled.value = true;
 
-				$q.notify({
-					color: 'green-4',
-					textColor: 'white',
-					icon: 'cloud_done',
-					message: 'Submitted'
-				})
+					form.value.validate();
+					if (form.value.hasError())
+						return;
+
+					AppUtility.$store.dispatch('setMeasurementUnits', measurementUnits.value);
+
+					$q.notify({
+						color: 'green-4',
+						textColor: 'white',
+						message: $q.lang('messages.saved')
+					});
+				}
+				finally {
+					disabled.value = false;
+				}
 			},
 
 			onReset () {
-				name.value = null
-				age.value = null
-				accept.value = false
+				form.value.resetValidation();
+				disabled.value = false;
+				measurementUnits.value = AppUtility.$store.state.measurementUnits;
 			}
 		}
 	}

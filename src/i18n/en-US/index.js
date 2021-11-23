@@ -6,7 +6,8 @@ export default {
 		title: 'Button',
 		export: 'Export',
 		process: 'Process',
-		reset: 'Reset'
+		reset: 'Reset',
+		submit: 'Submit'
 	},
 	charts: {
 		flightInfo: {
@@ -44,6 +45,11 @@ export default {
 		processors: {
 			eggtimer: 'Eggtimer'
 		}
+	},
+	forms: {
+		name: 'Form',
+		namePlural: 'Forms',
+		measurementUnits: 'Measurement Units'
 	},
 	measurements: {
 		english: {
@@ -83,6 +89,9 @@ export default {
 		settings: {
 			title: 'Settings'
 		}
+	},
+	messages: {
+		saved: 'Saved'
 	},
 	openSource: {
 		license: 'License',
