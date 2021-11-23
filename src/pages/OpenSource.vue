@@ -71,7 +71,7 @@
 
 <script>
 export default {
-	name: 'BaseOpenSource',
+	name: 'OpenSource',
 	data: () => ({
 		height: '800px',
 		dependencies: [{
