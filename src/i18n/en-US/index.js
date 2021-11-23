@@ -90,6 +90,7 @@ export default {
 	},
 	success: 'Action was successful',
 	titles: {
+		application: 'Rocket Graph',
 		settings: 'Settings',
 		openSource: 'Open Source'
 	},

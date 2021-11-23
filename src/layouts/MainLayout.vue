@@ -12,7 +12,12 @@
 				/> -->
 
 				<q-toolbar-title>
-					Rocket Graph
+					<router-link
+						to="/"
+						class="toolbar-title"
+					>
+						{{ $t('titles.application') }}
+					</router-link>
 				</q-toolbar-title>
 				<q-btn flat round dense icon="more_vert">
 					<q-menu auto-close>
@@ -115,3 +120,10 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style scoped>
+.toolbar-title {
+	color: white;
+	text-decoration: none;
+}
+</style>
