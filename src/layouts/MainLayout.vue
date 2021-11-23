@@ -102,14 +102,11 @@ export default defineComponent({
 
 		const clickSettings = () => {
 		};
-		const clickOpenSource = () => {
-		};
 
 		const version = AppUtility.version();
 
 		return {
 			clickSettings,
-			clickOpenSource,
 			version
 			// essentialLinks: linksList,
 			// leftDrawerOpen,
