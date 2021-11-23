@@ -5,7 +5,7 @@ Currently the only supported altimeter is the:
 
 * Eggfinder Quantum
 
-For support of other graphs, send info to [development@thzero.com](mailto:development@thzero.com?subject=[Rocket%20Graph]%20Graph Example) with:
+For support of other graphs, send info to [development@thzero.com](mailto:development@thzero.com?subject=[Rocket%20Graph]%20Graph%2Example) with:
 
 * Name of the altimeter manufacturer
 * Name of the altimeter product
