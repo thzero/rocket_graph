@@ -183,7 +183,7 @@ export default defineComponent({
 		this.reset();
 		this.serviceFlightInfo = new FlightInfoService();
 		this.flightInfoDataTypes = AppUtility.selectOptions(this.serviceFlightInfo.serviceProcessors, this.$t, 'flightInfo.processors', (l) => { return l.id; }, null, (l) => { return l.id; });
-		this.flightInfoMeasurementUnitsOptions = AppUtility.selectOptions(AppUtility.measurementUnits(), this.$t, 'measurementUnits')
+		this.flightInfoMeasurementUnitsOptions = AppUtility.selectOptions(AppUtility.measurementUnits(), this.$t, 'measurementUnits');
 		this.flightInfoMeasurementUnits = AppUtility.$store.state.measurementUnits;
 	},
 	methods: {
