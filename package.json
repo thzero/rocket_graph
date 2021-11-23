@@ -2,7 +2,7 @@
   "name": "rocket_graph",
   "version": "0.0.1",
   "version_major": 0,
-  "version_minor": 15,
+  "version_minor": 0,
   "version_patch": 1,
   "version_date": "11/23/2021",
   "description": "Turn altimeter outputs into flight info graphs.",
@@ -17,9 +17,10 @@
     "url": "https://github.com/thzero/rocket_graph/issues"
   },
   "homepage": "https://github.com/thzero/rocket_graph#readme",
-
   "private": true,
   "scripts": {
+    "cli-update": "./node_modules/.bin/library-cli --updateversion --pi",
+    "cli-update-w": ".\\node_modules\\.bin\\library-cli --updateversion --pi",
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0",
     "serve": "quasar dev -m electron",
@@ -41,6 +42,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
     "@quasar/app": "^3.0.0",
+    "@thzero/library_cli": "^0.13.21",
     "electron": "^16.0.1",
     "electron-packager": "^15.4.0",
     "eslint": "^7.14.0",
