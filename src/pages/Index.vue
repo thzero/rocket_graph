@@ -92,7 +92,6 @@
 					v-model="flightInfoInput"
 					filled
 					type="textarea"
-					class="full-height"
 					style="width: 100%"
 					rows="15"
 					:label="$t('flightInfo.csv')"

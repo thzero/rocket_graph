@@ -82,10 +82,18 @@ export default {
 	menu: {
 		settings: {
 			title: 'Settings'
-		},
-		openSource: 'Open Source'
+		}
+	},
+	openSource: {
+		license: 'License',
+		resource: 'Resource'
 	},
 	success: 'Action was successful',
+	titles: {
+		application: 'Rocket Graph',
+		settings: 'Settings',
+		openSource: 'Open Source'
+	},
 	validation: {
 		required: 'Field is required.'
 	},

@@ -12,7 +12,12 @@
 				/> -->
 
 				<q-toolbar-title>
-					Rocket Graph
+					<router-link
+						to="/"
+						class="toolbar-title"
+					>
+						{{ $t('titles.application') }}
+					</router-link>
 				</q-toolbar-title>
 				<q-btn flat round dense icon="more_vert">
 					<q-menu auto-close>
@@ -26,9 +31,9 @@
 							<q-separator />
 							<q-item
 								clickable
-								@click="clickOpenSource"
+								to="/openSource"
 							>
-								<q-item-section>{{ $t('menu.openSource') }}</q-item-section>
+								<q-item-section>{{ $t('titles.openSource') }}</q-item-section>
 							</q-item>
 						</q-list>
 					</q-menu>
@@ -97,14 +102,11 @@ export default defineComponent({
 
 		const clickSettings = () => {
 		};
-		const clickOpenSource = () => {
-		};
 
 		const version = AppUtility.version();
 
 		return {
 			clickSettings,
-			clickOpenSource,
 			version
 			// essentialLinks: linksList,
 			// leftDrawerOpen,
@@ -115,3 +117,10 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style scoped>
+.toolbar-title {
+	color: white;
+	text-decoration: none;
+}
+</style>
