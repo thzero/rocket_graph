@@ -134,6 +134,7 @@
 
 <script>
 import { defineComponent } from 'vue';
+
 import Papa from 'papaparse';
 import html2canvas from 'html2canvas';
 
