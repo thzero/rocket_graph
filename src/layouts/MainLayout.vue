@@ -24,9 +24,9 @@
 						<q-list style="min-width: 150px">
 							<q-item
 								clickable
-								@click="clickSettings"
+								to="/settings"
 							>
-								<q-item-section>{{ $t('menu.settings.title') }}</q-item-section>
+								<q-item-section>{{ $t('titles.settings') }}</q-item-section>
 							</q-item>
 							<q-separator />
 							<q-item
@@ -100,13 +100,9 @@ export default defineComponent({
 	setup () {
 		// const leftDrawerOpen = ref(false)
 
-		const clickSettings = () => {
-		};
-
 		const version = AppUtility.version();
 
 		return {
-			clickSettings,
 			version
 			// essentialLinks: linksList,
 			// leftDrawerOpen,

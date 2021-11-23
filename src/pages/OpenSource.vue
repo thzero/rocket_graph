@@ -1,79 +1,77 @@
 <template>
-	<div>
-		<q-card>
-			<q-card-section
-				class="text-h4"
-			>
-				{{ $t('titles.openSource') }}
-			</q-card-section>
-			<q-card-section class="pt-2">
-				<div class="row">
-					<div class="col">
-						<q-markup-table
-							dense
-							flat
-							:height="height"
-						>
-							<thead>
-								<tr>
-									<th class="text-left">
-										<span class="text-h6">{{ $t('openSource.resource') }}</span>
-									</th>
-									<th class="text-left">
-										<span class="text-h6">{{ $t('openSource.license') }}</span>
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr
-									v-for="(item2, jndex) in dependenciesClient"
-									:key="key(jndex, 'b')"
-								>
-									<td>
-										<a
-											v-if="item2.url"
-											class="opensource-padding"
-											:href="item2.url"
-											target="_blank"
-										>
-											{{ item2.name }}
-										</a>
-										<span
-											v-if="!item2.url"
-											class="opensource-padding"
-										>
-											{{ item2.name }}
-										</span>
-									</td>
-									<td>
-										<a
-											v-if="item2.licenseUrl"
-											class="opensource-padding"
-											:href="item2.licenseUrl"
-											target="_blank"
-										>
-											{{ item2.licenseName }}
-										</a>
-										<span
-											v-if="!item2.licenseUrl"
-											class="opensource-padding"
-										>
-											{{ item2.licenseName }}
-										</span>
-									</td>
-								</tr>
-							</tbody>
-						</q-markup-table>
-					</div>
+	<q-card>
+		<q-card-section
+			class="text-h4"
+		>
+			{{ $t('titles.openSource') }}
+		</q-card-section>
+		<q-card-section class="pt-2">
+			<div class="row">
+				<div class="col">
+					<q-markup-table
+						dense
+						flat
+						:height="height"
+					>
+						<thead>
+							<tr>
+								<th class="text-left">
+									<span class="text-h6">{{ $t('openSource.resource') }}</span>
+								</th>
+								<th class="text-left">
+									<span class="text-h6">{{ $t('openSource.license') }}</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr
+								v-for="(item2, jndex) in dependenciesClient"
+								:key="key(jndex, 'b')"
+							>
+								<td>
+									<a
+										v-if="item2.url"
+										class="opensource-padding"
+										:href="item2.url"
+										target="_blank"
+									>
+										{{ item2.name }}
+									</a>
+									<span
+										v-if="!item2.url"
+										class="opensource-padding"
+									>
+										{{ item2.name }}
+									</span>
+								</td>
+								<td>
+									<a
+										v-if="item2.licenseUrl"
+										class="opensource-padding"
+										:href="item2.licenseUrl"
+										target="_blank"
+									>
+										{{ item2.licenseName }}
+									</a>
+									<span
+										v-if="!item2.licenseUrl"
+										class="opensource-padding"
+									>
+										{{ item2.licenseName }}
+									</span>
+								</td>
+							</tr>
+						</tbody>
+					</q-markup-table>
 				</div>
-			</q-card-section>
-		</q-card>
-	</div>
+			</div>
+		</q-card-section>
+	</q-card>
 </template>
 
 <script>
 export default {
-	name: 'BaseOpenSource',
+	name: 'OpenSource',
 	data: () => ({
 		height: '800px',
 		dependencies: [{
