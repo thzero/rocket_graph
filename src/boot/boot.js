@@ -4,9 +4,11 @@ import AppUtility from '../utility';
 
 // TODO: Convert to library dependencies
 import ElectronDownloadService from '../services/download/electron';
+import ElectronStoreService from '../services/store/electron';
+import ElectronWindowService from '../services/window/electron';
+
 import EggtimerFlightInfoProcessorService from '../services/processors/eggtimer';
 import FlightInfoService from '../services/flightInfo';
-import ElectronStoreService from '../services/store/electron';
 
 // TODO: Convert to library dependencies
 class Injector {
@@ -40,8 +42,15 @@ export default function () {
 
 	// TODO: Convert to library dependencies
 	const flightInfoService = new FlightInfoService();
-	AppUtility.injector.registerService(Constants.InjectorKeys.SERVICE_STORE_EXTERNAL, new ElectronStoreService());
-	AppUtility.injector.registerService(Constants.InjectorKeys.SERVICE_DOWNLOAD, new ElectronDownloadService());
+
+	if (process.env.MODE === 'electron') {
+		AppUtility.injector.registerService(Constants.InjectorKeys.SERVICE_STORE_EXTERNAL, new ElectronStoreService());
+		AppUtility.injector.registerService(Constants.InjectorKeys.SERVICE_DOWNLOAD, new ElectronDownloadService());
+		AppUtility.injector.registerService(Constants.InjectorKeys.SERVICE_WINDOW, new ElectronWindowService());
+	}
+	else
+		throw Error('Not Implemented');
+
 	AppUtility.injector.registerService(Constants.InjectorKeys.SERVICE_FLIGHT_INFO, flightInfoService);
 	AppUtility.injector.registerService(Constants.InjectorKeys.SERVICE_FLIGHT_INFO_PROCESSOR_EGGTIMER, new EggtimerFlightInfoProcessorService());
 

@@ -6,7 +6,9 @@ const Constants = {
 
 		SERVICE_FLIGHT_INFO_PROCESSOR_EGGTIMER: 'serviceFlightInfoProcessorEggtimer',
 
-		SERVICE_STORE_EXTERNAL: 'serviceStoreExternal'
+		SERVICE_STORE_EXTERNAL: 'serviceStoreExternal',
+
+		SERVICE_WINDOW: 'serviceWindow'
 	}
 }
 

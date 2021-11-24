@@ -16,9 +16,10 @@
  *   })
  */
 
-import { contextBridge, ipcRenderer } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron';
+import { BrowserWindow } from '@electron/remote';
 
-contextBridge.exposeInMainWorld('rgAPI', {
+contextBridge.exposeInMainWorld('rgDownloadApi', {
 	download: (url, name, funcCompleted, funcCancelled, funcProgress) => {
 		if (!url)
 			return;
@@ -40,7 +41,10 @@ contextBridge.exposeInMainWorld('rgAPI', {
 		}
 
 		ipcRenderer.send('download-item', { url: url, name: name });
-	},
+	}
+});
+
+contextBridge.exposeInMainWorld('rgStoreApi', {
 	getStore: (func) => {
 		const data = ipcRenderer.sendSync('getStore');
 		// console.log('preload.getStore');
@@ -51,5 +55,23 @@ contextBridge.exposeInMainWorld('rgAPI', {
 		// console.log('preload.setStore');
 		// console.log(state);
 		ipcRenderer.send('setStore', state);
+	}
+});
+
+contextBridge.exposeInMainWorld('rgWindowApi', {
+	close: () => {
+		BrowserWindow.getFocusedWindow().close()
+	},
+	minimize: () => {
+		BrowserWindow.getFocusedWindow().minimize()
+	},
+	toggleMaximize: () => {
+		const win = BrowserWindow.getFocusedWindow()
+		if (win.isMaximized()) {
+			win.unmaximize();
+			return;
+		}
+
+		win.maximize();
 	}
 });

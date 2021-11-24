@@ -1,6 +1,9 @@
 import { app, BrowserWindow, nativeTheme, ipcMain } from 'electron';
+import { initialize, enable } from '@electron/remote/main';
 import path from 'path';
 import os from 'os';
+
+initialize();
 
 import { download } from 'electron-dl';
 
@@ -29,12 +32,15 @@ function createWindow () {
 		width: 1000,
 		height: 600,
 		useContentSize: true,
+		frame: false,
 		webPreferences: {
 			contextIsolation: true,
 			// More info: /quasar-cli/developing-electron-apps/electron-preload-script
 			preload: path.resolve(__dirname, process.env.QUASAR_ELECTRON_PRELOAD)
 		}
 	});
+
+	enable(mainWindow.webContents);
 
 	mainWindow.loadURL(process.env.APP_URL);
 

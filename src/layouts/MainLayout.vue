@@ -1,6 +1,16 @@
 <template>
 	<q-layout view="lHh Lpr lFf">
 		<q-header elevated>
+			<q-bar class="q-electron-drag">
+				<q-icon name="laptop_chromebook" />
+				<div>{{ $t('titles.application') }}</div>
+
+				<q-space />
+
+				<q-btn dense flat icon="minimize" @click="minimize" />
+				<q-btn dense flat icon="crop_square" @click="toggleMaximize" />
+				<q-btn dense flat icon="close" @click="closeApp" />
+			</q-bar>
 			<q-toolbar>
 				<!-- <q-btn
 					flat
@@ -8,7 +18,7 @@
 					round
 					icon="menu"
 					aria-label="Menu"
-					@click="toggleLeftDrawer"
+					@click="toggleDrawerLeft"
 				/> -->
 
 				<q-toolbar-title>
@@ -16,7 +26,7 @@
 						to="/"
 						class="toolbar-title"
 					>
-						{{ $t('titles.application') }}
+						{{ $t('titles.home') }}
 					</router-link>
 				</q-toolbar-title>
 				<q-btn flat round dense icon="more_vert">
@@ -42,7 +52,7 @@
 		</q-header>
 
 		<!-- <q-drawer
-			v-model="leftDrawerOpen"
+			v-model="drawerOpenLeft"
 			show-if-above
 			bordered
 		>
@@ -90,6 +100,8 @@
 // import { defineComponent, ref } from 'vue';
 import { defineComponent } from 'vue';
 
+import Constants from '../constants';
+
 import AppUtility from '../utility';
 
 export default defineComponent({
@@ -98,17 +110,34 @@ export default defineComponent({
 	// 	EssentialLink
 	// },
 	setup () {
-		// const leftDrawerOpen = ref(false)
+		// const drawerOpenLeft = ref(false)
 
 		const version = AppUtility.version();
 
+		const serviceWindow = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_WINDOW);
+		function closeApp() {
+			if (serviceWindow)
+				serviceWindow.closeApp();
+		}
+		function minimize() {
+			if (serviceWindow)
+				serviceWindow.minimize();
+		}
+		function toggleMaximize() {
+			if (serviceWindow)
+				serviceWindow.toggleMaximize();
+		}
+
 		return {
-			version
+			closeApp,
+			// drawerOpenLeft,
 			// essentialLinks: linksList,
-			// leftDrawerOpen,
-			// toggleLeftDrawer () {
-			// 	leftDrawerOpen.value = !leftDrawerOpen.value
-			// }
+			minimize,
+			// toggleDrawerLeft () {
+			// 	drawerOpenLeft.value = !drawerOpenLeft.value
+			// },
+			toggleMaximize,
+			version
 		}
 	}
 })

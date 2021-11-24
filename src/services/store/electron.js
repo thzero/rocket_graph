@@ -12,13 +12,13 @@ class ElectronStoreService extends StoreService {
 				console.log('renderer.store.subscribe');
 				console.log(mutation);
 				console.log(state);
-				window.rgAPI.setStore(JSON.stringify(state));
+				window.rgStoreApi.setStore(JSON.stringify(state));
 			});
 		}];
 	}
 
 	initializeState(callback) {
-		window.rgAPI.getStore((data) => {
+		window.rgStoreApi.getStore((data) => {
 			console.log('render.initializeState.getStore');
 			console.log(data);
 			callback(data);

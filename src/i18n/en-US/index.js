@@ -100,6 +100,7 @@ export default {
 	success: 'Action was successful',
 	titles: {
 		application: 'Rocket Graph',
+		home: 'Home',
 		settings: 'Settings',
 		openSource: 'Open Source'
 	},
