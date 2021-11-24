@@ -27,6 +27,7 @@
     "build": "quasar build -m electron"
   },
   "dependencies": {
+    "@electron/remote": "^2.0.1",
     "@quasar/extras": "^1.0.0",
     "chart.js": "^3.6.0",
     "core-js": "^3.19.1",
