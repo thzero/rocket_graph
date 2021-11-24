@@ -1,11 +1,14 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 An [ElectronJs](https://www.electronjs.org) application that turns altimeter outputs into flight info graphs for use in presentations, videos, etc.
-Currently the only supported altimeter is the:
-
-* Eggfinder Quantum
 
 ![Main Screen Capture](/images/screencap.png)
+
+## Altimeter Support
+
+Currently the only supported altimeters are:
+
+* Eggfinder Quantum
 
 For support of other graphs, send info to [development@thzero.com](mailto:development@thzero.com?subject=[Rocket%20Graph]%20Graph%2Example) with:
 
