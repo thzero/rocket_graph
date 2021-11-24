@@ -20,6 +20,8 @@ class Store {
 
 	set(value) {
 		this._data = JSON.parse(value);
+		console.log('main.set');
+		console.log(this._data);
 		fs.writeFileSync(this.path, value);
 	}
 }

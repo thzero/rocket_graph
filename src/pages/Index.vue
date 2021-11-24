@@ -271,8 +271,6 @@ export default defineComponent({
 			this.flightInfoChartData = flightInfoResults.info;
 			this.flightInfo = flightInfoResults.info;
 
-			AppUtility.$store.dispatch('setMeasurementUnits', this.flightInfoMeasurementUnits);
-
 			this.buttons.export.disabled = false;
 		},
 		hasError() {
