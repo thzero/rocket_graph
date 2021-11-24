@@ -210,11 +210,22 @@ export default defineComponent({
 				const barRef = this.$refs.bar;
 				barRef.start();
 
-				// setTimeout(() => {
-				// 	if (barRef)
+				// window.rgAPI.download('data:image/png;base64,' + data,
+				// 	name,
+				// 	() => {
+				// 		console.log('completed');
 				// 		barRef.stop();
-				// }, Math.random() * 3000 + 1000)
-				window.rgAPI.download('data:image/png;base64,' + data,
+				// 	},
+				// 	() => {
+				// 		console.log('cancelled');
+				// 		barRef.stop();
+				// 	},
+				// 	(arg) => {
+				// 		console.log('progress');
+				// 		console.log(arg);
+				// 	}
+				// );
+				this.serviceDownload.download('data:image/png;base64,' + data,
 					name,
 					() => {
 						console.log('completed');
