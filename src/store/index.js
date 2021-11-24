@@ -1,7 +1,11 @@
 import { store } from 'quasar/wrappers';
 import { createStore } from 'vuex';
 
+import Constants from '../constants';
+
 import AppUtility from '../utility';
+
+import boot from '../boot/boot';
 
 // import example from './module-example'
 
@@ -15,23 +19,24 @@ import AppUtility from '../utility';
  */
 
 export default store(function () {
-	let initialState = {};
-	window.rgAPI.getStore((data) => {
-		console.log('render.getStore');
-		console.log(data);
-		initialState = data;
-	});
+	// TODO:
+	// This is dumb, the very first thing that is avaialble in the
+	// .quasar/app.js from the @quasar/app template is the function
+	// call to the store.  There is no other pre-bootstrap function.
 
-	const electronStorePlugin = (store) => {
-		store.replaceState(initialState);
+	boot();
 
-		store.subscribe((mutation, state) => {
-			// called after every mutation.
-			// The mutation comes in the format of `{ type, payload }`.
-			// persistentStore.set('state', JSON.stringify(state));
-			window.rgAPI.setStore(JSON.stringify(state));
+	let plugins = [];
+	const serviceExternalStore = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_STORE_EXTERNAL);
+	if (serviceExternalStore) {
+		let initialState = {};
+		serviceExternalStore.initializeState((data) => {
+			console.log('render.initializeState.callback');
+			console.log(data);
+			initialState = data;
 		});
-	};
+		plugins = serviceExternalStore.intializePlugins(initialState);
+	}
 
 	const store = createStore({
 		state () {
@@ -58,7 +63,7 @@ export default store(function () {
 			// example
 		},
 
-		plugins: [electronStorePlugin],
+		plugins: plugins,
 
 		// enable strict mode (adds overhead!)
 		// for dev mode and --debug builds only

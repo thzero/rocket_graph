@@ -1,20 +1,30 @@
 import Results from './results';
 
-// TODO
-import EggtimerFlightInfoProcessor from './processors/eggtimer';
+import Constants from '../constants';
 
 class FlightInfoService {
 	constructor() {
 		this._serviceProcessors = [];
+	}
 
-		this.registerProcessor(EggtimerFlightInfoProcessor);
+	init(injector) {
+		// TODO: Convert to library
+		const serviceFlightInfoProcessorEggtimer = injector.getService(Constants.InjectorKeys.SERVICE_FLIGHT_INFO_PROCESSOR_EGGTIMER);
+		this.registerProcessor(serviceFlightInfoProcessorEggtimer);
 	}
 
 	get serviceProcessors() {
 		return this._serviceProcessors;
 	}
 
-	process(data, processorId) {
+	process(data, processorId, measurementUnits) {
+		if (!data || data === undefined)
+			return null;
+		if (!processorId || processorId === undefined || processorId === '')
+			return null;
+		if (!measurementUnits || measurementUnits === undefined || measurementUnits === '')
+			return null;
+
 		const results = new Results();
 
 		if (!data || data === undefined) {
@@ -34,7 +44,7 @@ class FlightInfoService {
 		}
 
 		results.info = this._initialize();
-		processor.process(results, data);
+		processor.process(results, data, measurementUnits);
 		console.log(results.info);
 
 		return results;
@@ -194,8 +204,11 @@ class FlightInfoService {
 		};
 	}
 
-	registerProcessor(Service) {
-		this._serviceProcessors.push(new Service());
+	registerProcessor(service) {
+		if (!service || service === undefined)
+			return;
+
+		this._serviceProcessors.push(service);
 	}
 }
 

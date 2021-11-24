@@ -99,6 +99,8 @@
 					@update:model-value="checkErrors"
 					@blur="checkErrors"
 					@focus="checkErrors"
+					@mouseup="checkErrors"
+					@keyup="checkErrors"
 				/>
 			</div>
 			<div class="col-9 q-pl-md">
@@ -138,12 +140,12 @@ import { defineComponent } from 'vue';
 import Papa from 'papaparse';
 import html2canvas from 'html2canvas';
 
+import Constants from '../constants';
+
 import AppUtility from '../utility';
 
 import flightInfo from '../components/flightInfo';
 import flightInfoChart from '../components/charts/flightInfo';
-
-import FlightInfoService from '../services/flightInfo';
 
 export default defineComponent({
 	name: 'PageIndex',
@@ -172,6 +174,7 @@ export default defineComponent({
 		flightInfoMeasurementUnits: null,
 		flightInfoMeasurementUnitsOptions: [],
 		flightInfoTitle: null,
+		serviceDownload: null,
 		serviceFlightInfo: null
 	}),
 	computed: {
@@ -179,9 +182,13 @@ export default defineComponent({
 			return this.errorMessage;
 		}
 	},
+	created() {
+		this.serviceDownload = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_DOWNLOAD);
+		this.serviceFlightInfo = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_FLIGHT_INFO);
+	},
 	mounted() {
 		this.reset();
-		this.serviceFlightInfo = new FlightInfoService();
+
 		this.flightInfoDataTypes = AppUtility.selectOptions(this.serviceFlightInfo.serviceProcessors, this.$t, 'flightInfo.processors', (l) => { return l.id; }, null, (l) => { return l.id; });
 		this.flightInfoMeasurementUnitsOptions = AppUtility.selectOptions(AppUtility.measurementUnits(), this.$t, 'measurementUnits');
 		this.flightInfoMeasurementUnits = AppUtility.$store.state.measurementUnits;
@@ -205,11 +212,7 @@ export default defineComponent({
 				const barRef = this.$refs.bar;
 				barRef.start();
 
-				// setTimeout(() => {
-				// 	if (barRef)
-				// 		barRef.stop();
-				// }, Math.random() * 3000 + 1000)
-				window.rgAPI.download('data:image/png;base64,' + data,
+				this.serviceDownload.download('data:image/png;base64,' + data,
 					name,
 					() => {
 						console.log('completed');
@@ -250,7 +253,7 @@ export default defineComponent({
 				return;
 			}
 
-			const flightInfoResults = this.serviceFlightInfo.process(data, 'eggtimer');
+			const flightInfoResults = this.serviceFlightInfo.process(data, this.flightInfoDataType, this.flightInfoMeasurementUnits);
 			console.log(flightInfoResults);
 			if (flightInfoResults.errors && data.errors.length > 0) {
 				const errors = flightInfoResults.errors.map(e => this.$t(e) + '<br/>');
@@ -269,8 +272,6 @@ export default defineComponent({
 
 			this.flightInfoChartData = flightInfoResults.info;
 			this.flightInfo = flightInfoResults.info;
-
-			AppUtility.$store.dispatch('setMeasurementUnits', this.flightInfoMeasurementUnits);
 
 			this.buttons.export.disabled = false;
 		},
