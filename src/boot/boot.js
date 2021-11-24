@@ -47,12 +47,4 @@ export default function () {
 
 	// TODO: Convert to library dependencies
 	flightInfoService.init(AppUtility.injector);
-
-	console.log(AppUtility.injector);
-	console.log(AppUtility.injector);
-	console.log(AppUtility.injector);
-	console.log(AppUtility.injector);
-	console.log(AppUtility.injector);
-	console.log(AppUtility.injector);
-	console.log(AppUtility.injector);
 };
