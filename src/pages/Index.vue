@@ -100,6 +100,7 @@
 					@blur="checkErrors"
 					@focus="checkErrors"
 					@mouseup="checkErrors"
+					@keyup="checkErrors"
 				/>
 			</div>
 			<div class="col-9 q-pl-md">
