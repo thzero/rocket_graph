@@ -15,10 +15,21 @@ import AppUtility from '../utility';
  */
 
 export default store(function () {
+	console.log(AppUtility.injector);
+	console.log(AppUtility.injector);
+	console.log(AppUtility.injector);
+	console.log(AppUtility.injector);
+	console.log(AppUtility.injector);
+	console.log(AppUtility.injector);
+	console.log(AppUtility.injector);
+
+	const sdf = AppUtility.injector.getService('sdf');
+	sdf();
+
 	let initialState = {};
 	window.rgAPI.getStore((data) => {
-		console.log('render.getStore');
-		console.log(data);
+		// console.log('render.getStore');
+		// console.log(data);
 		initialState = data;
 	});
 

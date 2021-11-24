@@ -210,21 +210,6 @@ export default defineComponent({
 				const barRef = this.$refs.bar;
 				barRef.start();
 
-				// window.rgAPI.download('data:image/png;base64,' + data,
-				// 	name,
-				// 	() => {
-				// 		console.log('completed');
-				// 		barRef.stop();
-				// 	},
-				// 	() => {
-				// 		console.log('cancelled');
-				// 		barRef.stop();
-				// 	},
-				// 	(arg) => {
-				// 		console.log('progress');
-				// 		console.log(arg);
-				// 	}
-				// );
 				this.serviceDownload.download('data:image/png;base64,' + data,
 					name,
 					() => {
