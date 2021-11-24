@@ -250,7 +250,7 @@ export default defineComponent({
 				return;
 			}
 
-			const flightInfoResults = this.serviceFlightInfo.process(data, 'eggtimer', this.flightInfoMeasurementUnits);
+			const flightInfoResults = this.serviceFlightInfo.process(data, this.flightInfoDataType, this.flightInfoMeasurementUnits);
 			console.log(flightInfoResults);
 			if (flightInfoResults.errors && data.errors.length > 0) {
 				const errors = flightInfoResults.errors.map(e => this.$t(e) + '<br/>');
