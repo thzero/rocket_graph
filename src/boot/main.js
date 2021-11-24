@@ -7,4 +7,10 @@ import AppUtility from '../utility';
 export default boot(async ({ app, router, store }) => {
 	AppUtility.$router = router;
 	AppUtility.$store = store;
+	console.log(app);
+	console.log(app);
+	console.log(app);
+	console.log(app);
+	console.log(app);
+	console.log(app);
 });
