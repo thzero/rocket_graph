@@ -138,12 +138,12 @@ import { defineComponent } from 'vue';
 import Papa from 'papaparse';
 import html2canvas from 'html2canvas';
 
+import Constants from '../constants';
+
 import AppUtility from '../utility';
 
 import flightInfo from '../components/flightInfo';
 import flightInfoChart from '../components/charts/flightInfo';
-
-import FlightInfoService from '../services/flightInfo';
 
 export default defineComponent({
 	name: 'PageIndex',
@@ -172,6 +172,7 @@ export default defineComponent({
 		flightInfoMeasurementUnits: null,
 		flightInfoMeasurementUnitsOptions: [],
 		flightInfoTitle: null,
+		serviceDownload: null,
 		serviceFlightInfo: null
 	}),
 	computed: {
@@ -179,9 +180,13 @@ export default defineComponent({
 			return this.errorMessage;
 		}
 	},
+	created() {
+		this.serviceDownload = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_DOWNLOAD);
+		this.serviceFlightInfo = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_FLIGHT_INFO);
+	},
 	mounted() {
 		this.reset();
-		this.serviceFlightInfo = new FlightInfoService();
+
 		this.flightInfoDataTypes = AppUtility.selectOptions(this.serviceFlightInfo.serviceProcessors, this.$t, 'flightInfo.processors', (l) => { return l.id; }, null, (l) => { return l.id; });
 		this.flightInfoMeasurementUnitsOptions = AppUtility.selectOptions(AppUtility.measurementUnits(), this.$t, 'measurementUnits');
 		this.flightInfoMeasurementUnits = AppUtility.$store.state.measurementUnits;

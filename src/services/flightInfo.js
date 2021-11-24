@@ -1,13 +1,16 @@
 import Results from './results';
 
-// TODO
-import EggtimerFlightInfoProcessor from './processors/eggtimer';
+import Constants from '../constants';
 
 class FlightInfoService {
 	constructor() {
 		this._serviceProcessors = [];
+	}
 
-		this.registerProcessor(EggtimerFlightInfoProcessor);
+	init(injector) {
+		// TODO: Convert to library
+		const serviceFlightInfoProcessorEggtimer = injector.getService(Constants.InjectorKeys.SERVICE_FLIGHT_INFO_PROCESSOR_EGGTIMER);
+		this.registerProcessor(serviceFlightInfoProcessorEggtimer);
 	}
 
 	get serviceProcessors() {
@@ -201,8 +204,11 @@ class FlightInfoService {
 		};
 	}
 
-	registerProcessor(Service) {
-		this._serviceProcessors.push(new Service());
+	registerProcessor(service) {
+		if (!service || service === undefined)
+			return;
+
+		this._serviceProcessors.push(service);
 	}
 }
 
