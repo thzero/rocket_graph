@@ -5,6 +5,8 @@ Currently the only supported altimeter is the:
 
 * Eggfinder Quantum
 
+![Main Screen Capture](/images/screencap.png)
+
 For support of other graphs, send info to [development@thzero.com](mailto:development@thzero.com?subject=[Rocket%20Graph]%20Graph%2Example) with:
 
 * Name of the altimeter manufacturer
@@ -12,15 +14,44 @@ For support of other graphs, send info to [development@thzero.com](mailto:develo
 * What does the graph represent
     * Successful flight?
     * Multi-stage?
-    * etc
-
-Generally the data for the graphs should be in CSV format.
+    * etc.
 
 # Installation
 
 Download the latest version from the Release section.
 Unzip the file.
 Run the correct executable.
+
+# Instructions for Use
+
+Launch the application!
+
+If you want to change the measurement units from English, right click the upper-left menu icon and use the 'Settings' to set your preferred option.
+
+In the main window, complete the following information:
+
+* Flight Title (optional)
+* Flight Date (optional)
+* Flight Date (optional)
+* Flight Data Type (only Eggtimer is currently supported)
+* Paste in the flight data from the altimeter output
+
+The actions are:
+
+* Process - Generates the chart and flight info
+* Export - Saves a screen shot of the chart and flight info
+    * Only available once data is processed.
+* Reset - Resets the flight info
+
+## Flight Data
+
+Generally the data for the graphs should be in CSV format.
+
+### Eggtimer
+
+For the Eggtimer flight output, include the following columns:
+    * T, ALt, Veloc, FAlt, FVeloc, LDA, LowV, Apogee, N-O, Drogue, Main
+Note: do not include the headers
 
 # Development
 
