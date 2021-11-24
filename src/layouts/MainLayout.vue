@@ -116,23 +116,14 @@ export default defineComponent({
 
 		const serviceWindow = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_WINDOW);
 		function closeApp() {
-			// if (process.env.MODE === 'electron') {
-			// 	window.rgWindowApi.close()
-			// }
 			if (serviceWindow)
 				serviceWindow.closeApp();
 		}
 		function minimize() {
-			// if (process.env.MODE === 'electron') {
-			// 	window.rgWindowApi.minimize()
-			// }
 			if (serviceWindow)
 				serviceWindow.minimize();
 		}
 		function toggleMaximize() {
-			// if (process.env.MODE === 'electron') {
-			// 	window.rgWindowApi.toggleMaximize()
-			// }
 			if (serviceWindow)
 				serviceWindow.toggleMaximize();
 		}
