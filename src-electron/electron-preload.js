@@ -43,13 +43,13 @@ contextBridge.exposeInMainWorld('rgAPI', {
 	},
 	getStore: (func) => {
 		const data = ipcRenderer.sendSync('getStore');
-		console.log('preload.getStore');
-		console.log(data);
+		// console.log('preload.getStore');
+		// console.log(data);
 		func(data);
 	},
 	setStore: (state) => {
-		console.log('preload.setStore');
-		console.log(state);
+		// console.log('preload.setStore');
+		// console.log(state);
 		ipcRenderer.send('setStore', state);
 	}
 });

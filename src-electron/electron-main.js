@@ -53,13 +53,13 @@ function createWindow () {
 	});
 
 	ipcMain.on('getStore', (event, arg) => {
-		console.log('main.getStore');
+		// console.log('main.getStore');
 		event.returnValue = store.get();
 	});
 
 	ipcMain.on('setStore', (event, arg) => {
-		console.log('main.setStore');
-		console.log(arg);
+		// console.log('main.setStore');
+		// console.log(arg);
 		store.set(arg);
 	});
 
