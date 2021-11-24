@@ -5,10 +5,10 @@ class EggtimerFlightInfoProcessor extends FlightInfoProcessor {
 		return 'eggtimer';
 	}
 
-	_process(results, flightInfo, measurementUnits) {
+	_process(results, input, measurementUnits) {
 		if (!results || results === undefined)
 			return;
-		if (!flightInfo || flightInfo === undefined)
+		if (!input || input === undefined)
 			return;
 		if (!measurementUnits || measurementUnits === undefined || measurementUnits === '')
 			return;
@@ -31,7 +31,7 @@ class EggtimerFlightInfoProcessor extends FlightInfoProcessor {
 		let deltaT;
 		let deltaV;
 		let acceleration;
-		for (const data of flightInfo.data) {
+		for (const data of rawData.data) {
 			time = Number(data[0]);
 
 			results.info.time.push(time);
@@ -229,13 +229,13 @@ class EggtimerFlightInfoProcessor extends FlightInfoProcessor {
 			// previousVelocityF = velocityF;
 		}
 
-		results.info.acceleration.avg.value = this._round(results.info.acceleration.avg.temp / results.info.acceleration.avg.count);
-		results.info.acceleration.min.drogue.avg.value = this._round(results.info.acceleration.min.drogue.avg.temp / results.info.acceleration.min.drogue.avg.count);
-		results.info.acceleration.min.main.avg.value = this._round(results.info.acceleration.min.main.avg.temp / results.info.acceleration.min.main.avg.count);
+		// results.info.acceleration.avg.value = this._round(results.info.acceleration.avg.temp / results.info.acceleration.avg.count);
+		// results.info.acceleration.min.drogue.avg.value = this._round(results.info.acceleration.min.drogue.avg.temp / results.info.acceleration.min.drogue.avg.count);
+		// results.info.acceleration.min.main.avg.value = this._round(results.info.acceleration.min.main.avg.temp / results.info.acceleration.min.main.avg.count);
 
-		results.info.velocity.avg.value = this._round(results.info.velocity.avg.temp / results.info.velocity.avg.count);
-		results.info.velocity.min.drogue.avg.value = this._round(results.info.velocity.min.drogue.avg.temp / results.info.velocity.min.drogue.avg.count);
-		results.info.velocity.min.main.avg.value = this._round(results.info.velocity.min.main.avg.temp / results.info.velocity.min.main.avg.count);
+		// results.info.velocity.avg.value = this._round(results.info.velocity.avg.temp / results.info.velocity.avg.count);
+		// results.info.velocity.min.drogue.avg.value = this._round(results.info.velocity.min.drogue.avg.temp / results.info.velocity.min.drogue.avg.count);
+		// results.info.velocity.min.main.avg.value = this._round(results.info.velocity.min.main.avg.temp / results.info.velocity.min.main.avg.count);
 
 		return results;
 	}
