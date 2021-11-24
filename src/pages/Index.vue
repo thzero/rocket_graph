@@ -99,6 +99,7 @@
 					@update:model-value="checkErrors"
 					@blur="checkErrors"
 					@focus="checkErrors"
+					@mouseup="checkErrors"
 				/>
 			</div>
 			<div class="col-9 q-pl-md">
