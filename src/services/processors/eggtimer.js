@@ -5,10 +5,12 @@ class EggtimerFlightInfoProcessor extends FlightInfoProcessor {
 		return 'eggtimer';
 	}
 
-	_process(results, flightInfo) {
+	_process(results, flightInfo, measurementUnits) {
 		if (!results || results === undefined)
 			return;
 		if (!flightInfo || flightInfo === undefined)
+			return;
+		if (!measurementUnits || measurementUnits === undefined || measurementUnits === '')
 			return;
 
 		let altitude;
@@ -34,22 +36,22 @@ class EggtimerFlightInfoProcessor extends FlightInfoProcessor {
 
 			results.info.time.push(time);
 
-			altitude = this._convertAltitude(Number(data[1]), data.measurementUnits);
+			altitude = this._convertAltitude(Number(data[1]), measurementUnits);
 			results.info.altitude.data.push(altitude);
 
-			velocity = this._convertVelocity(Number(data[2]), data.measurementUnits);
+			velocity = this._convertVelocity(Number(data[2]), measurementUnits);
 			results.info.velocity.data.push(velocity);
 
-			altitudeF = this._convertAltitude(Number(data[3]), data.measurementUnits);
+			altitudeF = this._convertAltitude(Number(data[3]), measurementUnits);
 			results.info.altitude.dataF.push(altitudeF);
 
-			velocityF = this._convertVelocity(Number(data[4]), data.measurementUnits);
+			velocityF = this._convertVelocity(Number(data[4]), measurementUnits);
 			results.info.velocity.dataF.push(velocityF);
 
 			apogee = Number(data[7]);
 			if (apogee > 0) {
 				apogeeAchieved = true;
-				apogee = this._convertAltitude(apogee, data.measurementUnits);
+				apogee = this._convertAltitude(apogee, measurementUnits);
 				results.info.altitude.max = apogee;
 				results.info.events.apogee.altitude = apogee;
 				results.info.events.apogee.time = time;
@@ -60,7 +62,7 @@ class EggtimerFlightInfoProcessor extends FlightInfoProcessor {
 
 			noseOver = Number(data[8]);
 			if (noseOver > 0) {
-				noseOver = this._convertAltitude(noseOver, data.measurementUnits);
+				noseOver = this._convertAltitude(noseOver, measurementUnits);
 				results.info.events.noseOver.altitude = noseOver;
 				results.info.events.noseOver.time = time;
 				results.info.events.noseOver.data.push(noseOver);
@@ -71,7 +73,7 @@ class EggtimerFlightInfoProcessor extends FlightInfoProcessor {
 			drogue = Number(data[9]);
 			if (drogue > 0) {
 				drogueFired = true;
-				drogue = this._convertAltitude(drogue, data.measurementUnits);
+				drogue = this._convertAltitude(drogue, measurementUnits);
 				results.info.events.drogue.altitude = drogue;
 				results.info.events.drogue.time = time;
 				results.info.events.drogue.data.push(drogue);
@@ -82,7 +84,7 @@ class EggtimerFlightInfoProcessor extends FlightInfoProcessor {
 			main = Number(data[10]);
 			if (main > 0) {
 				mainFired = true;
-				main = this._convertAltitude(main, data.measurementUnits);
+				main = this._convertAltitude(main, measurementUnits);
 				results.info.events.main.altitude = main;
 				results.info.events.main.time = time;
 				results.info.events.main.data.push(main);

@@ -14,7 +14,14 @@ class FlightInfoService {
 		return this._serviceProcessors;
 	}
 
-	process(data, processorId) {
+	process(data, processorId, measurementUnits) {
+		if (!data || data === undefined)
+			return null;
+		if (!processorId || processorId === undefined || processorId === '')
+			return null;
+		if (!measurementUnits || measurementUnits === undefined || measurementUnits === '')
+			return null;
+
 		const results = new Results();
 
 		if (!data || data === undefined) {
@@ -34,7 +41,7 @@ class FlightInfoService {
 		}
 
 		results.info = this._initialize();
-		processor.process(results, data);
+		processor.process(results, data, measurementUnits);
 		console.log(results.info);
 
 		return results;

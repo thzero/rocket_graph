@@ -5,8 +5,8 @@ class FlightInfoProcessor {
 		throw Error('Not Implemented');
 	}
 
-	process(results, data) {
-		return this._process(results, data);
+	process(results, data, measurementUnits) {
+		return this._process(results, data, measurementUnits);
 	}
 
 	_convertAcceleration(value, measurementUnits) {
@@ -42,7 +42,7 @@ class FlightInfoProcessor {
 		return value;
 	}
 
-	_process(results, data) {
+	_process(results, data, measurementUnits) {
 		throw Error('Not Implemented');
 	}
 
