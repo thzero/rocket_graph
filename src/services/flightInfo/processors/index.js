@@ -1,4 +1,4 @@
-import AppUtility from '../../utility';
+import AppUtility from '../../../utility';
 
 class FlightInfoProcessor {
 	get id() {
@@ -304,7 +304,7 @@ class FlightData {
 			time: Number(time),
 			velocity: Number(velocity),
 			velocityF: velocityF ? Number(velocityF) : null
-		})
+		});
 	}
 }
 

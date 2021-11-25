@@ -1,13 +1,27 @@
 import DownloadService from './';
 
 class ElectronDownloadService extends DownloadService {
-	_download(image, name, funcCompleted, funcCancelled, funcProgress) {
+	_download(value, name, funcCompleted, funcCancelled, funcProgress) {
+		if (!value || value === undefined)
+			return;
+		if (!name || name === undefined || name === '')
+			return;
+
+		window.rgDownloadApi.download(value,
+			name,
+			funcCompleted,
+			funcCancelled,
+			funcProgress
+		);
+	}
+
+	_downloadUrl(image, name, funcCompleted, funcCancelled, funcProgress) {
 		if (!image || image === undefined)
 			return;
 		if (!name || name === undefined || name === '')
 			return;
 
-		window.rgDownloadApi.download(image,
+		window.rgDownloadApi.downloadUrl(image,
 			name,
 			funcCompleted,
 			funcCancelled,

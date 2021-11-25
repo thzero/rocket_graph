@@ -2,6 +2,7 @@ import { app, BrowserWindow, nativeTheme, ipcMain } from 'electron';
 import { initialize, enable } from '@electron/remote/main';
 import path from 'path';
 import os from 'os';
+import fs from 'fs';
 
 initialize();
 
@@ -73,7 +74,7 @@ function createWindow () {
 		// console.log(data);
 		const options = {
 			openFolderWhenDone: true,
-			onCanceld: () => {
+			onCanceled: () => {
 				event.reply('download-cancelled');
 			},
 			onCompleted: () => {
@@ -86,9 +87,28 @@ function createWindow () {
 		if (data.name && data.name !== '')
 			options.filename = data.name;
 
+		let url = data.url;
+		console.log('download-item...value');
+		console.log(data.value);
+		if (data.value && data.value !== undefined) {
+			const userDataPath = (app).getPath('userData');
+			const pathF = path.join(userDataPath, data.name);
+			console.log('download-item...path');
+			console.log(pathF);
+			fs.writeFileSync(pathF, data.value);
+			url = `file://${pathF}`;
+			console.log('download-item...url');
+			console.log(url);
+		}
+
+		console.log('download-item...url');
+		console.log(data.url);
+		if (!url || url === undefined || url === '')
+			return;
+
 		await download(
 			BrowserWindow.getFocusedWindow(),
-			data.url,
+			url,
 			options
 		);
 	});

@@ -20,7 +20,39 @@ import { contextBridge, ipcRenderer } from 'electron';
 import { BrowserWindow } from '@electron/remote';
 
 contextBridge.exposeInMainWorld('rgDownloadApi', {
-	download: (url, name, funcCompleted, funcCancelled, funcProgress) => {
+	download: (value, name, funcCompleted, funcCancelled, funcProgress) => {
+		console.log(value);
+		console.log(value);
+		console.log(value);
+		console.log(value);
+		console.log(value);
+		console.log(value);
+		if (!value)
+			return;
+
+		if (funcCompleted) {
+			ipcRenderer.on('download-cancelled', (event) => {
+				funcCancelled();
+			});
+		}
+		if (funcCancelled) {
+			ipcRenderer.on('download-completed', (event) => {
+				funcCompleted();
+			});
+		}
+		if (funcProgress) {
+			ipcRenderer.on('download-progress', (event, arg) => {
+				funcProgress(arg);
+			});
+		}
+
+		console.log('download-item');
+		console.log('download-item');
+		console.log('download-item');
+		console.log('download-item');
+		ipcRenderer.send('download-item', { value: value, name: name });
+	},
+	downloadUrl: (url, name, funcCompleted, funcCancelled, funcProgress) => {
 		if (!url)
 			return;
 

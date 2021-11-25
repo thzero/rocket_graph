@@ -6,6 +6,10 @@ const Constants = {
 
 		SERVICE_FLIGHT_INFO_PROCESSOR_EGGTIMER: 'serviceFlightInfoProcessorEggtimer',
 
+		SERVICE_FLIGHT_PATH: 'serviceFlightPath',
+
+		SERVICE_FLIGHT_PATH_PROCESSOR_FEATHERWEIGHT: 'serviceFlightInfoProcessorFeatherweight',
+
 		SERVICE_STORE_EXTERNAL: 'serviceStoreExternal',
 
 		SERVICE_WINDOW: 'serviceWindow'

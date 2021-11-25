@@ -29,6 +29,20 @@
 						{{ $t('titles.home') }}
 					</router-link>
 				</q-toolbar-title>
+				<q-space />
+				<q-btn
+					class="q-mr-sm"
+					color="secondary"
+					clickable
+					to="/flightInfo"
+					:label="$t('menu.flightInfo')"
+				/>
+				<q-btn
+					color="secondary"
+					clickable
+					to="/flightPath"
+					:label="$t('menu.flightPath')"
+				/>
 				<q-btn flat round dense icon="more_vert">
 					<q-menu auto-close>
 						<q-list style="min-width: 150px">

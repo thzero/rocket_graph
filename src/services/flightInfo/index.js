@@ -1,6 +1,6 @@
-import Results from './results';
+import Results from '../results';
 
-import Constants from '../constants';
+import Constants from '../../constants';
 
 class FlightInfoService {
 	constructor() {

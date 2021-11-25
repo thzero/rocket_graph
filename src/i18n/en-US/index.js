@@ -46,6 +46,28 @@ export default {
 			eggtimer: 'Eggtimer'
 		}
 	},
+	flightPath: {
+		title: 'Flight Title',
+		color: {
+			flight: 'Flight Path Color',
+			ground: 'Ground Path Color',
+			launch: 'Launch Pin Color',
+			touchdown: 'Touchdown Pin Color'
+		},
+		csv: 'CSV GPS Flight Data',
+		dataTypes: 'Flight Data Type',
+		date: 'Flight Date',
+		flightPath: 'Flight Path',
+		groundPath: 'Ground Path',
+		launch: 'Launch',
+		location: 'Flight Location',
+		measurementUnits: 'Altitude Measurement Units',
+		processors: {
+			eggtimer: 'Eggtimer',
+			featherweight: 'Featherweight'
+		},
+		touchdown: 'Touchdown'
+	},
 	forms: {
 		name: 'Form',
 		namePlural: 'Forms',
@@ -57,7 +79,8 @@ export default {
 				abbr: 'ft/s^s'
 			},
 			altitude: {
-				abbr: 'ft'
+				abbr: 'ft',
+				name: 'Feet'
 			},
 			time: {
 				abbr: 's'
@@ -71,7 +94,8 @@ export default {
 				abbr: 'm/s^s'
 			},
 			altitude: {
-				abbr: 'm'
+				abbr: 'm',
+				name: 'Meters'
 			},
 			time: {
 				abbr: 's'
@@ -86,6 +110,8 @@ export default {
 		metric: 'Metrics'
 	},
 	menu: {
+		flightInfo: 'Flight Info',
+		flightPath: 'Flight Path',
 		settings: {
 			title: 'Settings'
 		}
@@ -100,6 +126,8 @@ export default {
 	success: 'Action was successful',
 	titles: {
 		application: 'Rocket Graph',
+		flightInfo: 'Flight Info',
+		flightPath: 'Flight Path',
 		home: 'Home',
 		settings: 'Settings',
 		openSource: 'Open Source'
