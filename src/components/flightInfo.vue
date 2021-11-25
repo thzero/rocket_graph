@@ -116,19 +116,19 @@
 				<th colspan="2">Events</th>
 			</tr>
 			<tr>
-				<th>Apogee</th>
+				<th class="subTitleSep">Apogee</th>
 				<td><span>{{ formatNumber(flightInfo?.events?.apogee?.altitude) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ flightInfo?.events?.apogee?.time }}</span>{{ measurementTime }}</td>
 			</tr>
 			<tr>
-				<th>Nose Over</th>
+				<th class="subTitleSep">Nose Over</th>
 				<td><span>{{ formatNumber(flightInfo?.events?.noseOver?.altitude) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ flightInfo?.events?.noseOver?.time }}</span>{{ measurementTime }}</td>
 			</tr>
 			<tr>
-				<th>Drogue</th>
+				<th class="subTitleSep">Drogue</th>
 				<td><span>{{ formatNumber(flightInfo?.events?.drogue?.altitude) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ flightInfo?.events?.drogue?.time }}</span>{{ measurementTime }}</td>
 			</tr>
 			<tr>
-				<th>Main</th>
+				<th class="subTitleSep">Main</th>
 				<td><span>{{ formatNumber(flightInfo?.events?.main?.altitude) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ flightInfo?.events?.main?.time }}</span>{{ measurementTime }}</td>
 			</tr>
 		</table>

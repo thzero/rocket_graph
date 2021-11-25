@@ -59,8 +59,11 @@ On the main toolbar, select Flight Info and then complete the following informat
 The actions are:
 
 * Process - Generates the chart and flight info
-* Export - Saves a screen shot of the chart and flight info and exporting it to the Downloads folder
+* Export - Exports the chart and/or flight info and saving it to the Downloads folder
     * Only available once data is processed.
+    * Image - exports an image of the chart and flight info
+    * Json - exports a JSON file with the flight info
+    * Text - (forthcoming)
 * Reset - Resets the Flight Info information
 
 ### Flight Data

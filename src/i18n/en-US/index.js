@@ -40,6 +40,11 @@ export default {
 		csv: 'CSV Flight Data',
 		dataTypes: 'Flight Data Type',
 		date: 'Flight Date',
+		export: {
+			image: 'image',
+			json: 'json',
+			text: 'text'
+		},
 		location: 'Flight Location',
 		measurementUnits: 'Flight Measurement Units',
 		processors: {
