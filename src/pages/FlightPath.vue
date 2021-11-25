@@ -149,6 +149,8 @@
 						<div class="q-pb-md float-right">
 							<q-btn-group>
 								<q-btn
+									class="q-pa-sm"
+									dense
 									color="primary"
 									:label="$t('process')"
 									:disabled="buttons.process.disabled"
@@ -156,12 +158,16 @@
 									@focus="checkErrors"
 								/>
 								<q-btn
+									class="q-pa-sm"
+									dense
 									color="primary"
 									:label="$t('export')"
 									:disabled="buttons.export.disabled"
 									@click="flightPathExport"
 								/>
 								<q-btn
+									class="q-pa-sm"
+									dense
 									color="primary"
 									:label="$t('reset')"
 									@click="resetInput"
