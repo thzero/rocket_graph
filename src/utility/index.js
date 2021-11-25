@@ -1,36 +1,8 @@
 import packageJson from '../../package.json';
 
-class Injector {
-	constructor() {
-		this._services = new Map();
-	}
-
-	getService(name) {
-		if (String.isNullOrEmpty(name))
-			return;
-
-		return this._services.get(name);
-	}
-
-	registerService(name, service) {
-		if (String.isNullOrEmpty(name))
-			return;
-
-		if (!service || service === undefined)
-			return;
-
-		if (this._services.has(name))
-			return;
-
-		this._services.set(name, service);
-	}
-}
-
 class AppUtility {
 	static measurementUnitEnglish = 'english';
 	static measurementUnitMetric = 'metric';
-
-	static injector = new Injector();
 
 	static measurementUnits() {
 		return [AppUtility.measurementUnitEnglish, AppUtility.measurementUnitMetric];
