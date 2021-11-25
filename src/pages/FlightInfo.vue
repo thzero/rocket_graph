@@ -255,7 +255,7 @@ export default defineComponent({
 				return;
 			}
 
-			if (!this.flightInfoInput || this.flightInfoInput === '') {
+			if (String.isNullOrEmpty(this.flightInfoInput)) {
 				this.setError(this.$t('errors.process.noInput'));
 				return;
 			}

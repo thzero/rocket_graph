@@ -20,9 +20,9 @@ class FlightInfoService {
 	process(data, processorId, measurementUnits) {
 		if (!data || data === undefined)
 			return null;
-		if (!processorId || processorId === undefined || processorId === '')
+		if (String.isNullOrEmpty(processorId))
 			return null;
-		if (!measurementUnits || measurementUnits === undefined || measurementUnits === '')
+		if (String.isNullOrEmpty(measurementUnits))
 			return null;
 
 		const results = new Results();
@@ -32,7 +32,7 @@ class FlightInfoService {
 			return results;
 		}
 
-		if (!processorId || processorId === undefined || processorId === '') {
+		if (String.isNullOrEmpty(processorId)) {
 			results.setError('errors.process.noProcessor');
 			return results;
 		}
@@ -51,7 +51,7 @@ class FlightInfoService {
 	}
 
 	_determineProcessor(processorId) {
-		if (!processorId || processorId === undefined || processorId === '')
+		if (String.isNullOrEmpty(processorId))
 			return null;
 
 		const processor = this._serviceProcessors.find(s => {

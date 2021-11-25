@@ -111,7 +111,7 @@ ${flightInfo.touchdown}
 		}
 
 		let name = flightInfo.title;
-		if (!name || name === undefined || name === '')
+		if (String.isNullOrEmpty(name))
 			name = '';
 		name += ' ' + AppUtility.$t('flightPath.flightPath')
 

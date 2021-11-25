@@ -319,7 +319,7 @@ export default defineComponent({
 				return;
 			}
 
-			if (!this.flightPathInput || this.flightPathInput === '') {
+			if (String.isNullOrEmpty(this.flightPathInput)) {
 				this.setError(this.$t('errors.process.noInput'));
 				return;
 			}

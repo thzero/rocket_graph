@@ -6,14 +6,14 @@ class Injector {
 	}
 
 	getService(name) {
-		if (!name || name === undefined || name === '')
+		if (String.isNullOrEmpty(name))
 			return;
 
 		return this._services.get(name);
 	}
 
 	registerService(name, service) {
-		if (!name || name === undefined || name === '')
+		if (String.isNullOrEmpty(name))
 			return;
 
 		if (!service || service === undefined)
@@ -51,7 +51,7 @@ class AppUtility {
 			if (funcName)
 				nameLookup = funcName(l);
 			let name = trans(prefix + nameLookup);
-			if (!name || name === undefined || name === '')
+			if (String.isNullOrEmpty(name))
 				name = trans(prefix + nameLookup + '.title');
 
 			let value = l;

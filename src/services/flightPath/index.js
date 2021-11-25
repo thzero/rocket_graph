@@ -20,9 +20,9 @@ class FlightPathService {
 	process(data, processorId, measurementUnits, flightInfo) {
 		if (!data || data === undefined)
 			return null;
-		if (!processorId || processorId === undefined || processorId === '')
+		if (String.isNullOrEmpty(processorId))
 			return null;
-		if (!measurementUnits || measurementUnits === undefined || measurementUnits === '')
+		if (String.isNullOrEmpty(measurementUnits))
 			return null;
 		if (!flightInfo || flightInfo === undefined)
 			return null;
@@ -34,7 +34,7 @@ class FlightPathService {
 			return results;
 		}
 
-		if (!processorId || processorId === undefined || processorId === '') {
+		if (String.isNullOrEmpty(processorId)) {
 			results.setError('errors.process.noProcessor');
 			return results;
 		}
@@ -53,7 +53,7 @@ class FlightPathService {
 	}
 
 	_determineProcessor(processorId) {
-		if (!processorId || processorId === undefined || processorId === '')
+		if (String.isNullOrEmpty(processorId))
 			return null;
 
 		const processor = this._serviceProcessors.find(s => {

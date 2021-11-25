@@ -4,6 +4,8 @@ import path from 'path';
 import os from 'os';
 import fs from 'fs';
 
+require('../src/utility/string');
+
 initialize();
 
 import { download } from 'electron-dl';
@@ -103,7 +105,7 @@ function createWindow () {
 
 		console.log('download-item...url');
 		console.log(data.url);
-		if (!url || url === undefined || url === '')
+		if (String.isNullOrEmpty(url))
 			return;
 
 		await download(

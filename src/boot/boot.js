@@ -21,14 +21,14 @@ class Injector {
 	}
 
 	getService(name) {
-		if (!name || name === undefined || name === '')
+		if (String.isNullOrEmpty(name))
 			return;
 
 		return this._services.get(name);
 	}
 
 	registerService(name, service) {
-		if (!name || name === undefined || name === '')
+		if (String.isNullOrEmpty(name))
 			return;
 
 		if (!service || service === undefined)
