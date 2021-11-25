@@ -24,10 +24,8 @@ class FlightPathService extends Service {
 	process(data, processorId, measurementUnits, flightInfo) {
 		if (!data || data === undefined)
 			return null;
-		if (String.isNullOrEmpty(processorId))
-			return null;
-		if (String.isNullOrEmpty(measurementUnits))
-			return null;
+		this._enforceNotEmpty('FlightPathService', 'process', processorId);
+		this._enforceNotEmpty('FlightPathService', 'process', measurementUnits);
 		if (!flightInfo || flightInfo === undefined)
 			return null;
 
@@ -57,8 +55,7 @@ class FlightPathService extends Service {
 	}
 
 	_determineProcessor(processorId) {
-		if (String.isNullOrEmpty(processorId))
-			return null;
+		this._enforceNotEmpty('FlightPathService', '_determineProcessor', processorId);
 
 		const processor = this._serviceProcessors.find(s => {
 			return s.id.toLowerCase() === processorId.toLowerCase();

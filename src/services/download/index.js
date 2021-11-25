@@ -4,8 +4,7 @@ class DownloadService extends Service {
 	download(value, name, funcCompleted, funcCancelled, funcProgress) {
 		if (!value || value === undefined)
 			return;
-		if (String.isNullOrEmpty(name))
-			return;
+		this._enforceNotEmpty('DownloadService', 'download', name);
 
 		this._download(value, name, funcCompleted, funcCancelled, funcProgress);
 	}
@@ -17,8 +16,7 @@ class DownloadService extends Service {
 	downloadUrl(url, name, funcCompleted, funcCancelled, funcProgress) {
 		if (!url || url === undefined)
 			return;
-		if (String.isNullOrEmpty(name))
-			return;
+		this._enforceNotEmpty('DownloadService', 'downloadUrl', name);
 
 		this._downloadUrl(url, name, funcCompleted, funcCancelled, funcProgress);
 	}
