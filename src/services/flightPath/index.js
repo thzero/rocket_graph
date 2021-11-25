@@ -1,5 +1,7 @@
 import Constants from '../../constants';
 
+import AppUtility from 'src/utility';
+
 import Results from '../results';
 
 import Service from '../index';
@@ -22,16 +24,14 @@ class FlightPathService extends Service {
 	}
 
 	process(data, processorId, measurementUnits, flightInfo) {
-		if (!data || data === undefined)
-			return null;
-		this._enforceNotEmpty('FlightPathService', 'process', processorId);
-		this._enforceNotEmpty('FlightPathService', 'process', measurementUnits);
-		if (!flightInfo || flightInfo === undefined)
-			return null;
+		this._enforceNotNull('FlightPathService', 'process', data, 'data');
+		this._enforceNotEmpty('FlightPathService', 'process', processorId, 'processorId');
+		this._enforceNotEmpty('FlightPathService', 'process', measurementUnits, 'measurementUnits');
+		this._enforceNotNull('FlightPathService', 'process', flightInfo, 'flightInfo');
 
 		const results = new Results();
 
-		if (!data || data === undefined) {
+		if (AppUtility.isNull(data)) {
 			results.errors.push('errors.process.noInput');
 			return results;
 		}
@@ -55,7 +55,7 @@ class FlightPathService extends Service {
 	}
 
 	_determineProcessor(processorId) {
-		this._enforceNotEmpty('FlightPathService', '_determineProcessor', processorId);
+		this._enforceNotEmpty('FlightPathService', '_determineProcessor', processorId, 'processorId');
 
 		const processor = this._serviceProcessors.find(s => {
 			return s.id.toLowerCase() === processorId.toLowerCase();
@@ -64,16 +64,14 @@ class FlightPathService extends Service {
 	}
 
 	_initialize(flightInfo) {
-		if (!flightInfo || flightInfo === undefined)
-			return null;
+		this._enforceNotNull('FlightPathService', '_initialize', flightInfo, 'flightInfo');
 
 		flightInfo.flightPath = [];
 		return flightInfo;
 	}
 
 	registerProcessor(service) {
-		if (!service || service === undefined)
-			return;
+		this._enforceNotNull('FlightPathService', 'registerProcessor', service, 'service');
 
 		this._serviceProcessors.push(service);
 	}

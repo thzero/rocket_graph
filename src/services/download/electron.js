@@ -2,10 +2,8 @@ import DownloadService from './';
 
 class ElectronDownloadService extends DownloadService {
 	_download(value, name, funcCompleted, funcCancelled, funcProgress) {
-		if (!value || value === undefined)
-			return;
-		if (String.isNullOrEmpty(name))
-			return;
+		this._enforceNotNull('ElectronDownloadService', '_download', value, 'value');
+		this._enforceNotEmpty('ElectronDownloadService', '_download', name, 'name');
 
 		window.rgDownloadApi.download(value,
 			name,
@@ -15,13 +13,11 @@ class ElectronDownloadService extends DownloadService {
 		);
 	}
 
-	_downloadUrl(image, name, funcCompleted, funcCancelled, funcProgress) {
-		if (!image || image === undefined)
-			return;
-		if (String.isNullOrEmpty(name))
-			return;
+	_downloadUrl(url, name, funcCompleted, funcCancelled, funcProgress) {
+		this._enforceNotEmpty('ElectronDownloadService', '_downloadUrl', url, 'url');
+		this._enforceNotEmpty('ElectronDownloadService', '_downloadUrl', name, 'name');
 
-		window.rgDownloadApi.downloadUrl(image,
+		window.rgDownloadApi.downloadUrl(url,
 			name,
 			funcCompleted,
 			funcCancelled,

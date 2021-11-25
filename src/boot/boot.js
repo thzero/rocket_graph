@@ -22,17 +22,17 @@ class Injector {
 
 	getService(name) {
 		if (String.isNullOrEmpty(name))
-			return;
+			throw Error('Invalid service name.');
 
 		return this._services.get(name);
 	}
 
 	registerService(name, service) {
 		if (String.isNullOrEmpty(name))
-			return;
+			throw Error('Invalid service name.');
 
-		if (!service || service === undefined)
-			return;
+		if (AppUtility.isNull(service))
+			throw Error('Invalid service instance.');
 
 		if (this._services.has(name))
 			return;

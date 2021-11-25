@@ -2,9 +2,8 @@ import Service from '../index';
 
 class DownloadService extends Service {
 	download(value, name, funcCompleted, funcCancelled, funcProgress) {
-		if (!value || value === undefined)
-			return;
-		this._enforceNotEmpty('DownloadService', 'download', name);
+		this._enforceNotNull('DownloadService', 'download', value, 'value');
+		this._enforceNotEmpty('DownloadService', 'download', name, 'name');
 
 		this._download(value, name, funcCompleted, funcCancelled, funcProgress);
 	}
@@ -14,9 +13,8 @@ class DownloadService extends Service {
 	}
 
 	downloadUrl(url, name, funcCompleted, funcCancelled, funcProgress) {
-		if (!url || url === undefined)
-			return;
-		this._enforceNotEmpty('DownloadService', 'downloadUrl', name);
+		this._enforceNotEmpty('DownloadService', 'downloadUrl', url, 'url');
+		this._enforceNotEmpty('DownloadService', 'downloadUrl', name, 'name');
 
 		this._downloadUrl(url, name, funcCompleted, funcCancelled, funcProgress);
 	}

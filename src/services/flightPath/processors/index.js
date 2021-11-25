@@ -1,15 +1,16 @@
 import AppUtility from '../../../utility';
 
-class FlightPathProcessor {
+import Service from '../../index';
+
+class FlightPathProcessorService extends Service {
 	get id() {
 		throw Error('Not Implemented');
 	}
 
 	process(results, input, measurementUnits) {
-		if (!results || results === undefined)
-			return null;
-		if (!input || input === undefined)
-			return null;
+		this._enforceNotNull('FlightPathProcessorService', 'process', results, 'results');
+		this._enforceNotNull('FlightPathProcessorService', 'process', input, 'input');
+		this._enforceNotEmpty('FlightPathProcessorService', 'process', measurementUnits, 'measurementUnits');
 
 		this._data = new FlightPath();
 
@@ -34,7 +35,7 @@ class FlightPathProcessor {
 		return results;
 	}
 
-	_process(results, input, measurementUnits) {
+	_processInput(input) {
 		throw Error('Not Implemented');
 	}
 
@@ -51,10 +52,8 @@ class FlightPathProcessor {
 	}
 
 	_kml(flightInfo, data) {
-		if (!flightInfo || flightInfo === undefined)
-			return null;
-		if (!data || data === undefined)
-			return null;
+		this._enforceNotNull('FlightPathProcessorService', '_kml', flightInfo, 'flightInfo');
+		this._enforceNotNull('FlightPathProcessorService', '_kml', data, 'data');
 
 		flightInfo.flightPathColor = this._reverseRgb(flightInfo.flightPathColor);
 		flightInfo.groundPathColor = this._reverseRgb(flightInfo.groundPathColor);
@@ -189,4 +188,4 @@ class FlightPath {
 	}
 }
 
-export default FlightPathProcessor;
+export default FlightPathProcessorService;

@@ -4,6 +4,10 @@ class AppUtility {
 	static measurementUnitEnglish = 'english';
 	static measurementUnitMetric = 'metric';
 
+	static isNull(value) {
+		return !value || value === undefined;
+	}
+
 	static measurementUnits() {
 		return [AppUtility.measurementUnitEnglish, AppUtility.measurementUnitMetric];
 	}

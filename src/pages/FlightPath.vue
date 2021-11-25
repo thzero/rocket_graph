@@ -277,7 +277,7 @@ export default defineComponent({
 			this.buttons.process.disabled = this.hasError();
 		},
 		flightPathExport() {
-			if (!this.flightPathData || this.flightPathData === undefined)
+			if (AppUtility.isNull(this.flightPathData))
 				return;
 
 			const currentDate = this.flightInfoDate ? new Date(this.flightInfoDate) : new Date();

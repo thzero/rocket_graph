@@ -1,13 +1,12 @@
-import FlightInfoProcessor from '.';
+import FlightInfoProcessorService from '.';
 
-class EggtimerFlightInfoProcessor extends FlightInfoProcessor {
+class EggtimerFlightInfoProcessorService extends FlightInfoProcessorService {
 	get id() {
 		return 'eggtimer';
 	}
 
 	_processInput(input) {
-		if (!input || input === undefined)
-			return;
+		this._enforceNotNull('EggtimerFlightInfoProcessor', '_processInput', input, 'input');
 
 		for (const data of input.data) {
 			this._publish(
@@ -26,4 +25,4 @@ class EggtimerFlightInfoProcessor extends FlightInfoProcessor {
 	}
 }
 
-export default EggtimerFlightInfoProcessor;
+export default EggtimerFlightInfoProcessorService;

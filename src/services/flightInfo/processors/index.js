@@ -1,11 +1,17 @@
 import AppUtility from '../../../utility';
 
-class FlightInfoProcessor {
+import Service from '../../index';
+
+class FlightInfoProcessorService extends Service {
 	get id() {
 		throw Error('Not Implemented');
 	}
 
 	process(results, input, measurementUnits) {
+		this._enforceNotNull('FlightInfoProcessorService', 'process', results, 'results');
+		this._enforceNotNull('FlightInfoProcessorService', 'process', input, 'input');
+		this._enforceNotEmpty('FlightInfoProcessorService', 'process', measurementUnits, 'measurementUnits');
+
 		this._data = new FlightData();
 
 		this._processInput(input);
@@ -270,7 +276,7 @@ class FlightInfoProcessor {
 		return value;
 	}
 
-	_process(results, input, measurementUnits) {
+	_processInput(input) {
 		throw Error('Not Implemented');
 	}
 
@@ -308,4 +314,4 @@ class FlightData {
 	}
 }
 
-export default FlightInfoProcessor;
+export default FlightInfoProcessorService;

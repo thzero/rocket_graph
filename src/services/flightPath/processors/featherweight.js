@@ -1,13 +1,12 @@
-import FlightPathProcessor from '.';
+import FlightPathProcessorService from '.';
 
-class FeatherweightFlightPathProcessor extends FlightPathProcessor {
+class FeatherweightFlightPathProcessorService extends FlightPathProcessorService {
 	get id() {
 		return 'featherweight';
 	}
 
 	_processInput(input) {
-		if (!input || input === undefined)
-			return;
+		this._enforceNotNull('FeatherweightFlightPathProcessorService', '_processInput', input, 'input');
 
 		const regex = /^[a-z]+$/i;
 		const temp = input.data[0][4];
@@ -39,4 +38,4 @@ class FeatherweightFlightPathProcessor extends FlightPathProcessor {
 	}
 }
 
-export default FeatherweightFlightPathProcessor;
+export default FeatherweightFlightPathProcessorService;
