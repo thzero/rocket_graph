@@ -1,5 +1,6 @@
 import Constants from '../constants';
 
+require('../utility/string');
 import AppUtility from '../utility';
 
 // TODO: Convert to library dependencies
