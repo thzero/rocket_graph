@@ -18,16 +18,19 @@
 					<q-input
 						v-model="flightInfoTitle"
 						filled
+						dense
 						:label="$t('flightInfo.title')"
 					/>
 					<q-input
 						v-model="flightInfoLocation"
 						filled
+						dense
 						:label="$t('flightInfo.location')"
 					/>
 					<q-input
-						filled
 						v-model="flightInfoDate"
+						filled
+						dense
 						mask="date"
 						:label="$t('flightInfo.date')"
 					>
@@ -45,8 +48,9 @@
 					</q-input>
 					<q-select
 						ref="flightInfoMeasurementUnits"
-						filled
 						v-model="flightInfoMeasurementUnits"
+						filled
+						dense
 						:options="flightInfoMeasurementUnitsOptions"
 						option-value="id"
 						option-label="name"
@@ -59,9 +63,10 @@
 					/>
 					<q-select
 						ref="flightInfoDataType"
-						filled
 						v-model="flightInfoDataType"
 						:options="flightInfoDataTypes"
+						filled
+						dense
 						option-value="id"
 						option-label="name"
 						emit-value
@@ -98,6 +103,7 @@
 					ref="flightInfoInput"
 					v-model="flightInfoInput"
 					filled
+					dense
 					type="textarea"
 					style="width: 100%"
 					rows="15"

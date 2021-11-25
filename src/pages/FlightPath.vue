@@ -13,23 +13,26 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-3">
+			<div class="col-5">
 				<div class="row">
-					<div class="col-6">
+					<div class="col-7">
 						<div class="q-pb-md q-pr-md">
 							<q-input
 								v-model="flightPathTitle"
 								filled
+								dense
 								:label="$t('flightPath.title')"
 							/>
 							<q-input
 								v-model="flightPathLocation"
 								filled
+								dense
 								:label="$t('flightPath.location')"
 							/>
 							<q-input
-								filled
 								v-model="flightPathDate"
+								filled
+								dense
 								mask="date"
 								:label="$t('flightPath.date')"
 							>
@@ -47,9 +50,10 @@
 							</q-input>
 							<q-select
 								ref="flightPathMeasurementUnits"
-								filled
 								v-model="flightPathMeasurementUnits"
 								:options="flightPathMeasurementUnitsOptions"
+								filled
+								dense
 								option-value="id"
 								option-label="name"
 								emit-value
@@ -61,9 +65,10 @@
 							/>
 							<q-select
 								ref="flightPathDataType"
-								filled
 								v-model="flightPathDataType"
 								:options="flightPathDataTypes"
+								filled
+								dense
 								option-value="id"
 								option-label="name"
 								emit-value
@@ -75,11 +80,12 @@
 							/>
 						</div>
 					</div>
-					<div class="col-6">
+					<div class="col-5">
 						<div class="q-pb-md">
 							<q-input
-								filled
 								v-model="flightPathColorLaunchPin"
+								filled
+								dense
 								:label="$t('flightPath.color.launch')"
 							>
 								<template v-slot:append>
@@ -91,8 +97,9 @@
 								</template>
 							</q-input>
 							<q-input
-								filled
 								v-model="flightPathColorFlight"
+								filled
+								dense
 								:label="$t('flightPath.color.flight')"
 							>
 								<template v-slot:append>
@@ -104,8 +111,9 @@
 								</template>
 							</q-input>
 							<q-input
-								filled
 								v-model="flightPathColorGround"
+								filled
+								dense
 								:label="$t('flightPath.color.ground')"
 							>
 								<template v-slot:append>
@@ -117,8 +125,9 @@
 								</template>
 							</q-input>
 							<q-input
-								filled
 								v-model="flightPathColorTouchdownPin"
+								filled
+								dense
 								:label="$t('flightPath.color.touchdown')"
 							>
 								<template v-slot:append>
@@ -174,7 +183,7 @@
 					@keyup="checkErrors"
 				/>
 			</div>
-			<div class="col-9 q-pl-md">
+			<div class="col-7 q-pl-md">
 				<div
 					id="flight-path"
 					class="row" style="color: black; background-color: white"
