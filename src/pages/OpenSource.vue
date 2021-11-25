@@ -98,6 +98,12 @@ export default {
 			return [
 				{
 					category: 'client',
+					name: '@electron/remote',
+					url: 'https://github.com/electron/remote',
+					licenseName: '??'
+				},
+				{
+					category: 'client',
 					name: '@thzero/library_cli',
 					url: 'https://github.com/thzero/library_cli',
 					licenseName: 'MIT',
