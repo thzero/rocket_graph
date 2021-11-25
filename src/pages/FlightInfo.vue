@@ -52,6 +52,7 @@
 						option-label="name"
 						emit-value
 						map-options
+						hide-bottom-space
 						:label="$t('flightInfo.measurementUnits')"
 						:rules="[val => !!val || $t('validation.required')]"
 						@update:model-value="checkErrors"
@@ -65,6 +66,7 @@
 						option-label="name"
 						emit-value
 						map-options
+						hide-bottom-space
 						:label="$t('flightInfo.dataTypes')"
 						:rules="[val => !!val || $t('validation.required')]"
 						@update:model-value="checkErrors"
