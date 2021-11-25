@@ -8,6 +8,11 @@ class EggtimerFlightInfoProcessorService extends FlightInfoProcessorService {
 	_processInput(input) {
 		this._enforceNotNull('EggtimerFlightInfoProcessor', '_processInput', input, 'input');
 
+		const regex = /^[a-z]+$/i;
+		const temp = input.data[0][4];
+		if ((regex.exec(temp)) !== null)
+			input.data.shift();
+
 		for (const data of input.data) {
 			this._publish(
 				data[0],
