@@ -1,9 +1,13 @@
-import Results from '../results';
-
 import Constants from '../../constants';
 
-class FlightInfoService {
+import Results from '../results';
+
+import Service from '../index';
+
+class FlightInfoService extends Service {
 	constructor() {
+		super();
+
 		this._serviceProcessors = [];
 	}
 

@@ -1,4 +1,6 @@
-class ElectronWindowService {
+import WindowService from './index';
+
+class ElectronWindowService extends WindowService {
 	closeApp() {
 		if (process.env.MODE !== 'electron')
 			return;

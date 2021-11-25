@@ -1,4 +1,6 @@
-class DownloadService {
+import Service from '../index';
+
+class DownloadService extends Service {
 	download(value, name, funcCompleted, funcCancelled, funcProgress) {
 		if (!value || value === undefined)
 			return;

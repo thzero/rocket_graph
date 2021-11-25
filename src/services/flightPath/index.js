@@ -1,9 +1,13 @@
-import Results from '../results';
-
 import Constants from '../../constants';
 
-class FlightPathService {
+import Results from '../results';
+
+import Service from '../index';
+
+class FlightPathService extends Service {
 	constructor() {
+		super();
+
 		this._serviceProcessors = [];
 	}
 

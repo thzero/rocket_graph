@@ -1,4 +1,6 @@
-class StoreService {
+import Service from '../index';
+
+class StoreService extends Service {
 	intializePlugins(initialState) {
 		return [];
 	}
