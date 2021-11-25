@@ -4,7 +4,21 @@ const routes = [
 		path: '/',
 		component: () => import('layouts/MainLayout.vue'),
 		children: [
-			{ path: '', component: () => import('pages/Index.vue') }
+			{ path: '', component: () => import('src/pages/FlightInfo.vue') }
+		]
+	},
+	{
+		path: '/flightInfo',
+		component: () => import('layouts/MainLayout.vue'),
+		children: [
+			{ path: '', component: () => import('src/pages/FlightInfo.vue') }
+		]
+	},
+	{
+		path: '/flightPath',
+		component: () => import('layouts/MainLayout.vue'),
+		children: [
+			{ path: '', component: () => import('src/pages/FlightPath.vue') }
 		]
 	},
 	{

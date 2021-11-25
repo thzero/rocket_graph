@@ -1,36 +1,12 @@
-import packageJson from '../package.json';
-
-class Injector {
-	constructor() {
-		this._services = new Map();
-	}
-
-	getService(name) {
-		if (!name || name === undefined || name === '')
-			return;
-
-		return this._services.get(name);
-	}
-
-	registerService(name, service) {
-		if (!name || name === undefined || name === '')
-			return;
-
-		if (!service || service === undefined)
-			return;
-
-		if (this._services.has(name))
-			return;
-
-		this._services.set(name, service);
-	}
-}
+import packageJson from '../../package.json';
 
 class AppUtility {
 	static measurementUnitEnglish = 'english';
 	static measurementUnitMetric = 'metric';
 
-	static injector = new Injector();
+	static isNull(value) {
+		return !value || value === undefined;
+	}
 
 	static measurementUnits() {
 		return [AppUtility.measurementUnitEnglish, AppUtility.measurementUnitMetric];
@@ -51,7 +27,7 @@ class AppUtility {
 			if (funcName)
 				nameLookup = funcName(l);
 			let name = trans(prefix + nameLookup);
-			if (!name || name === undefined || name === '')
+			if (String.isNullOrEmpty(name))
 				name = trans(prefix + nameLookup + '.title');
 
 			let value = l;

@@ -1,9 +1,15 @@
-import Results from './results';
+import Constants from '../../constants';
 
-import Constants from '../constants';
+import AppUtility from 'src/utility';
 
-class FlightInfoService {
+import Results from '../results';
+
+import Service from '../index';
+
+class FlightInfoService extends Service {
 	constructor() {
+		super();
+
 		this._serviceProcessors = [];
 	}
 
@@ -18,21 +24,18 @@ class FlightInfoService {
 	}
 
 	process(data, processorId, measurementUnits) {
-		if (!data || data === undefined)
-			return null;
-		if (!processorId || processorId === undefined || processorId === '')
-			return null;
-		if (!measurementUnits || measurementUnits === undefined || measurementUnits === '')
-			return null;
+		this._enforceNotNull('FlightInfoService', 'process', data, 'data');
+		this._enforceNotEmpty('FlightInfoService', 'process', processorId, 'processorId');
+		this._enforceNotEmpty('FlightInfoService', 'process', measurementUnits, 'measurementUnits');
 
 		const results = new Results();
 
-		if (!data || data === undefined) {
+		if (AppUtility.isNull(data)) {
 			results.errors.push('errors.process.noInput');
 			return results;
 		}
 
-		if (!processorId || processorId === undefined || processorId === '') {
+		if (String.isNullOrEmpty(processorId)) {
 			results.setError('errors.process.noProcessor');
 			return results;
 		}
@@ -51,8 +54,7 @@ class FlightInfoService {
 	}
 
 	_determineProcessor(processorId) {
-		if (!processorId || processorId === undefined || processorId === '')
-			return null;
+		this._enforceNotEmpty('FlightInfoService', '_determineProcessor', processorId, 'processorId');
 
 		const processor = this._serviceProcessors.find(s => {
 			return s.id.toLowerCase() === processorId.toLowerCase();
@@ -205,8 +207,7 @@ class FlightInfoService {
 	}
 
 	registerProcessor(service) {
-		if (!service || service === undefined)
-			return;
+		this._enforceNotNull('FlightInfoService', 'service', service, 'service');
 
 		this._serviceProcessors.push(service);
 	}
