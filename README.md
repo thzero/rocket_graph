@@ -99,7 +99,7 @@ The data should be in CSV format.
 
 #### Featherweight GPS Tracker
 
-For the #### Featherweight GPS Tracker output, include the following columns:
+For the Featherweight GPS Tracker output, include the following columns:
 * UTCTIME, UNIXTIME, ALT, LAT, LON, #SATS, FIX, HORZV, VERTV, HEAD, FLAGS, >40, >32, >24, RSSI, BATT
 * Include header and data rows
 
