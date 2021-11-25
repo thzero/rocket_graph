@@ -33,13 +33,16 @@
 								v-model="flightPathDate"
 								filled
 								dense
-								mask="date"
+								:mask="dateFormatMask"
 								:label="$t('flightPath.date')"
 							>
 								<template v-slot:append>
 									<q-icon name="event" class="cursor-pointer">
 									<q-popup-proxy ref="qDateProxy" cover transition-show="scale" transition-hide="scale">
-										<q-date v-model="flightPathDate">
+										<q-date
+											v-model="flightPathDate"
+											:mask="dateFormat"
+										>
 										<div class="row items-center justify-end">
 											<q-btn v-close-popup label="Close" color="primary" flat />
 										</div>
@@ -218,8 +221,11 @@ import Constants from '../constants';
 
 import AppUtility from '../utility';
 
+import basePage from './basePage.vue';
+
 export default defineComponent({
 	name: 'PageIndex',
+	extends: basePage,
 	data: () => ({
 		buttons: {
 			export: {
@@ -229,8 +235,6 @@ export default defineComponent({
 				disabled: true
 			}
 		},
-		errorMessage: null,
-		errorTimer: null,
 		flightPath: null,
 		flightPathColorFlight: '#0000ff',
 		flightPathColorFlightDefault: '#0000ff',
@@ -250,16 +254,9 @@ export default defineComponent({
 		flightPathMeasurementUnitsOptions: [],
 		flightPathTitle: null,
 		output: null,
-		serviceDownload: null,
 		serviceFlightPath: null
 	}),
-	computed: {
-		errors() {
-			return this.errorMessage;
-		}
-	},
 	created() {
-		this.serviceDownload = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_DOWNLOAD);
 		this.serviceFlightPath = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_FLIGHT_PATH);
 	},
 	mounted() {

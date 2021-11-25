@@ -31,13 +31,16 @@
 						v-model="flightInfoDate"
 						filled
 						dense
-						mask="date"
+						:mask="dateFormatMask"
 						:label="$t('flightInfo.date')"
 					>
 						<template v-slot:append>
 							<q-icon name="event" class="cursor-pointer">
 							<q-popup-proxy ref="qDateProxy" cover transition-show="scale" transition-hide="scale">
-								<q-date v-model="flightInfoDate">
+								<q-date
+									v-model="flightInfoDate"
+									:mask="dateFormat"
+								>
 								<div class="row items-center justify-end">
 									<q-btn v-close-popup label="Close" color="primary" flat />
 								</div>
@@ -160,8 +163,11 @@ import AppUtility from '../utility';
 import flightInfo from '../components/flightInfo';
 import flightInfoChart from '../components/charts/flightInfo';
 
+import basePage from './basePage.vue';
+
 export default defineComponent({
 	name: 'PageIndex',
+	extends: basePage,
 	components: {
 		flightInfo,
 		flightInfoChart
@@ -175,8 +181,6 @@ export default defineComponent({
 				disabled: true
 			}
 		},
-		errorMessage: null,
-		errorTimer: null,
 		flightInfo: null,
 		flightInfoChartData: null,
 		flightInfoDataType: null,
@@ -187,16 +191,9 @@ export default defineComponent({
 		flightInfoMeasurementUnits: null,
 		flightInfoMeasurementUnitsOptions: [],
 		flightInfoTitle: null,
-		serviceDownload: null,
 		serviceFlightInfo: null
 	}),
-	computed: {
-		errors() {
-			return this.errorMessage;
-		}
-	},
 	created() {
-		this.serviceDownload = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_DOWNLOAD);
 		this.serviceFlightInfo = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_FLIGHT_INFO);
 	},
 	mounted() {
