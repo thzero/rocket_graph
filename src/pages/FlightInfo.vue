@@ -379,13 +379,13 @@ Events
 			}
 
 			flightInfoResults.info.title = this.$t('charts.flightInfo.title');
-			if (this.flightInfoTitle && this.flightInfoTitle !== '')
+			if (!String.isNullOrEmpty(this.flightInfoTitle && this.flightInfoTitle))
 				flightInfoResults.info.title = this.flightInfoTitle;
-			if (this.flightInfoDate && this.flightInfoDate !== '')
+			if (!String.isNullOrEmpty(this.flightInfoDate))
 				flightInfoResults.info.date = this.flightInfoDate;
-			if (this.flightInfoLocation && this.flightInfoLocation !== '')
+			if (!String.isNullOrEmpty(this.flightInfoLocation))
 				flightInfoResults.info.location = this.flightInfoLocation;
-			if (this.flightInfoMeasurementUnits && this.flightInfoMeasurementUnits !== '')
+			if (!String.isNullOrEmpty(this.flightInfoMeasurementUnit))
 				flightInfoResults.info.measurementUnits = this.flightInfoMeasurementUnits;
 
 			this.flightInfoChartData = flightInfoResults.info;
