@@ -83,21 +83,44 @@
 				<div class="q-pb-md float-right">
 					<q-btn-group>
 						<q-btn
+							class="q-pa-sm"
+							dense
 							color="primary"
-							:label="$t('process')"
+							:label="$t('button.process')"
 							:disabled="buttons.process.disabled"
 							@click="flightInfoProcess"
 							@focus="checkErrors"
 						/>
-						<q-btn
+						<q-btn-dropdown
+							class="q-pa-sm"
+							dense
 							color="primary"
-							:label="$t('export')"
+							:label="$t('button.export')"
 							:disabled="buttons.export.disabled"
-							@click="flightInfoExport"
-						/>
+						>
+							<q-list>
+								<q-item clickable v-close-popup @click="flightInfoExport">
+									<q-item-section>
+										<q-item-label>{{ $t('flightInfo.export.image') }}</q-item-label>
+									</q-item-section>
+								</q-item>
+								<q-item clickable v-close-popup @click="flightInfoExportJson">
+									<q-item-section>
+										<q-item-label>{{ $t('flightInfo.export.json') }}</q-item-label>
+									</q-item-section>
+								</q-item>
+								<!-- <q-item clickable v-close-popup @click="flightInfoExportText">
+									<q-item-section>
+										<q-item-label>{{ $t('flightInfo.export.text') }}</q-item-label>
+									</q-item-section>
+								</q-item> -->
+							</q-list>
+						</q-btn-dropdown>
 						<q-btn
+							class="q-pa-sm"
+							dense
 							color="primary"
-							:label="$t('reset')"
+							:label="$t('button.reset')"
 							@click="resetInput"
 						/>
 					</q-btn-group>
@@ -210,15 +233,99 @@ export default defineComponent({
 			this.$refs.flightInfoMeasurementUnits.validate();
 			this.buttons.process.disabled = this.hasError();
 		},
+		flightInfoExportName(extension) {
+			extension = !String.isNullOrEmpty(extension) ? extension : 'png';
+
+			const currentDate = this.flightInfoDate ? new Date(this.flightInfoDate) : new Date();
+			const day = currentDate.getDate();
+			const month = currentDate.getMonth() + 1;
+			const year = currentDate.getFullYear();
+
+			return 'flight-input-' + day + '-' + month + '-' + year + '.' + extension;
+		},
+		flightInfoExportJson() {
+			const output = JSON.stringify(this.flightInfo);
+
+			const name = this.flightInfoExportName('json');
+			const barRef = this.$refs.bar;
+			barRef.start();
+
+			this.serviceDownload.download(output,
+				name,
+				() => {
+					console.log('completed');
+					barRef.stop();
+				},
+				() => {
+					console.log('cancelled');
+					barRef.stop();
+				},
+				(arg) => {
+					console.log('progress');
+					console.log(arg);
+				}
+			);
+		},
+		flightInfoExportText() {
+			/*
+			const output = `
+Flight Time			${this.flightInfo?.events?.ground?.time}
+Max. Altitude		${flightTime}
+Velocity
+	Ascent
+		Max.		${flightTime}
+		Avg.		${flightTime}
+	Descent
+		Drogue
+			Max.	${flightTime}
+			Avg.	${flightTime}
+		Main
+			Max.	${flightTime}
+			Avg.	${flightTime}
+Acceleration
+	Max.			${flightTime}
+	Min.			${flightTime}
+	Descent
+		Drogue
+			Max.	${flightTime}
+			Min.	${flightTime}
+			Avg.	${flightTime}
+		Main
+			Max.	${flightTime}
+			Min.	${flightTime}
+			Avg.	${flightTime}
+Events
+	Apogee			${flightTime}
+	Nose Over		${flightTime}
+	Drogue			${flightTime}
+	Main			${flightTime}
+`;
+
+			const name = this.flightInfoExportName('txt');
+			const barRef = this.$refs.bar;
+			barRef.start();
+
+			this.serviceDownload.download(output,
+				name,
+				() => {
+					console.log('completed');
+					barRef.stop();
+				},
+				() => {
+					console.log('cancelled');
+					barRef.stop();
+				},
+				(arg) => {
+					console.log('progress');
+					console.log(arg);
+				}
+			);
+*/
+		},
 		flightInfoExport() {
 			const el = document.getElementById('flight-info');
 			this.getScreenshotOfElement(el, ((data) => {
-				const currentDate = this.flightInfoDate ? new Date(this.flightInfoDate) : new Date();
-				const day = currentDate.getDate();
-				const month = currentDate.getMonth() + 1;
-				const year = currentDate.getFullYear();
-
-				const name = 'flight-input-' + day + '-' + month + '-' + year + '.png';
+				const name = this.flightInfoExportName('png');
 				const barRef = this.$refs.bar;
 				barRef.start();
 
@@ -271,6 +378,7 @@ export default defineComponent({
 				return;
 			}
 
+			flightInfoResults.info.title = this.$t('charts.flightInfo.title');
 			if (this.flightInfoTitle && this.flightInfoTitle !== '')
 				flightInfoResults.info.title = this.flightInfoTitle;
 			if (this.flightInfoDate && this.flightInfoDate !== '')

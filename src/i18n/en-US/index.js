@@ -41,8 +41,8 @@ export default {
 		dataTypes: 'Flight Data Type',
 		date: 'Flight Date',
 		export: {
+			image: 'image',
 			json: 'json',
-			screenshot: 'screenshot',
 			text: 'text'
 		},
 		location: 'Flight Location',
