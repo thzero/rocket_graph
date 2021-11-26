@@ -1,5 +1,6 @@
 <script>
 import { defineComponent } from 'vue';
+// import { useQuasar } from 'quasar';
 
 import Constants from '../constants';
 
@@ -36,6 +37,16 @@ export default defineComponent({
 				clearTimeout(this.errorTimer);
 			},
 			3000);
+		},
+		notify(message) {
+			if (String.isNullOrEmpty(message))
+				return;
+
+			this.$q.notify({
+				color: 'green-4',
+				textColor: 'white',
+				message: AppUtility.$t(message)
+			});
 		}
 	}
 });

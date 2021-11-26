@@ -601,6 +601,8 @@ export default defineComponent({
 			};
 
 			AppUtility.$store.dispatch('setFlightInfoColors', colors);
+
+			this.notify('messages.saved');
 		},
 		checkFlightInfoDataTypeUse() {
 			this.flightInfoDataTypeUseDisabled = true;
@@ -735,6 +737,8 @@ export default defineComponent({
 
 			this.flightInfoChartData = flightInfoResults.info;
 			this.flightInfo = flightInfoResults.info;
+
+			this.notify('messages.processed');
 
 			this.buttons.export.disabled = false;
 		},

@@ -418,6 +418,8 @@ export default defineComponent({
 			// this.output = JSON.stringify(flightPathResults, null, 2);
 			this.output = flightPathResults.info.flightPath;
 
+			this.notify('messages.processed');
+
 			this.buttons.export.disabled = false;
 		},
 		hasError() {

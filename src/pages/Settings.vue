@@ -49,12 +49,13 @@
 </template>
 
 <script>
-import { useQuasar } from 'quasar';
-
 import AppUtility from '../utility';
+
+import basePage from './basePage.vue';
 
 export default {
 	name: 'Settings',
+	extends: basePage,
 	data: () => ({
 		dirty: false,
 		disabled: true,
@@ -86,7 +87,7 @@ export default {
 
 				AppUtility.$store.dispatch('setMeasurementUnits', this.measurementUnits);
 
-				this.notifySaved();
+				this.notify('messages.saved');
 			}
 			finally {
 				this.disabled = false;
@@ -94,19 +95,6 @@ export default {
 		},
 		setDirty() {
 			this.dirty = true;
-		}
-	},
-	setup () {
-		const $q = useQuasar();
-
-		return {
-			notifySaved() {
-				$q.notify({
-					color: 'green-4',
-					textColor: 'white',
-					message: AppUtility.$t('messages.saved')
-				});
-			}
 		}
 	}
 };
