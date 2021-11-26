@@ -41,20 +41,36 @@ export default store(function () {
 	const store = createStore({
 		state () {
 			return {
+				flightInfoColors: [],
 				measurementUnits: AppUtility.measurementUnitEnglish
 			}
 		},
 		actions: {
+			async setFlightInfoColors({ commit }, value) {
+				commit('setFlightInfoColors', value);
+			},
 			async setMeasurementUnits({ commit }, value) {
 				commit('setMeasurementUnits', value);
 			}
 		},
 		getters: {
+			getFlightInfoColors: (state) => (id) => {
+				if (!state.flightInfoColors)
+					return null;
+				return state.flightInfoColors.find(l => l.id);
+			},
 			getMeasurementUnit: (state) => () => {
 				return state.measurementUnits ?? AppUtility.measurementUnitEnglish
 			}
 		},
 		mutations: {
+			setFlightInfoColors (state, value) {
+				if (String.isNullOrEmpty(value.id))
+					return;
+				if (!state.flightInfoColors)
+					state.flightInfoColors = [];
+				state.flightInfoColors = AppUtility.updateArrayByObject(state.flightInfoColors, value);
+			},
 			setMeasurementUnits (state, value) {
 				state.measurementUnits = value;
 			}

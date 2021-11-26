@@ -7,6 +7,7 @@ export default {
 		export: 'Export',
 		process: 'Process',
 		reset: 'Reset',
+		save: 'Save',
 		submit: 'Submit'
 	},
 	charts: {

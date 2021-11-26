@@ -339,7 +339,15 @@
 									</div>
 									<div class="row">
 										<div class="col-12">
-											<div class="float-right">
+											<div class="float-right q-mt-sm">
+												<q-btn
+													class="q-pa-sm q-mr-sm"
+													dense
+													color="primary"
+													:label="$t('button.save')"
+													:disable="!flightInfoProcessor"
+													@click="flightInfoColorSave"
+												/>
 												<q-btn
 													class="q-pa-sm"
 													dense
@@ -513,6 +521,12 @@ export default defineComponent({
 		},
 		flightInfoDataTypeFiltered: function (value) {
 			this.checkFlightInfoDataTypeUse();
+		},
+		flightInfoProcessor: function (value) {
+			if (!value)
+				return;
+
+			this.flightInfoColorLoad(value);
 		}
 	},
 	created() {
@@ -583,6 +597,25 @@ export default defineComponent({
 			const output = this.serviceFlightInfo.processOutputText(this.flightInfo);
 			this.flightInfoExportDownload(output, 'txt');
 		},
+		flightInfoColorLoad() {
+			if (String.isNullOrEmpty(this.flightInfoProcessor))
+				return;
+
+			const colors = AppUtility.$store.getters.getFlightInfoColors(this.flightInfoProcessor);
+			if (!colors)
+				return;
+
+			this.flightInfoColorAltitude = colors.altitude;
+			this.flightInfoColorAltitudeF = colors.altitudeF;
+			this.flightInfoColorEventApogee = colors.event.apogee;
+			this.flightInfoColorEventApogeeBorder = colors.event.apogeeBorder;
+			this.flightInfoColorEventDrogue = colors.event.drogue;
+			this.flightInfoColorEventDrogueBorder = colors.event.drogueBorder;
+			this.flightInfoColorEventMain = colors.event.main;
+			this.flightInfoColorEventMainBorder = colors.event.mainBorder;
+			this.flightInfoColorVelocity = colors.velocity;
+			this.flightInfoColorVelocityF = colors.velocityF;
+		},
 		flightInfoColorReset() {
 			this.flightInfoColorAltitude = this.serviceFlightInfo.colorsDefault.altitude;
 			this.flightInfoColorAltitudeF = this.serviceFlightInfo.colorsDefault.altitudeF;
@@ -594,6 +627,28 @@ export default defineComponent({
 			this.flightInfoColorEventMainBorder = this.serviceFlightInfo.colorsDefault.event.mainBorder;
 			this.flightInfoColorVelocity = this.serviceFlightInfo.colorsDefault.velocity;
 			this.flightInfoColorVelocityF = this.serviceFlightInfo.colorsDefault.velocityF;
+		},
+		flightInfoColorSave() {
+			if (String.isNullOrEmpty(this.flightInfoProcessor))
+				return;
+
+			const colors = {
+				id: this.flightInfoProcessor,
+				altitude: this.flightInfoColorAltitude,
+				altitudeF: this.flightInfoColorAltitudeF,
+				event: {
+					apogee: this.flightInfoColorEventApogee,
+					apogeeBorder: this.flightInfoColorEventApogeeBorder,
+					drogue: this.flightInfoColorEventDrogue,
+					drogueBorder: this.flightInfoColorEventDrogueBorder,
+					main: this.flightInfoColorEventMain,
+					mainBorder: this.flightInfoColorEventMainBorder
+				},
+				velocity: this.flightInfoColorVelocity,
+				velocityF: this.flightInfoColorVelocityF
+			};
+
+			AppUtility.$store.dispatch('setFlightInfoColors', colors);
 		},
 		flightInfoExport() {
 			const el = document.getElementById('flight-info');
