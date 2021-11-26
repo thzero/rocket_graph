@@ -549,54 +549,6 @@ export default defineComponent({
 
 			this.buttons.process.disabled = this.hasError();
 		},
-		checkFlightInfoDataTypeUse() {
-			this.flightInfoDataTypeUseDisabled = true;
-			if (this.flightInfoDataTypeActual && this.flightInfoDataTypeFiltered)
-				this.flightInfoDataTypeUseDisabled = false;
-			else if (this.flightInfoDataTypeActual)
-				this.flightInfoDataTypeUse = false;
-			else if (this.flightInfoDataTypeFiltered)
-				this.flightInfoDataTypeUse = true;
-		},
-		flightInfoExportName(extension) {
-			extension = !String.isNullOrEmpty(extension) ? extension : 'png';
-
-			const currentDate = this.flightInfoDate ? new Date(this.flightInfoDate) : new Date();
-			const day = currentDate.getDate();
-			const month = currentDate.getMonth() + 1;
-			const year = currentDate.getFullYear();
-
-			return 'flight-input-' + day + '-' + month + '-' + year + '.' + extension;
-		},
-		flightInfoExportDownload(output, extension) {
-			const name = this.flightInfoExportName(extension);
-			const barRef = this.$refs.bar;
-			barRef.start();
-
-			this.serviceDownload.download(output,
-				name,
-				() => {
-					console.log('completed');
-					barRef.stop();
-				},
-				() => {
-					console.log('cancelled');
-					barRef.stop();
-				},
-				(arg) => {
-					console.log('progress');
-					console.log(arg);
-				}
-			);
-		},
-		flightInfoExportJson() {
-			const output = this.serviceFlightInfo.processOutputJson(this.flightInfo);
-			this.flightInfoExportDownload(output, 'json');
-		},
-		flightInfoExportText() {
-			const output = this.serviceFlightInfo.processOutputText(this.flightInfo);
-			this.flightInfoExportDownload(output, 'txt');
-		},
 		flightInfoColorLoad() {
 			if (String.isNullOrEmpty(this.flightInfoProcessor))
 				return;
@@ -649,6 +601,54 @@ export default defineComponent({
 			};
 
 			AppUtility.$store.dispatch('setFlightInfoColors', colors);
+		},
+		checkFlightInfoDataTypeUse() {
+			this.flightInfoDataTypeUseDisabled = true;
+			if (this.flightInfoDataTypeActual && this.flightInfoDataTypeFiltered)
+				this.flightInfoDataTypeUseDisabled = false;
+			else if (this.flightInfoDataTypeActual)
+				this.flightInfoDataTypeUse = false;
+			else if (this.flightInfoDataTypeFiltered)
+				this.flightInfoDataTypeUse = true;
+		},
+		flightInfoExportName(extension) {
+			extension = !String.isNullOrEmpty(extension) ? extension : 'png';
+
+			const currentDate = this.flightInfoDate ? new Date(this.flightInfoDate) : new Date();
+			const day = currentDate.getDate();
+			const month = currentDate.getMonth() + 1;
+			const year = currentDate.getFullYear();
+
+			return 'flight-input-' + day + '-' + month + '-' + year + '.' + extension;
+		},
+		flightInfoExportDownload(output, extension) {
+			const name = this.flightInfoExportName(extension);
+			const barRef = this.$refs.bar;
+			barRef.start();
+
+			this.serviceDownload.download(output,
+				name,
+				() => {
+					console.log('completed');
+					barRef.stop();
+				},
+				() => {
+					console.log('cancelled');
+					barRef.stop();
+				},
+				(arg) => {
+					console.log('progress');
+					console.log(arg);
+				}
+			);
+		},
+		flightInfoExportJson() {
+			const output = this.serviceFlightInfo.processOutputJson(this.flightInfo);
+			this.flightInfoExportDownload(output, 'json');
+		},
+		flightInfoExportText() {
+			const output = this.serviceFlightInfo.processOutputText(this.flightInfo);
+			this.flightInfoExportDownload(output, 'txt');
 		},
 		flightInfoExport() {
 			const el = document.getElementById('flight-info');
