@@ -326,11 +326,11 @@ export default defineComponent({
 	created() {
 		this.serviceFlightPath = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_FLIGHT_PATH);
 
-		this.flightPathStyleReset();
+		this.flightPathStyleReset(false);
 	},
 	mounted() {
 		this.reset();
-		this.flightPathStyleReset();
+		this.flightPathStyleReset(false);
 
 		this.flightPathProcessors = AppUtility.selectOptions(this.serviceFlightPath.serviceProcessors, this.$t, 'flightPath.processors', (l) => { return l.id; }, null, (l) => { return l.id; });
 		this.flightPathMeasurementUnitsOptions = AppUtility.selectOptions(AppUtility.measurementUnits(), this.$t, 'measurements', null, (l) => { return l + '.altitude.name'; });
@@ -356,13 +356,15 @@ export default defineComponent({
 			this.flightPathStylePinLaunchColor = style.pin.launch.color;
 			this.flightPathStylePinTouchdownColor = style.pin.touchdown.color;
 		},
-		flightPathStyleReset() {
+		flightPathStyleReset(notify) {
 			this.flightPathStylePathFlightColor = this.serviceFlightPath.styleDefault.path.flight.color;
 			this.flightPathStylePathGroundColor = this.serviceFlightPath.styleDefault.path.ground.color;
 			this.flightPathStylePinLaunchColor = this.serviceFlightPath.styleDefault.pin.launch.color;
 			this.flightPathStylePinTouchdownColor = this.serviceFlightPath.styleDefault.pin.touchdown.color;
 
-			this.notify('messages.reset');
+			notify = (notify !== null && notify !== undefined) ? notify : true;
+			if (notify)
+				this.notify('messages.reset');
 		},
 		flightPathStyleSave() {
 			if (String.isNullOrEmpty(this.flightPathProcessor))
