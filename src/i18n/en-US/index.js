@@ -201,7 +201,7 @@ export default {
 		flightPath: 'Flight Path',
 		help: 'Help',
 		home: 'Home',
-		isues: 'Issues',
+		issues: 'Issues',
 		settings: 'Settings',
 		openSource: 'Open Source'
 	},
