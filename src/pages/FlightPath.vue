@@ -315,6 +315,14 @@ export default defineComponent({
 		output: null,
 		serviceFlightPath: null
 	}),
+	watch: {
+		flightPathProcessor: function (value) {
+			if (!value)
+				return;
+
+			this.flightPathStyleLoad(value);
+		}
+	},
 	created() {
 		this.serviceFlightPath = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_FLIGHT_PATH);
 	},
