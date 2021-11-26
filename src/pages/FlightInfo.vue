@@ -745,16 +745,16 @@ export default defineComponent({
 			if (!String.isNullOrEmpty(this.flightInfoMeasurementUnit))
 				flightInfoResults.info.measurementUnits = this.flightInfoMeasurementUnits;
 
-			flightInfoResults.info.style.altitude = this.flightInfoStyleAltitude;
-			flightInfoResults.info.style.altitudeF = this.flightInfoStyleAltitudeF;
-			flightInfoResults.info.style.event.apogee = this.flightInfoStyleEventApogee;
-			flightInfoResults.info.style.event.apogeeBorder = this.flightInfoStyleEventApogeeBorder;
-			flightInfoResults.info.style.event.drogue = this.flightInfoStyleEventDrogue;
-			flightInfoResults.info.style.event.drogueBorder = this.flightInfoStyleEventDrogueBorder;
-			flightInfoResults.info.style.event.main = this.flightInfoStyleEventMain;
-			flightInfoResults.info.style.event.mainBorder = this.flightInfoStyleEventMainBorder;
-			flightInfoResults.info.style.velocity = this.flightInfoStyleVelocity;
-			flightInfoResults.info.style.velocityF = this.flightInfoStyleVelocityF;
+			flightInfoResults.info.style.altitude = this.flightInfoStyleAltitudeColor;
+			flightInfoResults.info.style.altitudeF = this.flightInfoStyleAltitudeFColor;
+			flightInfoResults.info.style.event.apogee = this.flightInfoStyleEventApogeeColor;
+			flightInfoResults.info.style.event.apogeeBorder = this.flightInfoStyleEventApogeeBorderColor;
+			flightInfoResults.info.style.event.drogue = this.flightInfoStyleEventDrogueColor;
+			flightInfoResults.info.style.event.drogueBorder = this.flightInfoStyleEventDrogueBorderColor;
+			flightInfoResults.info.style.event.main = this.flightInfoStyleEventMainColor;
+			flightInfoResults.info.style.event.mainBorder = this.flightInfoStyleEventMainBorderColor;
+			flightInfoResults.info.style.velocity = this.flightInfoStyleVelocityColor;
+			flightInfoResults.info.style.velocityF = this.flightInfoStyleVelocityFColor;
 
 			this.flightInfoChartData = flightInfoResults.info;
 			this.flightInfo = flightInfoResults.info;

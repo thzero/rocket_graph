@@ -106,7 +106,7 @@ export default defineComponent({
 						type: 'line',
 						data: flightInfo.altitude.dataF,
 						label: this.$t('charts.flightInfo.altitude.titleF'),
-						borderColor: flightInfo.style.altitude,
+						borderColor: flightInfo.style.altitudeF,
 						fill: false,
 						pointRadius: 0
 					});
@@ -116,7 +116,7 @@ export default defineComponent({
 						type: 'line',
 						data: flightInfo.altitude.data,
 						label: this.$t('charts.flightInfo.altitude.title'),
-						borderColor: flightInfo.style.altitudeF,
+						borderColor: flightInfo.style.altitude,
 						fill: false,
 						pointRadius: 0
 					});
@@ -127,7 +127,7 @@ export default defineComponent({
 						type: 'line',
 						data: flightInfo.velocity.dataF,
 						label: this.$t('charts.flightInfo.velocity.titleF'),
-						borderColor: flightInfo.style.velocity,
+						borderColor: flightInfo.style.velocityF,
 						fill: false,
 						pointRadius: 0
 					});
@@ -137,7 +137,7 @@ export default defineComponent({
 						type: 'line',
 						data: flightInfo.velocity.data,
 						label: this.$t('charts.flightInfo.velocity.title'),
-						borderColor: flightInfo.style.velocityF,
+						borderColor: flightInfo.style.velocity,
 						fill: false,
 						pointRadius: 0
 					});
