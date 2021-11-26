@@ -31,7 +31,7 @@
 						<q-btn
 							type="submit"
 							color="primary"
-							:label="$t('button.submit')"
+							:label="$t('button.save')"
 							:disabled="disabled"
 						/>
 						<q-btn
@@ -58,10 +58,15 @@ export default {
 	extends: basePage,
 	data: () => ({
 		dirty: false,
-		disabled: true,
 		measurementUnits: null,
-		measurementUnitsOptions: []
+		measurementUnitsOptions: [],
+		saving: false
 	}),
+	computed: {
+		disabled() {
+			return this.saving || !this.dirty;
+		}
+	},
 	mounted() {
 		this.onReset();
 		this.measurementUnits = AppUtility.$store.state.measurementUnits;
@@ -69,14 +74,14 @@ export default {
 	},
 	methods: {
 		onReset() {
-			this.dirty = false;
 			this.$refs.settingsForm.resetValidation();
-			this.disabled = false;
+			this.dirty = false;
 			this.measurementUnits = AppUtility.$store.state.measurementUnits;
+			this.saving = false;
 		},
 		onSubmit() {
 			try {
-				this.disabled = true;
+				this.saving = true;
 
 				if (!this.dirty)
 					return;
@@ -90,7 +95,9 @@ export default {
 				this.notify('messages.saved');
 			}
 			finally {
-				this.disabled = false;
+				this.$refs.settingsForm.resetValidation();
+				this.dirty = false;
+				this.saving = false;
 			}
 		},
 		setDirty() {
