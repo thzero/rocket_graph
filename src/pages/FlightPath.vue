@@ -67,9 +67,9 @@
 								@update:model-value="checkErrors"
 							/>
 							<q-select
-								ref="flightPathDataType"
-								v-model="flightPathDataType"
-								:options="flightPathDataTypes"
+								ref="flightPathProcessor"
+								v-model="flightPathProcessor"
+								:options="flightPathProcessors"
 								filled
 								dense
 								option-value="id"
@@ -86,73 +86,73 @@
 					<div class="col-5">
 						<div class="q-pb-md">
 							<q-input
-								v-model="flightPathColorLaunchPin"
+								v-model="flightPathStylePinLaunchColor"
 								filled
 								dense
-								:label="$t('flightPath.color.launch')"
+								:label="$t('flightPath.style.launch.color')"
 							>
 								<template v-slot:prepend>
-									<div :style="'height: 25px; width: 25px; background-color: ' + flightPathColorLaunchPin">
+									<div :style="'height: 25px; width: 25px; background-color: ' + flightPathStylePinLaunchColor">
 									</div>
 								</template>
 								<template v-slot:append>
 									<q-icon name="colorize" class="cursor-pointer">
 										<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-											<q-color v-model="flightPathColorLaunchPin" />
+											<q-color v-model="flightPathStylePinLaunchColor" />
 										</q-popup-proxy>
 									</q-icon>
 								</template>
 							</q-input>
 							<q-input
-								v-model="flightPathColorFlight"
+								v-model="flightPathStylePathFlightColor"
 								filled
 								dense
-								:label="$t('flightPath.color.flight')"
+								:label="$t('flightPath.style.flight.color')"
 							>
 								<template v-slot:prepend>
-									<div :style="'height: 25px; width: 25px; background-color: ' + flightPathColorFlight">
+									<div :style="'height: 25px; width: 25px; background-color: ' + flightPathStylePathFlightColor">
 									</div>
 								</template>
 								<template v-slot:append>
 									<q-icon name="colorize" class="cursor-pointer">
 										<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-											<q-color v-model="flightPathColorFlight" />
+											<q-color v-model="flightPathStylePathFlightColor" />
 										</q-popup-proxy>
 									</q-icon>
 								</template>
 							</q-input>
 							<q-input
-								v-model="flightPathColorGround"
+								v-model="flightPathStylePathGroundColor"
 								filled
 								dense
-								:label="$t('flightPath.color.ground')"
+								:label="$t('flightPath.style.ground.color')"
 							>
 								<template v-slot:prepend>
-									<div :style="'height: 25px; width: 25px; background-color: ' + flightPathColorGround">
+									<div :style="'height: 25px; width: 25px; background-color: ' + flightPathStylePathGroundColor">
 									</div>
 								</template>
 								<template v-slot:append>
 									<q-icon name="colorize" class="cursor-pointer">
 										<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-											<q-color v-model="flightPathColorGround" />
+											<q-color v-model="flightPathStylePathGroundColor" />
 										</q-popup-proxy>
 									</q-icon>
 								</template>
 							</q-input>
 							<q-input
-								v-model="flightPathColorTouchdownPin"
+								v-model="flightPathStylePinTouchdownColor"
 								filled
 								dense
-								:label="$t('flightPath.color.touchdown')"
+								:label="$t('flightPath.style.touchdown.color')"
 							>
 								<template v-slot:prepend>
-									<div :style="'height: 25px; width: 25px; background-color: ' + flightPathColorTouchdownPin">
+									<div :style="'height: 25px; width: 25px; background-color: ' + flightPathStylePinTouchdownColor">
 									</div>
 								</template>
 								<template v-slot:append>
 									<q-icon name="colorize" class="cursor-pointer">
 										<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-											<q-color v-model="flightPathColorTouchdownPin" />
+											<q-color v-model="flightPathStylePinTouchdownColor" />
 										</q-popup-proxy>
 									</q-icon>
 								</template>
@@ -258,22 +258,18 @@ export default defineComponent({
 			}
 		},
 		flightPath: null,
-		flightPathColorFlight: '#0000ff',
-		flightPathColorFlightDefault: '#0000ff',
-		flightPathColorGround: '#000000',
-		flightPathColorGroundDefault: '#000000',
-		flightPathColorLaunchPin: '#ff0000',
-		flightPathColorLaunchPinDefault: '#ff0000',
-		flightPathColorTouchdownPin: '#00ff00',
-		flightPathColorTouchdownPinDefault: '#00ff00',
 		flightPathData: null,
-		flightPathDataType: null,
-		flightPathDataTypes: [],
 		flightPathDate: null,
 		flightPathInput: null,
 		flightPathLocation: null,
 		flightPathMeasurementUnits: null,
 		flightPathMeasurementUnitsOptions: [],
+		flightPathProcessor: null,
+		flightPathProcessors: [],
+		flightPathStylePathFlightColor: '#0000ff',
+		flightPathStylePathGroundColor: '#000000',
+		flightPathStylePinLaunchColor: '#ff0000',
+		flightPathStylePinTouchdownColor: '#00ff00',
 		flightPathTitle: null,
 		output: null,
 		serviceFlightPath: null
@@ -284,16 +280,61 @@ export default defineComponent({
 	mounted() {
 		this.reset();
 
-		this.flightPathDataTypes = AppUtility.selectOptions(this.serviceFlightPath.serviceProcessors, this.$t, 'flightPath.processors', (l) => { return l.id; }, null, (l) => { return l.id; });
+		this.flightPathProcessors = AppUtility.selectOptions(this.serviceFlightPath.serviceProcessors, this.$t, 'flightPath.processors', (l) => { return l.id; }, null, (l) => { return l.id; });
 		this.flightPathMeasurementUnitsOptions = AppUtility.selectOptions(AppUtility.measurementUnits(), this.$t, 'measurements', null, (l) => { return l + '.altitude.name'; });
 		this.flightPathMeasurementUnits = AppUtility.measurementUnitEnglish;
 	},
 	methods: {
 		checkErrors() {
 			this.$refs.flightPathInput.validate();
-			this.$refs.flightPathDataType.validate();
+			this.$refs.flightPathProcessor.validate();
 			this.$refs.flightPathMeasurementUnits.validate();
 			this.buttons.process.disabled = this.hasError();
+		},
+		flightPathStyleLoad() {
+			if (String.isNullOrEmpty(this.flightInfoProcessor))
+				return;
+
+			const style = AppUtility.$store.getters.flightPathStyle(this.flightInfoProcessor);
+			if (!style)
+				return;
+
+			this.flightPathStyleFlightColor = style.path.flight.color;
+			this.flightPathStylePathGroundColor = style.path.ground.color;
+			this.flightPathStylePinLaunchColor = style.pin.launch.color;
+			this.flightPathStylePinTouchdownColor = style.pin.touchdown.color;
+		},
+		flightPathStyleReset() {
+			this.flightPathStylePathFlightColor = this.serviceFlightInfo.styleDefault.path.flight.color;
+			this.flightPathStylePathGroundColor = this.serviceFlightInfo.styleDefault.path.ground.color;
+			this.flightPathStylePinLaunchColor = this.serviceFlightInfo.styleDefault.event.pin.launch.color;
+			this.flightPathStylePinTouchdownColor = this.serviceFlightInfo.styleDefault.event.pin.touchdown.color;
+		},
+		flightPathStyleSave() {
+			if (String.isNullOrEmpty(this.flightInfoProcessor))
+				return;
+
+			const style = {
+				id: this.flightPathProcessor,
+				path: {
+					flight: {
+						color: this.flightPathStylePathFlightColor
+					},
+					ground: {
+						color: this.flightPathStylePathGroundColor
+					}
+				},
+				pin: {
+					launch: {
+						color: this.flightPathStylePinLaunchColor
+					},
+					touchdown: {
+						color: this.flightPathStylePinTouchdownColor
+					}
+				}
+			};
+
+			AppUtility.$store.dispatch('setFlightPathStyle', style);
 		},
 		flightPathExport() {
 			if (AppUtility.isNull(this.flightPathData))
@@ -330,7 +371,7 @@ export default defineComponent({
 			this.output = '';
 
 			this.$refs.flightPathInput.validate();
-			this.$refs.flightPathDataType.validate();
+			this.$refs.flightPathProcessor.validate();
 			this.$refs.flightPathMeasurementUnits.validate();
 
 			if (this.hasError()) {
@@ -351,14 +392,28 @@ export default defineComponent({
 
 			const flightInfo = {
 				date: this.flightPathDate,
-				flightPathColor: this.flightPathColorFlight ?? this.flightPathColorFlightDefault,
-				groundPathColor: this.flightPathColorGround ?? this.flightPathColorGroundDefault,
-				launchPinColor: this.flightPathColorLaunchPin ?? this.flightPathColorLaunchPinDefault,
-				touchdownPinColor: this.flightPathColorTouchdownPin ?? this.flightPathColorTouchdownPinDefault,
+				style: {
+					path: {
+						flight: {
+							color: this.flightPathStylePathFlightColor ?? this.serviceFlightPath.styleDefault.path.flight.color
+						},
+						ground: {
+							color: this.flightPathStylePathGroundColor ?? this.serviceFlightPath.styleDefault.path.ground.color
+						}
+					},
+					pin: {
+						launch: {
+							color: this.flightPathColorLaunchPinColor ?? this.serviceFlightPath.styleDefault.pin.launch.color
+						},
+						touchdown: {
+							color: this.flightPathColorTouchdownPinColor ?? this.serviceFlightPath.styleDefault.pin.touchdown.color
+						}
+					}
+				},
 				location: this.flightPathLocation,
 				title: this.flightPathTitle
 			}
-			const flightPathResults = this.serviceFlightPath.process(data, this.flightPathDataType, this.flightPathMeasurementUnits, flightInfo);
+			const flightPathResults = this.serviceFlightPath.process(data, this.flightPathProcessor, this.flightPathMeasurementUnits, flightInfo);
 			this.flightPathData = flightPathResults.info.flightPath;
 			// this.output = JSON.stringify(flightPathResults, null, 2);
 			this.output = flightPathResults.info.flightPath;
@@ -366,7 +421,7 @@ export default defineComponent({
 			this.buttons.export.disabled = false;
 		},
 		hasError() {
-			return (this.$refs.flightPathInput.hasError || this.$refs.flightPathDataType.hasError || this.$refs.flightPathMeasurementUnits.hasError);
+			return (this.$refs.flightPathInput.hasError || this.$refs.flightPathProcessor.hasError || this.$refs.flightPathMeasurementUnits.hasError);
 		},
 		reset() {
 			this.buttons.export.disabled = true;
@@ -378,7 +433,7 @@ export default defineComponent({
 		},
 		resetInput() {
 			this.reset();
-			this.flightPathDataType = null;
+			this.flightPathProcessor = null;
 			this.flightPathDate = null;
 			this.flightPathInput = null;
 			this.flightPathLocation = null;

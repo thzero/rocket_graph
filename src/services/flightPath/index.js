@@ -19,6 +19,27 @@ class FlightPathService extends Service {
 		this.registerProcessor(serviceFlightPathProcessorFeatherweight);
 	}
 
+	get styleDefault() {
+		return {
+			path: {
+				flight: {
+					color: '#0000ff'
+				},
+				ground: {
+					color: '#000000'
+				}
+			},
+			pin: {
+				launch: {
+					color: '#ff0000'
+				},
+				touchdown: {
+					color: '#00ff00'
+				}
+			}
+		};
+	}
+
 	get serviceProcessors() {
 		return this._serviceProcessors;
 	}

@@ -42,12 +42,16 @@ export default store(function () {
 		state () {
 			return {
 				flightInfoColors: [],
+				flightPathStyle: [],
 				measurementUnits: AppUtility.measurementUnitEnglish
 			}
 		},
 		actions: {
 			async setFlightInfoColors({ commit }, value) {
 				commit('setFlightInfoColors', value);
+			},
+			async setFlightPathStyle({ commit }, value) {
+				commit('setFlightPathStyle', value);
 			},
 			async setMeasurementUnits({ commit }, value) {
 				commit('setMeasurementUnits', value);
@@ -58,6 +62,11 @@ export default store(function () {
 				if (!state.flightInfoColors)
 					return null;
 				return state.flightInfoColors.find(l => l.id);
+			},
+			getFlightPathStyle: (state) => (id) => {
+				if (!state.flightPathStyle)
+					return null;
+				return state.flightPathStyle.find(l => l.id);
 			},
 			getMeasurementUnit: (state) => () => {
 				return state.measurementUnits ?? AppUtility.measurementUnitEnglish
@@ -70,6 +79,13 @@ export default store(function () {
 				if (!state.flightInfoColors)
 					state.flightInfoColors = [];
 				state.flightInfoColors = AppUtility.updateArrayByObject(state.flightInfoColors, value);
+			},
+			setFlightPathStyle (state, value) {
+				if (String.isNullOrEmpty(value.id))
+					return;
+				if (!state.flightPathStyle)
+					state.flightPathStyle = [];
+				state.flightPathStyle = AppUtility.updateArrayByObject(state.flightPathStyle, value);
 			},
 			setMeasurementUnits (state, value) {
 				state.measurementUnits = value;

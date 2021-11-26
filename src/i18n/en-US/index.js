@@ -107,14 +107,22 @@ export default {
 	},
 	flightPath: {
 		title: 'Flight Title',
-		color: {
-			flight: 'Flight Path Color',
-			ground: 'Ground Path Color',
-			launch: 'Launch Pin Color',
-			touchdown: 'Touchdown Pin Color'
+		style: {
+			title: 'Flight Path Styles',
+			flight: {
+				color: 'Flight Path Color'
+			},
+			ground: {
+				color: 'Ground Path Color'
+			},
+			launch: {
+				color: 'Launch Pin Color'
+			},
+			touchdown: {
+				color: 'Touchdown Pin Color'
+			}
 		},
 		csv: 'CSV GPS Flight Data',
-		dataTypes: 'Flight Data Type',
 		date: 'Flight Date',
 		flightPath: 'Flight Path',
 		groundPath: 'Ground Path',
@@ -122,6 +130,7 @@ export default {
 		location: 'Flight Location',
 		measurementUnits: 'Altitude Measurement Units',
 		processors: {
+			title: 'Flight Data Type',
 			eggtimer: 'Eggtimer',
 			featherweight: 'Featherweight'
 		},
