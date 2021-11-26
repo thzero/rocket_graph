@@ -199,7 +199,9 @@ export default {
 		application: 'Rocket Graph',
 		flightInfo: 'Flight Info',
 		flightPath: 'Flight Path',
+		help: 'Help',
 		home: 'Home',
+		isues: 'Issues',
 		settings: 'Settings',
 		openSource: 'Open Source'
 	},
