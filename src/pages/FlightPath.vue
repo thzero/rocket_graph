@@ -91,12 +91,16 @@
 								dense
 								:label="$t('flightPath.color.launch')"
 							>
+								<template v-slot:prepend>
+									<div :style="'height: 25px; width: 25px; background-color: ' + flightPathColorLaunchPin">
+									</div>
+								</template>
 								<template v-slot:append>
-								<q-icon name="colorize" class="cursor-pointer">
-									<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-									<q-color v-model="flightPathColorLaunchPin" />
-									</q-popup-proxy>
-								</q-icon>
+									<q-icon name="colorize" class="cursor-pointer">
+										<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+											<q-color v-model="flightPathColorLaunchPin" />
+										</q-popup-proxy>
+									</q-icon>
 								</template>
 							</q-input>
 							<q-input
@@ -105,12 +109,16 @@
 								dense
 								:label="$t('flightPath.color.flight')"
 							>
+								<template v-slot:prepend>
+									<div :style="'height: 25px; width: 25px; background-color: ' + flightPathColorFlight">
+									</div>
+								</template>
 								<template v-slot:append>
-								<q-icon name="colorize" class="cursor-pointer">
-									<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-									<q-color v-model="flightPathColorFlight" />
-									</q-popup-proxy>
-								</q-icon>
+									<q-icon name="colorize" class="cursor-pointer">
+										<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+											<q-color v-model="flightPathColorFlight" />
+										</q-popup-proxy>
+									</q-icon>
 								</template>
 							</q-input>
 							<q-input
@@ -119,12 +127,16 @@
 								dense
 								:label="$t('flightPath.color.ground')"
 							>
+								<template v-slot:prepend>
+									<div :style="'height: 25px; width: 25px; background-color: ' + flightPathColorGround">
+									</div>
+								</template>
 								<template v-slot:append>
-								<q-icon name="colorize" class="cursor-pointer">
-									<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-									<q-color v-model="flightPathColorGround" />
-									</q-popup-proxy>
-								</q-icon>
+									<q-icon name="colorize" class="cursor-pointer">
+										<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+											<q-color v-model="flightPathColorGround" />
+										</q-popup-proxy>
+									</q-icon>
 								</template>
 							</q-input>
 							<q-input
@@ -133,10 +145,14 @@
 								dense
 								:label="$t('flightPath.color.touchdown')"
 							>
+								<template v-slot:prepend>
+									<div :style="'height: 25px; width: 25px; background-color: ' + flightPathColorTouchdownPin">
+									</div>
+								</template>
 								<template v-slot:append>
 									<q-icon name="colorize" class="cursor-pointer">
 										<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-										<q-color v-model="flightPathColorTouchdownPin" />
+											<q-color v-model="flightPathColorTouchdownPin" />
 										</q-popup-proxy>
 									</q-icon>
 								</template>
