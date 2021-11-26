@@ -148,6 +148,7 @@ export default defineComponent({
 				serviceWindow.closeApp();
 		}
 		function launchHelp() {
+			// openURL('https://github.com/thzero/rocket_graph/wiki',
 			openURL('https://github.com/thzero/rocket_graph',
 				null,
 				{
