@@ -531,11 +531,11 @@ export default defineComponent({
 	created() {
 		this.serviceFlightInfo = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_FLIGHT_INFO);
 
-		this.flightInfoStyleReset();
+		this.flightInfoStyleReset(false);
 	},
 	mounted() {
 		this.reset();
-		this.flightInfoStyleReset();
+		this.flightInfoStyleReset(false);
 
 		this.flightInfoProcessors = AppUtility.selectOptions(this.serviceFlightInfo.serviceProcessors, this.$t, 'flightInfo.processors', (l) => { return l.id; }, null, (l) => { return l.id; });
 		this.flightInfoMeasurementUnitsOptions = AppUtility.selectOptions(AppUtility.measurementUnits(), this.$t, 'measurementUnits');
@@ -570,7 +570,7 @@ export default defineComponent({
 			this.flightInfoStyleVelocityColor = style.velocity.color;
 			this.flightInfoStyleVelocityFColor = style.velocityF.color;
 		},
-		flightInfoStyleReset() {
+		flightInfoStyleReset(notify) {
 			this.flightInfoStyleAltitudeColor = this.serviceFlightInfo.styleDefault.altitude.color;
 			this.flightInfoStyleAltitudeFColor = this.serviceFlightInfo.styleDefault.altitudeF.color;
 			this.flightInfoStyleEventApogeeColor = this.serviceFlightInfo.styleDefault.event.apogee.color;
@@ -582,7 +582,9 @@ export default defineComponent({
 			this.flightInfoStyleVelocityColor = this.serviceFlightInfo.styleDefault.velocity.color;
 			this.flightInfoStyleVelocityFColor = this.serviceFlightInfo.styleDefault.velocityF.color;
 
-			this.notify('messages.reset');
+			notify = (notify !== null && notify !== undefined) ? notify : true;
+			if (notify)
+				this.notify('messages.reset');
 		},
 		flightInfoStyleSave() {
 			if (String.isNullOrEmpty(this.flightInfoProcessor))
