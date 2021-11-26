@@ -109,15 +109,18 @@
 							</span>
 						</div>
 					</div>
-					<q-card flat bordered>
+					<q-card
+						flat
+						bordered
+						dense>
 						<q-card-actions>
 							{{ $t('flightInfo.color.title') }}
 							<q-space></q-space>
 							<q-btn
 								color="grey"
 								round
-								flat
 								dense
+								flat
 								:icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
 								@click="expanded = !expanded"
 							></q-btn>
@@ -341,7 +344,7 @@
 										<div class="col-12">
 											<div class="float-right q-mt-sm">
 												<q-btn
-													class="q-pa-sm q-mr-sm"
+													class="q-mr-sm"
 													dense
 													color="primary"
 													:label="$t('button.save')"
@@ -349,7 +352,6 @@
 													@click="flightInfoColorSave"
 												/>
 												<q-btn
-													class="q-pa-sm"
 													dense
 													color="primary"
 													:label="$t('button.reset')"
@@ -364,49 +366,46 @@
 					</q-card>
 				</div>
 				<div class="q-pb-md float-right">
-					<q-btn-group>
-						<q-btn
-							class="q-pa-sm"
-							dense
-							color="primary"
-							:label="$t('button.process')"
-							:disabled="buttons.process.disabled"
-							@click="flightInfoProcess"
-							@focus="checkErrors"
-						/>
-						<q-btn-dropdown
-							class="q-pa-sm"
-							dense
-							color="primary"
-							:label="$t('button.export')"
-							:disabled="buttons.export.disabled"
-						>
-							<q-list>
-								<q-item clickable v-close-popup @click="flightInfoExport">
-									<q-item-section>
-										<q-item-label>{{ $t('flightInfo.export.image') }}</q-item-label>
-									</q-item-section>
-								</q-item>
-								<q-item clickable v-close-popup @click="flightInfoExportJson">
-									<q-item-section>
-										<q-item-label>{{ $t('flightInfo.export.json') }}</q-item-label>
-									</q-item-section>
-								</q-item>
-								<!-- <q-item clickable v-close-popup @click="flightInfoExportText">
-									<q-item-section>
-										<q-item-label>{{ $t('flightInfo.export.text') }}</q-item-label>
-									</q-item-section>
-								</q-item> -->
-							</q-list>
-						</q-btn-dropdown>
-						<q-btn
-							class="q-pa-sm"
-							dense
-							color="primary"
-							:label="$t('button.reset')"
-							@click="resetInput"
-						/>
-					</q-btn-group>
+					<q-btn
+						class="q-mr-sm"
+						dense
+						color="primary"
+						:label="$t('button.process')"
+						:disabled="buttons.process.disabled"
+						@click="flightInfoProcess"
+						@focus="checkErrors"
+					/>
+					<q-btn-dropdown
+						class="q-mr-sm"
+						dense
+						color="primary"
+						:label="$t('button.export')"
+						:disabled="buttons.export.disabled"
+					>
+						<q-list>
+							<q-item clickable v-close-popup @click="flightInfoExport">
+								<q-item-section>
+									<q-item-label>{{ $t('flightInfo.export.image') }}</q-item-label>
+								</q-item-section>
+							</q-item>
+							<q-item clickable v-close-popup @click="flightInfoExportJson">
+								<q-item-section>
+									<q-item-label>{{ $t('flightInfo.export.json') }}</q-item-label>
+								</q-item-section>
+							</q-item>
+							<!-- <q-item clickable v-close-popup @click="flightInfoExportText">
+								<q-item-section>
+									<q-item-label>{{ $t('flightInfo.export.text') }}</q-item-label>
+								</q-item-section>
+							</q-item> -->
+						</q-list>
+					</q-btn-dropdown>
+					<q-btn
+						dense
+						color="primary"
+						:label="$t('button.reset')"
+						@click="resetInput"
+					/>
 				</div>
 				<q-input
 					ref="flightInfoInput"
@@ -579,6 +578,8 @@ export default defineComponent({
 			this.flightInfoColorEventMainBorder = this.serviceFlightInfo.colorsDefault.event.mainBorder;
 			this.flightInfoColorVelocity = this.serviceFlightInfo.colorsDefault.velocity;
 			this.flightInfoColorVelocityF = this.serviceFlightInfo.colorsDefault.velocityF;
+
+			this.notify('messages.reset');
 		},
 		flightInfoColorSave() {
 			if (String.isNullOrEmpty(this.flightInfoProcessor))
@@ -770,6 +771,8 @@ export default defineComponent({
 			this.flightInfoProcessor = null;
 			this.flightInfoTitle = null;
 			this.buttons.process.disabled = true;
+
+			this.notify('messages.reset');
 		},
 		setError(message) {
 			this.buttons.export.disabled = true;
