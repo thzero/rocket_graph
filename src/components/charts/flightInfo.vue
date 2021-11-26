@@ -96,75 +96,86 @@ export default defineComponent({
 					type: 'line',
 					data: {
 						labels: flightInfo.time,
-						datasets: [
-							{
-								type: 'line',
-								data: flightInfo.altitude.dataF,
-								label: this.$t('charts.flightInfo.altitude.titleF'),
-								borderColor: '#0000FF',
-								fill: false,
-								pointRadius: 0
-							},
-							{
-								type: 'line',
-								data: flightInfo.altitude.data,
-								label: this.$t('charts.flightInfo.altitude.title'),
-								borderColor: '#0066FF',
-								fill: false,
-								pointRadius: 0
-							},
-							{
-								type: 'line',
-								data: flightInfo.velocity.dataF,
-								label: this.$t('charts.flightInfo.velocity.titleF'),
-								borderColor: '#00AA00',
-								fill: false,
-								pointRadius: 0
-							},
-							{
-								type: 'line',
-								data: flightInfo.velocity.data,
-								label: this.$t('charts.flightInfo.velocity.title'),
-								borderColor: '#00FFFF',
-								fill: false,
-								pointRadius: 0
-							},
-							{
-								type: 'scatter',
-								data: flightInfo.events.apogee.data,
-								label: this.$t('charts.flightInfo.events.apogee'),
-								borderColor: '#000000',
-								backgroundColor: '#0000007F',
-								borderWidth: 2,
-								pointRadius: 10
-							},
-							// {
-							// 	type: 'scatter',
-							// 	data: flightInfo.events.noseOver.data,
-							// 	label: this.$t('charts.flightInfo.events.noseOver'),
-							// 	borderColor: '#FFFF00',
-							// 	pointRadius: 10
-							// },
-							{
-								type: 'scatter',
-								data: flightInfo.events.drogue.data,
-								label: this.$t('charts.flightInfo.events.drogue'),
-								borderColor: '#FF0000',
-								backgroundColor: '#FF00007F',
-								pointRadius: 10
-							},
-							{
-								type: 'scatter',
-								data: flightInfo.events.main.data,
-								label: this.$t('charts.flightInfo.events.main'),
-								borderColor: '#FF8C00',
-								backgroundColor: '#FF8C007F',
-								pointRadius: 10
-							}
-						]
+						datasets: []
 					},
 					options: this.options
+				};
+
+				if (flightInfo.dataTypes.filtered) {
+					chart.data.datasets.push({
+						type: 'line',
+						data: flightInfo.altitude.dataF,
+						label: this.$t('charts.flightInfo.altitude.titleF'),
+						borderColor: '#0000FF',
+						fill: false,
+						pointRadius: 0
+					});
 				}
+				if (flightInfo.dataTypes.actual) {
+					chart.data.datasets.push({
+						type: 'line',
+						data: flightInfo.altitude.data,
+						label: this.$t('charts.flightInfo.altitude.title'),
+						borderColor: '#0066FF',
+						fill: false,
+						pointRadius: 0
+					});
+				}
+
+				if (flightInfo.dataTypes.filtered) {
+					chart.data.datasets.push({
+						type: 'line',
+						data: flightInfo.velocity.dataF,
+						label: this.$t('charts.flightInfo.velocity.titleF'),
+						borderColor: '#00AA00',
+						fill: false,
+						pointRadius: 0
+					});
+				}
+				if (flightInfo.dataTypes.actual) {
+					chart.data.datasets.push({
+						type: 'line',
+						data: flightInfo.velocity.data,
+						label: this.$t('charts.flightInfo.velocity.title'),
+						borderColor: '#00FFFF',
+						fill: false,
+						pointRadius: 0
+					});
+				}
+
+				chart.data.datasets.push({
+					type: 'scatter',
+					data: flightInfo.events.apogee.data,
+					label: this.$t('charts.flightInfo.events.apogee'),
+					borderColor: '#000000',
+					backgroundColor: '#0000007F',
+					borderWidth: 2,
+					pointRadius: 10
+				});
+				// chart.data.datasets.push({
+				// 	type: 'scatter',
+				// 	data: flightInfo.events.noseOver.data,
+				// 	label: this.$t('charts.flightInfo.events.noseOver'),
+				// 	borderColor: '#FFFF00',
+				// 	pointRadius: 10
+				// });
+				chart.data.datasets.push({
+					type: 'scatter',
+					data: flightInfo.events.drogue.data,
+					label: this.$t('charts.flightInfo.events.drogue'),
+					borderColor: '#FF0000',
+					backgroundColor: '#FF00007F',
+					pointRadius: 10
+				});
+				chart.data.datasets.push({
+					type: 'scatter',
+					data: flightInfo.events.main.data,
+					label: this.$t('charts.flightInfo.events.main'),
+					borderColor: '#FF8C00',
+					backgroundColor: '#FF8C007F',
+					pointRadius: 10
+				});
+
 				this.chart = new Chart(this.ctx, chart);
 			}
 		}

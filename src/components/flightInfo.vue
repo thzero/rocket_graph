@@ -163,7 +163,7 @@ export default defineComponent({
 			return value?.toLocaleString();
 		},
 		valueType(value, valueF) {
-			return valueF;
+			return this.flightInfo?.dataTypes?.use ? valueF : value;
 		}
 	}
 });

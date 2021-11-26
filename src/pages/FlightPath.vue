@@ -77,7 +77,7 @@
 								emit-value
 								map-options
 								hide-bottom-space
-								:label="$t('flightPath.dataTypes')"
+								:label="$t('flightPath.processors.title')"
 								:rules="[val => !!val || $t('validation.required')]"
 								@update:model-value="checkErrors"
 							/>
@@ -134,11 +134,11 @@
 								:label="$t('flightPath.color.touchdown')"
 							>
 								<template v-slot:append>
-								<q-icon name="colorize" class="cursor-pointer">
-									<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-									<q-color v-model="flightPathColorTouchdownPin" />
-									</q-popup-proxy>
-								</q-icon>
+									<q-icon name="colorize" class="cursor-pointer">
+										<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+										<q-color v-model="flightPathColorTouchdownPin" />
+										</q-popup-proxy>
+									</q-icon>
 								</template>
 							</q-input>
 						</div>

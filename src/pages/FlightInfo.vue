@@ -65,9 +65,9 @@
 						@update:model-value="checkErrors"
 					/>
 					<q-select
-						ref="flightInfoDataType"
-						v-model="flightInfoDataType"
-						:options="flightInfoDataTypes"
+						ref="flightInfoProcessor"
+						v-model="flightInfoProcessor"
+						:options="flightInfoProcessors"
 						filled
 						dense
 						option-value="id"
@@ -75,10 +75,40 @@
 						emit-value
 						map-options
 						hide-bottom-space
-						:label="$t('flightInfo.dataTypes')"
+						:label="$t('flightInfo.processors.title')"
 						:rules="[val => !!val || $t('validation.required')]"
 						@update:model-value="checkErrors"
 					/>
+					<div class="row">
+						<div class="q-pr-xl">
+							<q-checkbox
+								v-model="flightInfoDataTypeActual"
+								label="Actual"
+								@update:model-value="checkErrors"
+							/>
+							<q-checkbox
+								v-model="flightInfoDataTypeFiltered"
+								label="Filtered"
+								@update:model-value="checkErrors"
+							/>
+						</div>
+						<div>
+							<span
+								:class="!flightInfoDataTypeActual ? 'disabled' : ''"
+							>
+								Actual
+							</span>
+							<q-toggle
+								v-model="flightInfoDataTypeUse"
+								:disable="flightInfoDataTypeUseDisabled"
+							/>
+							<span
+								:class="!flightInfoDataTypeFiltered ? 'disabled' : ''"
+							>
+								Filtered
+							</span>
+						</div>
+					</div>
 				</div>
 				<div class="q-pb-md float-right">
 					<q-btn-group>
@@ -206,32 +236,57 @@ export default defineComponent({
 		},
 		flightInfo: null,
 		flightInfoChartData: null,
-		flightInfoDataType: null,
-		flightInfoDataTypes: [],
+		flightInfoDataTypeActual: true,
+		flightInfoDataTypeError: false,
+		flightInfoDataTypeFiltered: true,
+		flightInfoDataTypeUse: true,
+		flightInfoDataTypeUseDisabled: false,
 		flightInfoDate: null,
 		flightInfoInput: null,
 		flightInfoLocation: null,
 		flightInfoMeasurementUnits: null,
 		flightInfoMeasurementUnitsOptions: [],
+		flightInfoProcessor: null,
+		flightInfoProcessors: [],
 		flightInfoTitle: null,
 		serviceFlightInfo: null
 	}),
+	watch: {
+		flightInfoDataTypeActual: function (value) {
+			this.checkFlightInfoDataTypeUse();
+		},
+		flightInfoDataTypeFiltered: function (value) {
+			this.checkFlightInfoDataTypeUse();
+		}
+	},
 	created() {
 		this.serviceFlightInfo = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_FLIGHT_INFO);
 	},
 	mounted() {
 		this.reset();
 
-		this.flightInfoDataTypes = AppUtility.selectOptions(this.serviceFlightInfo.serviceProcessors, this.$t, 'flightInfo.processors', (l) => { return l.id; }, null, (l) => { return l.id; });
+		this.flightInfoProcessors = AppUtility.selectOptions(this.serviceFlightInfo.serviceProcessors, this.$t, 'flightInfo.processors', (l) => { return l.id; }, null, (l) => { return l.id; });
 		this.flightInfoMeasurementUnitsOptions = AppUtility.selectOptions(AppUtility.measurementUnits(), this.$t, 'measurementUnits');
 		this.flightInfoMeasurementUnits = AppUtility.$store.state.measurementUnits;
 	},
 	methods: {
 		checkErrors() {
 			this.$refs.flightInfoInput.validate();
-			this.$refs.flightInfoDataType.validate();
 			this.$refs.flightInfoMeasurementUnits.validate();
+			this.$refs.flightInfoProcessor.validate();
+
+			this.flightInfoDataTypeError = !(this.flightInfoDataTypeActual || this.flightInfoDataTypeFiltered);
+
 			this.buttons.process.disabled = this.hasError();
+		},
+		checkFlightInfoDataTypeUse() {
+			this.flightInfoDataTypeUseDisabled = true;
+			if (this.flightInfoDataTypeActual && this.flightInfoDataTypeFiltered)
+				this.flightInfoDataTypeUseDisabled = false;
+			else if (this.flightInfoDataTypeActual)
+				this.flightInfoDataTypeUse = false;
+			else if (this.flightInfoDataTypeFiltered)
+				this.flightInfoDataTypeUse = true;
 		},
 		flightInfoExportName(extension) {
 			extension = !String.isNullOrEmpty(extension) ? extension : 'png';
@@ -351,8 +406,8 @@ Events
 			this.reset();
 
 			this.$refs.flightInfoInput.validate();
-			this.$refs.flightInfoDataType.validate();
 			this.$refs.flightInfoMeasurementUnits.validate();
+			this.$refs.flightInfoProcessor.validate();
 
 			if (this.hasError()) {
 				this.setError(this.$t('errors.process.required'));
@@ -370,7 +425,13 @@ Events
 				return;
 			}
 
-			const flightInfoResults = this.serviceFlightInfo.process(data, this.flightInfoDataType, this.flightInfoMeasurementUnits);
+			const flightInfoDataTypes = {
+				actual: this.flightInfoDataTypeActual,
+				filtered: this.flightInfoDataTypeFiltered,
+				use: this.flightInfoDataTypeUse
+			};
+
+			const flightInfoResults = this.serviceFlightInfo.process(data, this.flightInfoProcessor, this.flightInfoMeasurementUnits, flightInfoDataTypes);
 			console.log(flightInfoResults);
 			if (flightInfoResults.errors && data.errors.length > 0) {
 				const errors = flightInfoResults.errors.map(e => this.$t(e) + '<br/>');
@@ -394,7 +455,12 @@ Events
 			this.buttons.export.disabled = false;
 		},
 		hasError() {
-			return (this.$refs.flightInfoInput.hasError || this.$refs.flightInfoDataType.hasError || this.$refs.flightInfoMeasurementUnits.hasError);
+			return (
+				this.$refs.flightInfoInput.hasError ||
+				this.$refs.flightInfoProcessor.hasError ||
+				this.$refs.flightInfoMeasurementUnits.hasError ||
+				this.flightInfoDataTypeError
+			);
 		},
 		reset() {
 			this.buttons.export.disabled = true;
@@ -406,10 +472,14 @@ Events
 		},
 		resetInput() {
 			this.reset();
-			this.flightInfoDataType = null;
+			this.flightInfoDataTypeActual = true;
+			this.flightInfoDataTypeFiltered = true;
+			this.flightInfoDataTypeUse = true;
+			this.flightInfoDataTypeUseDisabled = false;
 			this.flightInfoDate = null;
 			this.flightInfoInput = null;
 			this.flightInfoLocation = null;
+			this.flightInfoProcessor = null;
 			this.flightInfoTitle = null;
 			this.buttons.process.disabled = true;
 		},

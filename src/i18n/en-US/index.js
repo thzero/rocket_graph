@@ -63,7 +63,9 @@ export default {
 	flightInfo: {
 		title: 'Flight Title',
 		csv: 'CSV Flight Data',
-		dataTypes: 'Flight Data Type',
+		dataTypes: {
+			showActual: 'Show Actual'
+		},
 		date: 'Flight Date',
 		export: {
 			image: 'image',
@@ -73,6 +75,7 @@ export default {
 		location: 'Flight Location',
 		measurementUnits: 'Flight Measurement Units',
 		processors: {
+			title: 'Flight Data Type',
 			eggtimer: 'Eggtimer'
 		}
 	},

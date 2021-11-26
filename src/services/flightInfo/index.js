@@ -23,10 +23,11 @@ class FlightInfoService extends Service {
 		return this._serviceProcessors;
 	}
 
-	process(data, processorId, measurementUnits) {
+	process(data, processorId, measurementUnits, dataTypes) {
 		this._enforceNotNull('FlightInfoService', 'process', data, 'data');
 		this._enforceNotEmpty('FlightInfoService', 'process', processorId, 'processorId');
 		this._enforceNotEmpty('FlightInfoService', 'process', measurementUnits, 'measurementUnits');
+		this._enforceNotEmpty('FlightInfoService', 'process', dataTypes, 'dataTypes');
 
 		const results = new Results();
 
@@ -47,6 +48,7 @@ class FlightInfoService extends Service {
 		}
 
 		results.info = this._initialize();
+		results.info.dataTypes = dataTypes;
 		processor.process(results, data, measurementUnits);
 		console.log(results.info);
 
@@ -147,6 +149,11 @@ class FlightInfoService extends Service {
 				maxF: 0
 			},
 			date: null,
+			dataTypes: {
+				actual: false,
+				actualShow: false,
+				filtered: true
+			},
 			events: {
 				apogee: {
 					altitude: 0,
