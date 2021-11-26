@@ -107,9 +107,25 @@ export default defineComponent({
 							},
 							{
 								type: 'line',
+								data: flightInfo.altitude.data,
+								label: this.$t('charts.flightInfo.altitude'),
+								borderColor: '#0066FF',
+								fill: false,
+								pointRadius: 0
+							},
+							{
+								type: 'line',
 								data: flightInfo.velocity.dataF,
 								label: this.$t('charts.flightInfo.velocity'),
-								borderColor: '#00FF00',
+								borderColor: '#00AA00',
+								fill: false,
+								pointRadius: 0
+							},
+							{
+								type: 'line',
+								data: flightInfo.velocity.data,
+								label: this.$t('charts.flightInfo.velocity'),
+								borderColor: '#00FFFF',
 								fill: false,
 								pointRadius: 0
 							},

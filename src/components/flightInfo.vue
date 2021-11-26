@@ -1,137 +1,137 @@
 <template>
-		<table class="measurements" style="width: 100%;">
-			<tr>
-				<th>Flight Time</th>
-				<td><span>{{ flightInfo?.events?.ground?.time }}</span>{{ measurementTime }}</td>
-			</tr>
-			<tr>
-				<th>Max. Altitude</th>
-				<td><span>{{ formatNumber(flightInfo?.altitude?.max) }}</span>{{ measurementAltitude }}</td>
-			</tr>
-			<tr>
-				<th colspan="2"></th>
-			</tr>
-			<tr>
-				<th colspan="2">Velocity</th>
-			</tr>
-			<tr>
-				<th class="subTitleSep" colspan="2">Ascent</th>
-			</tr>
-			<tr>
-				<th class="subSep">Max.</th>
-				<td><span>{{ formatNumber(flightInfo?.velocity?.max?.value) }}</span>{{ measurementVelocity }}&nbsp;@&nbsp;<span>{{ flightInfo?.velocity?.max?.time }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(flightInfo?.velocity?.max?.altitude) }}</span>{{ measurementAltitude }}</td>
-			</tr>
-			<tr>
-				<th class="subSep">Avg.</th>
-				<td><span>{{ formatNumber(flightInfo?.velocity?.avg?.value) }}</span>{{ measurementVelocity }}</td>
-			</tr>
-			<tr style="display: none;">
-				<th class="subSep">Min.</th>
-				<td><span>{{ formatNumber(flightInfo?.velocity?.min?.value) }}</span>{{ measurementVelocity }}&nbsp;@&nbsp;<span>{{ flightInfo?.velocity?.min?.time }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(flightInfo?.velocity?.min?.altitude) }}</span>{{ measurementAltitude }}</td>
-			</tr>
-			<tr>
-				<th class="subTitleSep" colspan="2">Descent</th>
-			</tr>
-			<tr>
-				<th class="subTitleSep2" colspan="2">Drogue</th>
-			</tr>
-			<tr>
-				<th class="subSep3">Max.</th>
-				<td><span>{{ formatNumber(flightInfo?.velocity?.min?.drogue?.max?.value) }}</span>{{ measurementVelocity }}&nbsp;@&nbsp;<span>{{ flightInfo?.velocity?.min?.drogue?.max?.time }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(flightInfo?.velocity?.min?.drogue?.max?.altitude) }}</span>{{ measurementAltitude }}</td>
-			</tr>
-			<tr>
-				<th class="subSep3">Min.</th>
-				<td><span>{{ formatNumber(flightInfo?.velocity?.min?.drogue?.min?.value) }}</span>{{ measurementVelocity }}&nbsp;@&nbsp;<span>{{ flightInfo?.velocity?.min?.drogue?.min?.time }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(flightInfo?.velocity?.min?.drogue?.min?.altitude) }}</span>{{ measurementAltitude }}</td>
-			</tr>
-			<tr>
-				<th class="subSep3">Avg.</th>
-				<td><span>{{ formatNumber(flightInfo?.velocity?.min?.drogue?.avg?.value) }}</span>{{ measurementVelocity }}</td>
-			</tr>
-			<tr>
-				<th class="subTitleSep2" colspan="2">Main</th>
-			</tr>
-			<tr>
-				<th class="subSep3">Max.</th>
-				<td><span>{{ formatNumber(flightInfo?.velocity?.min?.main?.max?.value) }}</span>{{ measurementVelocity }}&nbsp;@&nbsp;<span>{{ flightInfo?.velocity?.min?.main?.max?.time }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(flightInfo?.velocity?.min?.main?.max?.altitude) }}</span>{{ measurementAltitude }}</td>
-			</tr>
-			<tr>
-				<th class="subSep3">Min.</th>
-				<td><span>{{ formatNumber(flightInfo?.velocity?.min?.main?.min?.value) }}</span>{{ measurementVelocity }}&nbsp;@&nbsp;<span>{{ flightInfo?.velocity?.min?.main?.min?.time }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(flightInfo?.velocity?.min?.main?.min?.altitude) }}</span>{{ measurementAltitude }}</td>
-			</tr>
-			<tr>
-				<th class="subSep3">Avg.</th>
-				<td><span>{{ formatNumber(flightInfo?.velocity?.min?.main?.avg?.value) }}</span>{{ measurementVelocity }}</td>
-			</tr>
-			<tr>
-				<th colspan="2"></th>
-			</tr>
-			<tr>
-				<th colspan="2">Acceleration</th>
-			</tr>
-			<tr>
-				<th class="subTitleSep">Max.</th>
-				<td><span>{{ formatNumber(flightInfo?.acceleration?.max?.value) }}</span>{{ measurementAcceleration }}&nbsp;@&nbsp;<span>{{ flightInfo?.acceleration?.max?.time }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(flightInfo?.acceleration?.max?.altitude) }}</span>{{ measurementAltitude }}</td>
-			</tr>
-			<tr>
-				<th class="subTitleSep">Min.</th>
-				<td><span>{{ formatNumber(flightInfo?.acceleration?.min?.value) }}</span>{{ measurementAcceleration }}&nbsp;@&nbsp;<span>{{ flightInfo?.acceleration?.min?.time }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(flightInfo?.acceleration?.min?.altitude) }}</span>{{ measurementAltitude }}</td>
-			</tr>
-			<tr>
-				<th class="subTitleSep" colspan="2">Descent</th>
-			</tr>
-			<tr>
-				<th class="subTitleSep2" colspan="2">Drogue</th>
-			</tr>
-			<tr>
-				<th class="subSep3">Max.</th>
-				<td><span>{{ formatNumber(flightInfo?.acceleration?.min?.drogue?.max?.value) }}</span>{{ measurementAcceleration }}&nbsp;@&nbsp;<span>{{ flightInfo?.acceleration?.min?.drogue?.max?.time }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(flightInfo?.acceleration?.min?.drogue?.max?.altitude) }}</span>{{ measurementAltitude }}</td>
-			</tr>
-			<tr>
-				<th class="subSep3">Min.</th>
-				<td><span>{{ formatNumber(flightInfo?.acceleration?.min?.drogue?.min?.value) }}</span>{{ measurementAcceleration }}&nbsp;@&nbsp;<span>{{ flightInfo?.acceleration?.min?.drogue?.min?.time }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(flightInfo?.acceleration?.min?.drogue?.min?.altitude) }}</span>{{ measurementAltitude }}</td>
-			</tr>
-			<tr>
-				<th class="subSep3">Avg.</th>
-				<td><span>{{ formatNumber(flightInfo?.acceleration?.min?.drogue?.avg?.value) }}</span>{{ measurementAcceleration }}</td>
-			</tr>
-			<tr>
-				<th class="subTitleSep2" colspan="2">Main</th>
-			</tr>
-			<tr>
-				<th class="subSep3">Max.</th>
-				<td><span>{{ formatNumber(flightInfo?.acceleration?.min?.main?.max?.value) }}</span>{{ measurementAcceleration }}&nbsp;@&nbsp;<span>{{ flightInfo?.acceleration?.min?.main?.max?.time }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(flightInfo?.acceleration?.min?.main?.max?.altitude) }}</span>{{ measurementAltitude }}</td>
-			</tr>
-			<tr>
-				<th class="subSep3">Min.</th>
-				<td><span>{{ formatNumber(flightInfo?.acceleration?.min?.main?.min?.value) }}</span>{{ measurementAcceleration }}&nbsp;@&nbsp;<span>{{ flightInfo?.acceleration?.min?.main?.min?.time }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(flightInfo?.acceleration?.min?.main?.min?.altitude) }}</span>{{ measurementAltitude }}</td>
-			</tr>
-			<tr>
-				<th class="subSep3">Avg.</th>
-				<td><span>{{ formatNumber(flightInfo?.acceleration?.min?.main?.avg?.value) }}</span>{{ measurementAcceleration }}</td>
-			</tr>
-			<tr>
-				<th colspan="2"></th>
-			</tr>
-			<tr>
-				<th colspan="2">Events</th>
-			</tr>
-			<tr>
-				<th class="subTitleSep">Apogee</th>
-				<td><span>{{ formatNumber(flightInfo?.events?.apogee?.altitude) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ flightInfo?.events?.apogee?.time }}</span>{{ measurementTime }}</td>
-			</tr>
-			<tr>
-				<th class="subTitleSep">Nose Over</th>
-				<td><span>{{ formatNumber(flightInfo?.events?.noseOver?.altitude) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ flightInfo?.events?.noseOver?.time }}</span>{{ measurementTime }}</td>
-			</tr>
-			<tr>
-				<th class="subTitleSep">Drogue</th>
-				<td><span>{{ formatNumber(flightInfo?.events?.drogue?.altitude) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ flightInfo?.events?.drogue?.time }}</span>{{ measurementTime }}</td>
-			</tr>
-			<tr>
-				<th class="subTitleSep">Main</th>
-				<td><span>{{ formatNumber(flightInfo?.events?.main?.altitude) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ flightInfo?.events?.main?.time }}</span>{{ measurementTime }}</td>
-			</tr>
-		</table>
+	<table class="measurements" style="width: 100%;">
+		<tr>
+			<th>Flight Time</th>
+			<td><span>{{ flightInfo?.events?.ground?.time }}</span>{{ measurementTime }}</td>
+		</tr>
+		<tr>
+			<th>Max. Altitude</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.altitude?.max, flightInfo?.altitude?.maxF)) }}</span>{{ measurementAltitude }}</td>
+		</tr>
+		<tr>
+			<th colspan="2"></th>
+		</tr>
+		<tr>
+			<th colspan="2">Events</th>
+		</tr>
+		<tr>
+			<th class="subTitleSep">Apogee</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.events?.apogee?.altitude, flightInfo?.events?.apogee?.altitudeF)) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.events?.apogee?.time, flightInfo?.events?.apogee?.timeF) }}</span>{{ measurementTime }}</td>
+		</tr>
+		<tr>
+			<th class="subTitleSep">Nose Over</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.events?.noseOver?.altitude, flightInfo?.events?.noseOver?.altitudeF)) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.events?.noseOver?.time, flightInfo?.events?.noseOver?.timeF) }}</span>{{ measurementTime }}</td>
+		</tr>
+		<tr>
+			<th class="subTitleSep">Drogue</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.events?.drogue?.altitude, flightInfo?.events?.drogue?.altitude)) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.events?.drogue?.time, flightInfo?.events?.drogue?.timeF) }}</span>{{ measurementTime }}</td>
+		</tr>
+		<tr>
+			<th class="subTitleSep">Main</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.events?.main?.altitude, flightInfo?.events?.main?.altitudeF)) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.events?.main?.time, flightInfo?.events?.main?.time) }}</span>{{ measurementTime }}</td>
+		</tr>
+		<tr>
+			<th colspan="2"></th>
+		</tr>
+		<tr>
+			<th colspan="2">Velocity</th>
+		</tr>
+		<tr>
+			<th class="subTitleSep" colspan="2">Ascent</th>
+		</tr>
+		<tr>
+			<th class="subSep">Max.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.velocity?.max?.value, flightInfo?.velocity?.max?.valueF)) }}</span>{{ measurementVelocity }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.velocity?.max?.time, flightInfo?.velocity?.max?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.velocity?.max?.altitude, flightInfo?.velocity?.max?.altitudeF)) }}</span>{{ measurementAltitude }}</td>
+		</tr>
+		<tr>
+			<th class="subSep">Avg.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.velocity?.avg?.value, flightInfo?.velocity?.avg?.valueF)) }}</span>{{ measurementVelocity }}</td>
+		</tr>
+		<tr style="display: none;">
+			<th class="subSep">Min.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.value, flightInfo?.velocity?.min?.valueF)) }}</span>{{ measurementVelocity }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.velocity?.min?.time, flightInfo?.velocity?.min?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.altitude, flightInfo?.velocity?.min?.altitudeF)) }}</span>{{ measurementAltitude }}</td>
+		</tr>
+		<tr>
+			<th class="subTitleSep" colspan="2">Descent</th>
+		</tr>
+		<tr>
+			<th class="subTitleSep2" colspan="2">Drogue</th>
+		</tr>
+		<tr>
+			<th class="subSep3">Max.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.drogue?.max?.value, flightInfo?.velocity?.min?.drogue?.max?.valueF)) }}</span>{{ measurementVelocity }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.velocity?.min?.drogue?.max?.time, flightInfo?.velocity?.min?.drogue?.max?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.drogue?.max?.altitude, flightInfo?.velocity?.min?.drogue?.max?.altitude)) }}</span>{{ measurementAltitude }}</td>
+		</tr>
+		<tr>
+			<th class="subSep3">Min.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.drogue?.min?.value, flightInfo?.velocity?.min?.drogue?.min?.valueF)) }}</span>{{ measurementVelocity }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.velocity?.min?.drogue?.min?.time, flightInfo?.velocity?.min?.drogue?.min?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.drogue?.min?.altitude, flightInfo?.velocity?.min?.drogue?.min?.altitude)) }}</span>{{ measurementAltitude }}</td>
+		</tr>
+		<tr>
+			<th class="subSep3">Avg.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.drogue?.avg?.value, flightInfo?.velocity?.min?.drogue?.avg?.valueF)) }}</span>{{ measurementVelocity }}</td>
+		</tr>
+		<tr>
+			<th class="subTitleSep2" colspan="2">Main</th>
+		</tr>
+		<tr>
+			<th class="subSep3">Max.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.main?.max?.value, flightInfo?.velocity?.min?.main?.max?.valueF)) }}</span>{{ measurementVelocity }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.velocity?.min?.main?.max?.time, flightInfo?.velocity?.min?.main?.max?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.main?.max?.altitude, flightInfo?.velocity?.min?.main?.max?.altitude)) }}</span>{{ measurementAltitude }}</td>
+		</tr>
+		<tr>
+			<th class="subSep3">Min.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.main?.min?.value, flightInfo?.velocity?.min?.main?.min?.valueF)) }}</span>{{ measurementVelocity }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.velocity?.min?.main?.min?.time, flightInfo?.velocity?.min?.main?.min?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.main?.min?.altitude, flightInfo?.velocity?.min?.main?.min?.altitude)) }}</span>{{ measurementAltitude }}</td>
+		</tr>
+		<tr>
+			<th class="subSep3">Avg.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.main?.avg?.value, flightInfo?.velocity?.min?.main?.avg?.valueF)) }}</span>{{ measurementVelocity }}</td>
+		</tr>
+		<tr>
+			<th colspan="2"></th>
+		</tr>
+		<tr>
+			<th colspan="2">Acceleration</th>
+		</tr>
+		<tr>
+			<th class="subTitleSep">Max.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.acceleration?.max?.value, flightInfo?.acceleration?.max?.value)) }}</span>{{ measurementAcceleration }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.acceleration?.max?.time, flightInfo?.acceleration?.max?.time) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.acceleration?.max?.altitude, flightInfo?.acceleration?.max?.altitudeF)) }}</span>{{ measurementAltitude }}</td>
+		</tr>
+		<tr>
+			<th class="subTitleSep">Min.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.value, flightInfo?.acceleration?.min?.value)) }}</span>{{ measurementAcceleration }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.acceleration?.min?.time, flightInfo?.acceleration?.min?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.altitude, flightInfo?.acceleration?.min?.altitudeF)) }}</span>{{ measurementAltitude }}</td>
+		</tr>
+		<tr>
+			<th class="subTitleSep" colspan="2">Descent</th>
+		</tr>
+		<tr>
+			<th class="subTitleSep2" colspan="2">Drogue</th>
+		</tr>
+		<tr>
+			<th class="subSep3">Max.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.drogue?.max?.value, flightInfo?.acceleration?.min?.drogue?.max?.valueF)) }}</span>{{ measurementAcceleration }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.acceleration?.min?.drogue?.max?.time, flightInfo?.acceleration?.min?.drogue?.max?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.drogue?.max?.altitude, flightInfo?.acceleration?.min?.drogue?.max?.altitudeF)) }}</span>{{ measurementAltitude }}</td>
+		</tr>
+		<tr>
+			<th class="subSep3">Min.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.drogue?.min?.value, flightInfo?.acceleration?.min?.drogue?.min?.valueF)) }}</span>{{ measurementAcceleration }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.acceleration?.min?.drogue?.min?.time, flightInfo?.acceleration?.min?.drogue?.min?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.drogue?.min?.altitude, flightInfo?.acceleration?.min?.drogue?.min?.altitudeF)) }}</span>{{ measurementAltitude }}</td>
+		</tr>
+		<tr>
+			<th class="subSep3">Avg.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.drogue?.avg?.value, flightInfo?.acceleration?.min?.drogue?.avg?.valueF)) }}</span>{{ measurementAcceleration }}</td>
+		</tr>
+		<tr>
+			<th class="subTitleSep2" colspan="2">Main</th>
+		</tr>
+		<tr>
+			<th class="subSep3">Max.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.main?.max?.value, flightInfo?.acceleration?.min?.main?.max?.valueF)) }}</span>{{ measurementAcceleration }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.acceleration?.min?.main?.max?.time, flightInfo?.acceleration?.min?.main?.max?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.main?.max?.altitude, flightInfo?.acceleration?.min?.main?.max?.altitudeF)) }}</span>{{ measurementAltitude }}</td>
+		</tr>
+		<tr>
+			<th class="subSep3">Min.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.main?.min?.value, flightInfo?.acceleration?.min?.main?.min?.valueF)) }}</span>{{ measurementAcceleration }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.acceleration?.min?.main?.min?.time, flightInfo?.acceleration?.min?.main?.min?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.main?.min?.altitude, flightInfo?.acceleration?.min?.main?.min?.altitudeF)) }}</span>{{ measurementAltitude }}</td>
+		</tr>
+		<tr>
+			<th class="subSep3">Avg.</th>
+			<td><span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.main?.avg?.value, flightInfo?.acceleration?.min?.main?.avg?.valueF)) }}</span>{{ measurementAcceleration }}</td>
+		</tr>
+	</table>
 </template>
 
 <script>
@@ -161,6 +161,9 @@ export default defineComponent({
 	methods: {
 		formatNumber(value) {
 			return value?.toLocaleString();
+		},
+		valueType(value, valueF) {
+			return valueF;
 		}
 	}
 });

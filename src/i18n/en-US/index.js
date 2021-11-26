@@ -15,7 +15,7 @@ export default {
 			altitude: 'Altitude',
 			events: {
 				apogee: 'Apogee',
-				drogue: 'Drogue',
+				drogue: 'Drogue/Freefall',
 				noseOver: 'Nose Over',
 				main: 'Main'
 			},

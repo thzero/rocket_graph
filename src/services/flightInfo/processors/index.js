@@ -30,10 +30,11 @@ class FlightInfoProcessorService extends Service {
 		let velocityF;
 		let previousTime = 0;
 		let previousVelocity = 0;
-		// let previousVelocityF = 0;
+		let previousVelocityF = 0;
 		let deltaT;
 		let deltaV;
 		let acceleration;
+		let accelerationF;
 		for (const data of this._data.rows) {
 			time = data.time;
 
@@ -55,104 +56,181 @@ class FlightInfoProcessorService extends Service {
 			if (apogee) {
 				apogeeAchieved = true;
 				apogee = this._convertAltitude(apogee, measurementUnits);
-				results.info.altitude.max = apogee;
-				results.info.events.apogee.altitude = apogee;
+				results.info.altitude.max = altitude;
+				results.info.altitude.maxF = altitudeF;
+				results.info.events.apogee.altitude = altitude;
+				results.info.events.apogee.altitudeF = altitudeF;
 				results.info.events.apogee.time = time;
-				results.info.events.apogee.data.push(apogee);
+				results.info.events.apogee.timeF = time;
+				results.info.events.apogee.data.push(altitude);
+				results.info.events.apogee.dataF.push(altitudeF);
 			}
-			else
+			else {
 				results.info.events.apogee.data.push('N/A');
+				results.info.events.apogee.dataF.push('N/A');
+			}
 
 			noseOver = data.noseOver;
 			if (noseOver) {
 				noseOver = this._convertAltitude(noseOver, measurementUnits);
-				results.info.events.noseOver.altitude = noseOver;
+				results.info.events.noseOver.altitude = altitude;
+				results.info.events.noseOver.altitudeF = altitudeF;
 				results.info.events.noseOver.time = time;
-				results.info.events.noseOver.data.push(noseOver);
+				results.info.events.noseOver.timeF = time;
+				results.info.events.noseOver.data.push(altitude);
+				results.info.events.noseOver.dataF.push(altitudeF);
 			}
-			else
+			else {
 				results.info.events.noseOver.data.push('N/A');
+				results.info.events.noseOver.dataF.push('N/A');
+			}
 
 			drogue = data.drogue;
 			if (drogue) {
 				drogueFired = true;
 				drogue = this._convertAltitude(drogue, measurementUnits);
-				results.info.events.drogue.altitude = drogue;
-				results.info.events.drogue.time = time;
-				results.info.events.drogue.data.push(drogue);
+				results.info.events.drogue.altitude = altitude;
+				results.info.events.drogue.time = altitudeF;
+				results.info.events.drogue.timeF = time;
+				results.info.events.drogue.data.push(altitude);
+				results.info.events.drogue.dataF.push(altitudeF);
 			}
-			else
+			else {
 				results.info.events.drogue.data.push('N/A');
+				results.info.events.drogue.dataF.push('N/A');
+			}
 
 			main = data.main;
 			if (main) {
 				mainFired = true;
 				main = this._convertAltitude(main, measurementUnits);
-				results.info.events.main.altitude = main;
+				results.info.events.main.altitude = altitude;
+				results.info.events.main.altitudeF = altitudeF;
 				results.info.events.main.time = time;
-				results.info.events.main.data.push(main);
+				results.info.events.main.timeF = time;
+				results.info.events.main.data.push(altitude);
+				results.info.events.main.dataF.push(altitudeF);
 			}
-			else
+			else {
 				results.info.events.main.data.push('N/A');
+				results.info.events.main.dataF.push('N/A');
+			}
 
 			if (!data.ground)
 				results.info.events.ground.time = time;
 
-			if (velocityF > results.info.velocity.max.value) {
-				results.info.velocity.max.altitude = altitudeF;
+			if (velocity > results.info.velocity.max.value) {
+				results.info.velocity.max.altitude = altitude;
 				results.info.velocity.max.time = time;
-				results.info.velocity.max.value = velocityF;
+				results.info.velocity.max.value = velocity;
+			}
+			if (velocityF > results.info.velocity.max.valueF) {
+				results.info.velocity.max.altitudeF = altitudeF;
+				results.info.velocity.max.timeF = time;
+				results.info.velocity.max.valueF = velocityF;
 			}
 
-			if (velocityF < results.info.velocity.min.value) {
-				results.info.velocity.min.altitude = altitudeF;
+			if (velocity < results.info.velocity.min.value) {
+				results.info.velocity.min.altitude = altitude;
 				results.info.velocity.min.time = time;
-				results.info.velocity.min.value = velocityF;
+				results.info.velocity.min.value = velocity;
+			}
+			if (velocityF < results.info.velocity.min.valueF) {
+				results.info.velocity.min.altitudeF = altitudeF;
+				results.info.velocity.min.timeF = time;
+				results.info.velocity.min.valueF = velocityF;
 			}
 
 			if (apogeeAchieved) {
 				results.info.velocity.avg.temp += velocity;
 				results.info.velocity.avg.count++;
-			}
-
-			if (drogueFired) {
-				if (velocityF < results.info.velocity.min.drogue.max.value) {
-					results.info.velocity.min.drogue.max.altitude = altitudeF;
-					results.info.velocity.min.drogue.max.time = time;
-					results.info.velocity.min.drogue.max.value = velocity;
-				}
-
-				if (velocityF > results.info.velocity.min.drogue.min.value) {
-					results.info.velocity.min.drogue.min.altitude = altitudeF;
-					results.info.velocity.min.drogue.min.time = time;
-					results.info.velocity.min.drogue.min.value = velocity;
-				}
-
-				results.info.velocity.min.drogue.avg.temp += velocity;
-				results.info.velocity.min.drogue.avg.count++;
+				results.info.velocity.avg.tempF += velocityF;
+				results.info.velocity.avg.countF++;
 			}
 
 			if (mainFired) {
-				if (velocityF < results.info.velocity.min.main.max.value) {
-					results.info.velocity.min.main.max.altitude = altitudeF;
+				if (velocity < results.info.velocity.min.main.max.value) {
+					results.info.velocity.min.main.max.altitude = altitude;
 					results.info.velocity.min.main.max.time = time;
 					results.info.velocity.min.main.max.value = velocity;
 				}
+				if (velocityF < results.info.velocity.min.main.max.valueF) {
+					results.info.velocity.min.main.max.altitudeF = altitudeF;
+					results.info.velocity.min.main.max.timeF = time;
+					results.info.velocity.min.main.max.valueF = velocityF;
+				}
 
-				if (velocityF > results.info.velocity.min.main.min.value) {
-					results.info.velocity.min.main.min.altitude = altitudeF;
+				if (velocity > results.info.velocity.min.main.min.value) {
+					results.info.velocity.min.main.min.altitude = altitude;
 					results.info.velocity.min.main.min.time = time;
 					results.info.velocity.min.main.min.value = velocity;
+				}
+				if (velocityF > results.info.velocity.min.main.min.valueF) {
+					results.info.velocity.min.main.min.altitudeF = altitudeF;
+					results.info.velocity.min.main.min.timeF = time;
+					results.info.velocity.min.main.min.valueF = velocityF;
 				}
 
 				results.info.velocity.min.main.avg.temp += velocity;
 				results.info.velocity.min.main.avg.count++;
+				results.info.velocity.min.main.avg.tempF += velocityF;
+				results.info.velocity.min.main.avg.countF++;
+
+				results.info.velocity.min.main.data.push({
+					altitude: altitude,
+					time: time,
+					value: velocity
+				});
+				results.info.velocity.min.main.dataF.push({
+					altitude: altitudeF,
+					time: time,
+					value: velocityF
+				});
+			}
+			else if (drogueFired) {
+				if (velocity < results.info.velocity.min.drogue.max.value) {
+					results.info.velocity.min.drogue.max.altitude = altitude;
+					results.info.velocity.min.drogue.max.time = time;
+					results.info.velocity.min.drogue.max.value = velocity;
+				}
+				if (velocityF < results.info.velocity.min.drogue.max.valueF) {
+					results.info.velocity.min.drogue.max.altitudeF = altitudeF;
+					results.info.velocity.min.drogue.max.timeF = time;
+					results.info.velocity.min.drogue.max.valueF = velocityF;
+				}
+
+				if (velocity > results.info.velocity.min.drogue.min.value) {
+					results.info.velocity.min.drogue.min.altitude = altitude;
+					results.info.velocity.min.drogue.min.time = time;
+					results.info.velocity.min.drogue.min.value = velocity;
+				}
+				if (velocityF > results.info.velocity.min.drogue.min.valueF) {
+					results.info.velocity.min.drogue.min.altitudeF = altitudeF;
+					results.info.velocity.min.drogue.min.timeF = time;
+					results.info.velocity.min.drogue.min.valueF = velocityF;
+				}
+
+				results.info.velocity.min.drogue.avg.temp += velocity;
+				results.info.velocity.min.drogue.avg.count++;
+				results.info.velocity.min.drogue.avg.tempF += velocityF;
+				results.info.velocity.min.drogue.avg.countF++;
+
+				results.info.velocity.min.drogue.data.push({
+					altitude: altitude,
+					time: time,
+					value: velocity
+				});
+				results.info.velocity.min.drogue.dataF.push({
+					altitude: altitudeF,
+					time: time,
+					value: velocityF
+				});
 			}
 
 			deltaT = time - previousTime;
-			if (velocityF > 0) {
-				if (velocityF > previousVelocity) {
-					deltaV = velocityF - previousVelocity;
+			if (velocity > 0) {
+				if (velocity > previousVelocity) {
+					deltaV = velocity - previousVelocity;
 					acceleration = this._round(deltaT > 0 ? deltaV / deltaT : 0);
 					results.info.acceleration.avg.temp = acceleration;
 					results.info.acceleration.avg.count++;
@@ -160,64 +238,56 @@ class FlightInfoProcessorService extends Service {
 				else
 					acceleration = 0;
 				if (acceleration > results.info.acceleration.max.value) {
-					results.info.acceleration.max.altitude = altitudeF;
+					results.info.acceleration.max.altitude = altitude;
 					results.info.acceleration.max.time = time;
 					results.info.acceleration.max.value = acceleration;
 				}
 			}
+			if (velocityF > 0) {
+				if (velocityF > previousVelocityF) {
+					deltaV = velocityF - previousVelocityF;
+					accelerationF = this._round(deltaT > 0 ? deltaV / deltaT : 0);
+					results.info.acceleration.avg.tempF = accelerationF;
+					results.info.acceleration.avg.countF++;
+				}
+				else
+					accelerationF = 0;
+				if (accelerationF > results.info.acceleration.max.valueF) {
+					results.info.acceleration.max.altitudeF = altitudeF;
+					results.info.acceleration.max.timeF = time;
+					results.info.acceleration.max.valueF = accelerationF;
+				}
+			}
 
-			if (velocityF < 0) {
-				if (velocityF < previousVelocity) {
-					deltaV = velocityF - previousVelocity;
+			if (velocity < 0) {
+				if (velocity < previousVelocity) {
+					deltaV = velocity - previousVelocity;
 					acceleration = this._round(deltaV / deltaT);
 				}
 				else
 					acceleration = 0;
 
 				if (acceleration < results.info.acceleration.min.value) {
-					results.info.acceleration.min.altitude = altitudeF;
+					results.info.acceleration.min.altitude = altitude;
 					results.info.acceleration.min.time = time;
 					results.info.acceleration.min.value = acceleration;
 				}
 
-				if (drogueFired) {
-					// if (acceleration < results.info.acceleration.min.drogue.value) {
-					// 	results.info.acceleration.min.drogue.altitude = altitudeF;
-					// 	results.info.acceleration.min.drogue.time = time;
-					// 	results.info.acceleration.min.drogue.value = acceleration;
-					// }
-
-					if (acceleration < results.info.acceleration.min.drogue.max.value) {
-						results.info.acceleration.min.drogue.max.altitude = altitudeF;
-						results.info.acceleration.min.drogue.max.time = time;
-						results.info.acceleration.min.drogue.max.value = acceleration;
-					}
-
-					if (velocityF > results.info.acceleration.min.drogue.min.value) {
-						results.info.acceleration.min.drogue.min.altitude = altitudeF;
-						results.info.acceleration.min.drogue.min.time = time;
-						results.info.acceleration.min.drogue.min.value = acceleration;
-					}
-
-					results.info.acceleration.min.drogue.avg.temp += acceleration;
-					results.info.acceleration.min.drogue.avg.count++;
-				}
-
 				if (mainFired) {
 					// if (acceleration < results.info.acceleration.min.main.value) {
-					// 	results.info.acceleration.min.main.altitude = altitudeF;
+					// 	results.info.acceleration.min.main.altitude = altitude;
 					// 	results.info.acceleration.min.main.time = time;
 					// 	results.info.acceleration.min.main.value = acceleration;
 					// }
 
 					if (acceleration < results.info.acceleration.min.main.max.value) {
-						results.info.acceleration.min.main.max.altitude = altitudeF;
+						results.info.acceleration.min.main.max.altitude = altitude;
 						results.info.acceleration.min.main.max.time = time;
 						results.info.acceleration.min.main.max.value = acceleration;
 					}
 
 					if (acceleration > results.info.acceleration.min.main.min.value) {
-						results.info.acceleration.min.main.min.altitude = altitudeF;
+						results.info.acceleration.min.main.min.altitude = altitude;
 						results.info.acceleration.min.main.min.time = time;
 						results.info.acceleration.min.main.min.value = acceleration;
 					}
@@ -225,20 +295,107 @@ class FlightInfoProcessorService extends Service {
 					results.info.acceleration.min.main.avg.temp += acceleration;
 					results.info.acceleration.min.main.avg.count++;
 				}
+				else if (drogueFired) {
+					// if (acceleration < results.info.acceleration.min.drogue.value) {
+					// 	results.info.acceleration.min.drogue.altitude = altitude;
+					// 	results.info.acceleration.min.drogue.time = time;
+					// 	results.info.acceleration.min.drogue.value = acceleration;
+					// }
+
+					if (acceleration < results.info.acceleration.min.drogue.max.value) {
+						results.info.acceleration.min.drogue.max.altitude = altitude;
+						results.info.acceleration.min.drogue.max.time = time;
+						results.info.acceleration.min.drogue.max.value = acceleration;
+					}
+
+					if (velocityF > results.info.acceleration.min.drogue.min.value) {
+						results.info.acceleration.min.drogue.min.altitude = altitude;
+						results.info.acceleration.min.drogue.min.time = time;
+						results.info.acceleration.min.drogue.min.value = acceleration;
+					}
+
+					results.info.acceleration.min.drogue.avg.temp += acceleration;
+					results.info.acceleration.min.drogue.avg.count++;
+				}
+			}
+			if (velocityF < 0) {
+				if (velocityF < previousVelocityF) {
+					deltaV = velocityF - previousVelocityF;
+					accelerationF = this._round(deltaV / deltaT);
+				}
+				else
+					accelerationF = 0;
+
+				if (accelerationF < results.info.acceleration.min.valueF) {
+					results.info.acceleration.min.altitudeF = altitudeF;
+					results.info.acceleration.min.timeF = time;
+					results.info.acceleration.min.valueF = accelerationF;
+				}
+
+				if (mainFired) {
+					// if (acceleration < results.info.acceleration.min.main.value) {
+					// 	results.info.acceleration.min.main.altitudeF = altitudeF;
+					// 	results.info.acceleration.min.main.timeF = time;
+					// 	results.info.acceleration.min.main.valueF = acceleration;
+					// }
+
+					if (accelerationF < results.info.acceleration.min.main.max.valueF) {
+						results.info.acceleration.min.main.max.altitudeF = altitudeF;
+						results.info.acceleration.min.main.max.timeF = time;
+						results.info.acceleration.min.main.max.valueF = accelerationF;
+					}
+
+					if (accelerationF > results.info.acceleration.min.main.min.valueF) {
+						results.info.acceleration.min.main.min.altitudeF = altitudeF;
+						results.info.acceleration.min.main.min.timeF = time;
+						results.info.acceleration.min.main.min.valueF = accelerationF;
+					}
+
+					results.info.acceleration.min.main.avg.tempF += accelerationF;
+					results.info.acceleration.min.main.avg.countF++;
+				}
+				else if (drogueFired) {
+					// if (acceleration < results.info.acceleration.min.drogue.value) {
+					// 	results.info.acceleration.min.drogue.altitudeF = altitudeF;
+					// 	results.info.acceleration.min.drogue.timeF = time;
+					// 	results.info.acceleration.min.drogue.valueF = acceleration;
+					// }
+
+					if (accelerationF < results.info.acceleration.min.drogue.max.valueF) {
+						results.info.acceleration.min.drogue.max.altitudeF = altitudeF;
+						results.info.acceleration.min.drogue.max.timeF = time;
+						results.info.acceleration.min.drogue.max.valueF = accelerationF;
+					}
+
+					if (velocityF > results.info.acceleration.min.drogue.min.valueF) {
+						results.info.acceleration.min.drogue.min.altitudeF = altitudeF;
+						results.info.acceleration.min.drogue.min.timeF = time;
+						results.info.acceleration.min.drogue.min.valueF = accelerationF;
+					}
+
+					results.info.acceleration.min.drogue.avg.tempF += accelerationF;
+					results.info.acceleration.min.drogue.avg.countF++;
+				}
 			}
 
 			previousTime = time;
 			previousVelocity = velocity;
-			// previousVelocityF = velocityF;
+			previousVelocityF = velocityF;
 		}
 
 		results.info.acceleration.avg.value = this._round(results.info.acceleration.avg.temp / results.info.acceleration.avg.count);
+		results.info.acceleration.avg.valueF = this._round(results.info.acceleration.avg.tempF / results.info.acceleration.avg.countF);
 		results.info.acceleration.min.drogue.avg.value = this._round(results.info.acceleration.min.drogue.avg.temp / results.info.acceleration.min.drogue.avg.count);
+		results.info.acceleration.min.drogue.avg.valueF = this._round(results.info.acceleration.min.drogue.avg.tempF / results.info.acceleration.min.drogue.avg.countF);
 		results.info.acceleration.min.main.avg.value = this._round(results.info.acceleration.min.main.avg.temp / results.info.acceleration.min.main.avg.count);
+		results.info.acceleration.min.main.avg.valueF = this._round(results.info.acceleration.min.main.avg.tempF / results.info.acceleration.min.main.avg.countF);
 
 		results.info.velocity.avg.value = this._round(results.info.velocity.avg.temp / results.info.velocity.avg.count);
+		results.info.velocity.avg.valueF = this._round(results.info.velocity.avg.tempF / results.info.velocity.avg.countF);
 		results.info.velocity.min.drogue.avg.value = this._round(results.info.velocity.min.drogue.avg.temp / results.info.velocity.min.drogue.avg.count);
+		results.info.velocity.min.drogue.avg.valueF = this._round(results.info.velocity.min.drogue.avg.tempF / results.info.velocity.min.drogue.avg.countF);
 		results.info.velocity.min.main.avg.value = this._round(results.info.velocity.min.main.avg.temp / results.info.velocity.min.main.avg.count);
+		results.info.velocity.min.main.avg.valueF = this._round(results.info.velocity.min.main.avg.tempF / results.info.velocity.min.main.avg.countF);
 
 		return results;
 	}

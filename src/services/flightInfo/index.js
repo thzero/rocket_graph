@@ -67,48 +67,73 @@ class FlightInfoService extends Service {
 			acceleration: {
 				avg: {
 					temp: 0,
+					tempF: 0,
 					value: 0,
-					count: 0
+					valueF: 0,
+					count: 0,
+					countF: 0
 				},
 				max: {
 					altitude: 0,
+					altitudeF: 0,
 					time: 0,
-					value: 0
+					timeF: 0,
+					value: 0,
+					valueF: 0
 				},
 				min: {
 					altitude: 0,
+					altitudeF: 0,
 					drogue: {
 						avg: {
 							temp: 0,
+							tempF: 0,
 							value: 0,
-							count: 0
+							valueF: 0,
+							count: 0,
+							countF: 0
 						},
 						max: {
 							altitude: 0,
+							altitudeF: 0,
 							time: 0,
-							value: 0
+							timeF: 0,
+							value: 0,
+							valueF: 0
 						},
 						min: {
 							altitude: 0,
+							altitudeF: 0,
 							time: 0,
-							value: -999999999
+							timeF: 0,
+							value: -999999999,
+							valueF: -999999999
 						}
 					},
 					main: {
 						avg: {
 							temp: 0,
+							tempF: 0,
 							value: 0,
-							count: 0
+							valueF: 0,
+							count: 0,
+							countF: 0
 						},
 						max: {
 							altitude: 0,
+							altitudeF: 0,
 							time: 0,
-							value: 0
+							timeF: 0,
+							value: 0,
+							valueF: 0
 						},
 						min: {
 							altitude: 0,
+							altitudeF: 0,
 							time: 0,
-							value: -999999999
+							timeF: 0,
+							value: -999999999,
+							valueF: -999999999
 						}
 					},
 					time: 0,
@@ -118,32 +143,45 @@ class FlightInfoService extends Service {
 			altitude: {
 				data: [],
 				dataF: [],
-				max: 0
+				max: 0,
+				maxF: 0
 			},
 			date: null,
 			events: {
 				apogee: {
 					altitude: 0,
+					altitudeF: 0,
 					data: [],
-					time: 0
+					dataF: [],
+					time: 0,
+					timeF: 0
 				},
 				drogue: {
 					altitude: 0,
+					altitudeF: 0,
 					data: [],
-					time: 0
+					dataF: [],
+					time: 0,
+					timeF: 0
 				},
 				ground: {
 					time: 0
 				},
 				main: {
 					altitude: 0,
+					altitudeF: 0,
 					data: [],
-					time: 0
+					dataF: [],
+					time: 0,
+					timeF: 0
 				},
 				noseOver: {
 					altitude: 0,
+					altitudeF: 0,
 					data: [],
-					time: 0
+					dataF: [],
+					time: 0,
+					timeF: 0
 				}
 			},
 			location: null,
@@ -153,52 +191,83 @@ class FlightInfoService extends Service {
 			velocity: {
 				avg: {
 					temp: 0,
+					tempF: 0,
 					value: 0,
-					count: 0
+					valueF: 0,
+					count: 0,
+					countF: 0
 				},
 				data: [],
 				dataF: [],
 				max: {
 					altitude: 0,
+					altitudeF: 0,
 					time: 0,
-					value: 0
+					timeF: 0,
+					value: 0,
+					valueF: 0
 				},
 				min: {
 					altitude: 0,
+					altitudeF: 0,
 					time: 0,
+					timeF: 0,
 					value: 0,
+					valueF: 0,
 					drogue: {
 						avg: {
 							temp: 0,
+							tempF: 0,
 							value: 0,
-							count: 0
+							valueF: 0,
+							count: 0,
+							countF: 0
 						},
+						data: [],
+						dataF: [],
 						max: {
 							altitude: 0,
+							altitudeF: 0,
 							time: 0,
-							value: 0
+							timeF: 0,
+							value: 0,
+							valueF: 0
 						},
 						min: {
 							altitude: 0,
+							altitudeF: 0,
 							time: 0,
-							value: -999999999
+							timeF: 0,
+							value: -999999999,
+							valueF: -999999999
 						}
 					},
 					main: {
 						avg: {
 							temp: 0,
+							tempF: 0,
 							value: 0,
-							count: 0
+							valueF: 0,
+							count: 0,
+							countF: 0
 						},
+						data: [],
+						dataF: [],
 						max: {
 							altitude: 0,
+							altitudeF: 0,
 							time: 0,
-							value: 0
+							timeF: 0,
+							value: 0,
+							valueF: 0
 						},
 						min: {
 							altitude: 0,
+							altitudeF: 0,
 							time: 0,
-							value: -999999999
+							timeF: 0,
+							value: -999999999,
+							valueF: -999999999
 						}
 					}
 				}
