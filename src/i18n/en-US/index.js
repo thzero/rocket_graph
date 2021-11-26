@@ -62,6 +62,31 @@ export default {
 	},
 	flightInfo: {
 		title: 'Flight Title',
+		color: {
+			title: 'Chart Colors',
+			altitude: {
+				title: 'Altitude',
+				filtered: 'Altitude (Filtered)'
+			},
+			event: {
+				apogee: {
+					title: 'Apogee',
+					border: 'Apogee Border'
+				},
+				drogue: {
+					title: 'Drogue/Freefall',
+					border: 'Drogue/Freefall Border'
+				},
+				main: {
+					title: 'Main',
+					border: 'Main Border'
+				}
+			},
+			velocity: {
+				title: 'Velocity',
+				filtered: 'Velocity (Filtered)'
+			}
+		},
 		csv: 'CSV Flight Data',
 		dataTypes: {
 			showActual: 'Show Actual'

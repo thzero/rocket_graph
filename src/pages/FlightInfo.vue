@@ -109,6 +109,238 @@
 							</span>
 						</div>
 					</div>
+					<q-card flat bordered>
+						<q-card-actions>
+							{{ $t('flightInfo.color.title') }}
+							<q-space></q-space>
+							<q-btn
+								color="grey"
+								round
+								flat
+								dense
+								:icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
+								@click="expanded = !expanded"
+							></q-btn>
+						</q-card-actions>
+
+						<q-slide-transition>
+							<div v-show="expanded">
+								<q-separator></q-separator>
+								<q-card-section class="text-subitle2">
+									<div class="row">
+										<div class="col-6 col-md-12">
+											<q-input
+												v-model="flightInfoColorAltitudeF"
+												filled
+												dense
+												:label="$t('flightInfo.color.altitude.filtered')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorAltitudeF">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoColorAltitudeF" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+										<div class="col-6 col-md-12">
+											<q-input
+												v-model="flightInfoColorAltitude"
+												filled
+												dense
+												:label="$t('flightInfo.color.altitude.title')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorAltitude">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoColorAltitude" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-6 col-md-12">
+											<q-input
+												v-model="flightInfoColorVelocityF"
+												filled
+												dense
+												:label="$t('flightInfo.color.velocity.filtered')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorVelocityF">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoColorVelocityF" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+										<div class="col-6 col-md-12">
+											<q-input
+												v-model="flightInfoColorVelocity"
+												filled
+												dense
+												:label="$t('flightInfo.color.velocity.title')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorVelocity">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoColorVelocity" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-6 col-md-12">
+											<q-input
+												v-model="flightInfoColorEventApogee"
+												filled
+												dense
+												:label="$t('flightInfo.color.event.apogee.title')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorEventApogee">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoColorEventApogee" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+										<div class="col-6 col-md-12">
+											<q-input
+												v-model="flightInfoColorEventApogeeBorder"
+												filled
+												dense
+												:label="$t('flightInfo.color.event.apogee.border')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorEventApogeeBorder">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoColorEventApogeeBorder" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-6 col-md-12">
+											<q-input
+												v-model="flightInfoColorEventDrogue"
+												filled
+												dense
+												:label="$t('flightInfo.color.event.drogue.title')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorEventDrogue">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoColorEventDrogue" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+										<div class="col-6 col-md-12">
+											<q-input
+												v-model="flightInfoColorEventDrogueBorder"
+												filled
+												dense
+												:label="$t('flightInfo.color.event.drogue.border')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorEventDrogueBorder">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoColorEventDrogueBorder" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-6 col-md-12">
+											<q-input
+												v-model="flightInfoColorEventMain"
+												filled
+												dense
+												:label="$t('flightInfo.color.event.main.title')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorEventMain">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoColorEventMain" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+										<div class="col-6 col-md-12">
+											<q-input
+												v-model="flightInfoColorEventMainBorder"
+												filled
+												dense
+												:label="$t('flightInfo.color.event.main.border')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorEventMainBorder">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoColorEventMainBorder" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+									</div>
+								</q-card-section>
+							</div>
+						</q-slide-transition>
+					</q-card>
 				</div>
 				<div class="q-pb-md float-right">
 					<q-btn-group>
@@ -234,8 +466,19 @@ export default defineComponent({
 				disabled: true
 			}
 		},
+		expanded: false,
 		flightInfo: null,
 		flightInfoChartData: null,
+		flightInfoColorAltitude: '#0066FF',
+		flightInfoColorAltitudeF: '#0000FF',
+		flightInfoColorEventApogee: '#00007F',
+		flightInfoColorEventApogeeBorder: '#000000',
+		flightInfoColorEventDrogue: '#00007F',
+		flightInfoColorEventDrogueBorder: '#FF0000',
+		flightInfoColorEventMain: '#8C007F',
+		flightInfoColorEventMainBorder: '#FF8C00',
+		flightInfoColorVelocity: '#00FFFF',
+		flightInfoColorVelocityF: '#00AA00',
 		flightInfoDataTypeActual: true,
 		flightInfoDataTypeError: false,
 		flightInfoDataTypeFiltered: true,
