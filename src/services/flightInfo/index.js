@@ -19,20 +19,40 @@ class FlightInfoService extends Service {
 		this.registerProcessor(serviceFlightInfoProcessorEggtimer);
 	}
 
-	get colorsDefault() {
+	get styleDefault() {
 		return {
-			altitude: '#0066FF',
-			altitudeF: '#0000FF',
-			event: {
-				apogee: '#000000',
-				apogeeBorder: '#000000',
-				drogue: '#FF0000',
-				drogueBorder: '#FF0000',
-				main: '#FF8C00',
-				mainBorder: '#FF8C00'
+			altitude: {
+				color: '#0066FF'
 			},
-			velocity: '#00FFFF',
-			velocityF: '#00AA00'
+			altitudeF: {
+				color: '#0000FF'
+			},
+			event: {
+				apogee: {
+					color: '#000000'
+				},
+				apogeeBorder: {
+					color: '#000000'
+				},
+				drogue: {
+					color: '#FF0000'
+				},
+				drogueBorder: {
+					color: '#FF0000'
+				},
+				main: {
+					color: '#FF8C00'
+				},
+				mainBorder: {
+					color: '#FF8C00'
+				}
+			},
+			velocity: {
+				color: '#00FFFF'
+			},
+			velocityF: {
+				color: '#00AA00'
+			}
 		};
 	}
 
@@ -230,19 +250,39 @@ Events
 				max: 0,
 				maxF: 0
 			},
-			color: {
-				altitude: this.colorsDefault.altitude,
-				altitudeF: this.colorsDefault.altitudeF,
-				event: {
-					apogee: this.colorsDefault.event.apogee,
-					apogeeBorder: this.colorsDefault.event.apogeeBorder,
-					drogue: this.colorsDefault.event.drogue,
-					drogueBorder: this.colorsDefault.event.drogueBorder,
-					main: this.colorsDefault.event.main,
-					mainBorder: this.colorsDefault.event.mainBorder
+			style: {
+				altitude: {
+					color: this.styleDefault.altitude.color
 				},
-				velocity: this.colorsDefault.velocity,
-				velocityF: this.colorsDefault.velocityF
+				altitudeF: {
+					color: this.styleDefault.altitudeF.color
+				},
+				event: {
+					apogee: {
+						color: this.styleDefault.event.apogee.color
+					},
+					apogeeBorder: {
+						color: this.styleDefault.event.apogeeBorder.color
+					},
+					drogue: {
+						color: this.styleDefault.event.drogue.color
+					},
+					drogueBorder: {
+						color: this.styleDefault.event.drogueBorder.color
+					},
+					main: {
+						color: this.styleDefault.event.main.color
+					},
+					mainBorder: {
+						color: this.styleDefault.event.mainBorder.color
+					}
+				},
+				velocity: {
+					color: this.styleDefault.velocity.color
+				},
+				velocityF: {
+					color: this.styleDefault.velocityF.color
+				}
 			},
 			date: null,
 			dataTypes: {

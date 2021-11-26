@@ -114,7 +114,7 @@
 						bordered
 						dense>
 						<q-card-actions>
-							{{ $t('flightInfo.color.title') }}
+							{{ $t('flightInfo.style.title') }}
 							<q-space></q-space>
 							<q-btn
 								color="grey"
@@ -133,19 +133,19 @@
 									<div class="row">
 										<div class="col-lg-6 col-12">
 											<q-input
-												v-model="flightInfoColorAltitudeF"
+												v-model="flightInfoStyleAltitudeFColor"
 												filled
 												dense
-												:label="$t('flightInfo.color.altitude.filtered')"
+												:label="$t('flightInfo.style.altitude.filtered')"
 											>
 												<template v-slot:prepend>
-													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorAltitudeF">
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleAltitudeFColor">
 													</div>
 												</template>
 												<template v-slot:append>
 													<q-icon name="colorize" class="cursor-pointer">
 														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-															<q-color v-model="flightInfoColorAltitudeF" />
+															<q-color v-model="flightInfoStyleAltitudeFColor" />
 														</q-popup-proxy>
 													</q-icon>
 												</template>
@@ -153,61 +153,19 @@
 										</div>
 										<div class="col-lg-6 col-12">
 											<q-input
-												v-model="flightInfoColorAltitude"
+												v-model="flightInfoStyleAltitudeColor"
 												filled
 												dense
-												:label="$t('flightInfo.color.altitude.title')"
+												:label="$t('flightInfo.style.altitude.title')"
 											>
 												<template v-slot:prepend>
-													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorAltitude">
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleAltitudeColor">
 													</div>
 												</template>
 												<template v-slot:append>
 													<q-icon name="colorize" class="cursor-pointer">
 														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-															<q-color v-model="flightInfoColorAltitude" />
-														</q-popup-proxy>
-													</q-icon>
-												</template>
-											</q-input>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-lg-6 col-12">
-											<q-input
-												v-model="flightInfoColorVelocityF"
-												filled
-												dense
-												:label="$t('flightInfo.color.velocity.filtered')"
-											>
-												<template v-slot:prepend>
-													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorVelocityF">
-													</div>
-												</template>
-												<template v-slot:append>
-													<q-icon name="colorize" class="cursor-pointer">
-														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-															<q-color v-model="flightInfoColorVelocityF" />
-														</q-popup-proxy>
-													</q-icon>
-												</template>
-											</q-input>
-										</div>
-										<div class="col-lg-6 col-12">
-											<q-input
-												v-model="flightInfoColorVelocity"
-												filled
-												dense
-												:label="$t('flightInfo.color.velocity.title')"
-											>
-												<template v-slot:prepend>
-													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorVelocity">
-													</div>
-												</template>
-												<template v-slot:append>
-													<q-icon name="colorize" class="cursor-pointer">
-														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-															<q-color v-model="flightInfoColorVelocity" />
+															<q-color v-model="flightInfoStyleAltitudeColor" />
 														</q-popup-proxy>
 													</q-icon>
 												</template>
@@ -217,19 +175,19 @@
 									<div class="row">
 										<div class="col-lg-6 col-12">
 											<q-input
-												v-model="flightInfoColorEventApogee"
+												v-model="flightInfoStyleVelocityFColor"
 												filled
 												dense
-												:label="$t('flightInfo.color.event.apogee.title')"
+												:label="$t('flightInfo.style.velocity.filtered')"
 											>
 												<template v-slot:prepend>
-													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorEventApogee">
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleVelocityFColor">
 													</div>
 												</template>
 												<template v-slot:append>
 													<q-icon name="colorize" class="cursor-pointer">
 														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-															<q-color v-model="flightInfoColorEventApogee" />
+															<q-color v-model="flightInfoStyleVelocityFColor" />
 														</q-popup-proxy>
 													</q-icon>
 												</template>
@@ -237,61 +195,19 @@
 										</div>
 										<div class="col-lg-6 col-12">
 											<q-input
-												v-model="flightInfoColorEventApogeeBorder"
+												v-model="flightInfoStyleVelocityColor"
 												filled
 												dense
-												:label="$t('flightInfo.color.event.apogee.border')"
+												:label="$t('flightInfo.style.velocity.title')"
 											>
 												<template v-slot:prepend>
-													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorEventApogeeBorder">
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleVelocityColor">
 													</div>
 												</template>
 												<template v-slot:append>
 													<q-icon name="colorize" class="cursor-pointer">
 														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-															<q-color v-model="flightInfoColorEventApogeeBorder" />
-														</q-popup-proxy>
-													</q-icon>
-												</template>
-											</q-input>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-lg-6 col-12">
-											<q-input
-												v-model="flightInfoColorEventDrogue"
-												filled
-												dense
-												:label="$t('flightInfo.color.event.drogue.title')"
-											>
-												<template v-slot:prepend>
-													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorEventDrogue">
-													</div>
-												</template>
-												<template v-slot:append>
-													<q-icon name="colorize" class="cursor-pointer">
-														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-															<q-color v-model="flightInfoColorEventDrogue" />
-														</q-popup-proxy>
-													</q-icon>
-												</template>
-											</q-input>
-										</div>
-										<div class="col-lg-6 col-12">
-											<q-input
-												v-model="flightInfoColorEventDrogueBorder"
-												filled
-												dense
-												:label="$t('flightInfo.color.event.drogue.border')"
-											>
-												<template v-slot:prepend>
-													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorEventDrogueBorder">
-													</div>
-												</template>
-												<template v-slot:append>
-													<q-icon name="colorize" class="cursor-pointer">
-														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-															<q-color v-model="flightInfoColorEventDrogueBorder" />
+															<q-color v-model="flightInfoStyleVelocityColor" />
 														</q-popup-proxy>
 													</q-icon>
 												</template>
@@ -301,19 +217,19 @@
 									<div class="row">
 										<div class="col-lg-6 col-12">
 											<q-input
-												v-model="flightInfoColorEventMain"
+												v-model="flightInfoStyleEventApogeeColor"
 												filled
 												dense
-												:label="$t('flightInfo.color.event.main.title')"
+												:label="$t('flightInfo.style.event.apogee.title')"
 											>
 												<template v-slot:prepend>
-													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorEventMain">
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleEventApogeeColor">
 													</div>
 												</template>
 												<template v-slot:append>
 													<q-icon name="colorize" class="cursor-pointer">
 														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-															<q-color v-model="flightInfoColorEventMain" />
+															<q-color v-model="flightInfoStyleEventApogeeColor" />
 														</q-popup-proxy>
 													</q-icon>
 												</template>
@@ -321,19 +237,103 @@
 										</div>
 										<div class="col-lg-6 col-12">
 											<q-input
-												v-model="flightInfoColorEventMainBorder"
+												v-model="flightInfoStyleEventApogeeBorderColor"
 												filled
 												dense
-												:label="$t('flightInfo.color.event.main.border')"
+												:label="$t('flightInfo.style.event.apogee.border')"
 											>
 												<template v-slot:prepend>
-													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoColorEventMainBorder">
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleEventApogeeBorderColor">
 													</div>
 												</template>
 												<template v-slot:append>
 													<q-icon name="colorize" class="cursor-pointer">
 														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-															<q-color v-model="flightInfoColorEventMainBorder" />
+															<q-color v-model="flightInfoStyleEventApogeeBorderColor" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-6 col-12">
+											<q-input
+												v-model="flightInfoStyleEventDrogueColor"
+												filled
+												dense
+												:label="$t('flightInfo.style.event.drogue.title')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleEventDrogueColor">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoStyleEventDrogueColor" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+										<div class="col-lg-6 col-12">
+											<q-input
+												v-model="flightInfoStyleEventDrogueBorderColor"
+												filled
+												dense
+												:label="$t('flightInfo.style.event.drogue.border')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleEventDrogueBorderColor">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoStyleEventDrogueBorderColor" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-6 col-12">
+											<q-input
+												v-model="flightInfoStyleEventMainColor"
+												filled
+												dense
+												:label="$t('flightInfo.style.event.main.title')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleEventMainColor">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoStyleEventMainColor" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+										<div class="col-lg-6 col-12">
+											<q-input
+												v-model="flightInfoStyleEventMainBorderColor"
+												filled
+												dense
+												:label="$t('flightInfo.style.event.main.border')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleEventMainBorderColor">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoStyleEventMainBorderColor" />
 														</q-popup-proxy>
 													</q-icon>
 												</template>
@@ -349,13 +349,13 @@
 													color="primary"
 													:label="$t('button.save')"
 													:disable="!flightInfoProcessor"
-													@click="flightInfoColorSave"
+													@click="flightInfoStyleSave"
 												/>
 												<q-btn
 													dense
 													color="primary"
 													:label="$t('button.reset')"
-													@click="flightInfoColorReset"
+													@click="flightInfoStyleReset"
 												/>
 											</div>
 										</div>
@@ -489,16 +489,6 @@ export default defineComponent({
 		expanded: false,
 		flightInfo: null,
 		flightInfoChartData: null,
-		flightInfoColorAltitude: '#0066FF',
-		flightInfoColorAltitudeF: '#0000FF',
-		flightInfoColorEventApogee: '#000000',
-		flightInfoColorEventApogeeBorder: '#000000',
-		flightInfoColorEventDrogue: '#FF0000',
-		flightInfoColorEventDrogueBorder: '#FF0000',
-		flightInfoColorEventMain: '#FF8C00',
-		flightInfoColorEventMainBorder: '#FF8C00',
-		flightInfoColorVelocity: '#00FFFF',
-		flightInfoColorVelocityF: '#00AA00',
 		flightInfoDataTypeActual: true,
 		flightInfoDataTypeError: false,
 		flightInfoDataTypeFiltered: true,
@@ -511,6 +501,16 @@ export default defineComponent({
 		flightInfoMeasurementUnitsOptions: [],
 		flightInfoProcessor: null,
 		flightInfoProcessors: [],
+		flightInfoStyleAltitudeColor: '#0066FF',
+		flightInfoStyleAltitudeFColor: '#0000FF',
+		flightInfoStyleEventApogeeColor: '#000000',
+		flightInfoStyleEventApogeeBorderColor: '#000000',
+		flightInfoStyleEventDrogueColor: '#FF0000',
+		flightInfoStyleEventDrogueBorderColor: '#FF0000',
+		flightInfoStyleEventMainColor: '#FF8C00',
+		flightInfoStyleEventMainBorderColor: '#FF8C00',
+		flightInfoStyleVelocityColor: '#00FFFF',
+		flightInfoStyleVelocityFColor: '#00AA00',
 		flightInfoTitle: null,
 		serviceFlightInfo: null
 	}),
@@ -525,7 +525,7 @@ export default defineComponent({
 			if (!value)
 				return;
 
-			this.flightInfoColorLoad(value);
+			this.flightInfoStyleLoad(value);
 		}
 	},
 	created() {
@@ -548,60 +548,80 @@ export default defineComponent({
 
 			this.buttons.process.disabled = this.hasError();
 		},
-		flightInfoColorLoad() {
+		flightInfoStyleLoad() {
 			if (String.isNullOrEmpty(this.flightInfoProcessor))
 				return;
 
-			const colors = AppUtility.$store.getters.getFlightInfoColors(this.flightInfoProcessor);
-			if (!colors)
+			const style = AppUtility.$store.getters.getFlightInfoStyle(this.flightInfoProcessor);
+			if (!style)
 				return;
 
-			this.flightInfoColorAltitude = colors.altitude;
-			this.flightInfoColorAltitudeF = colors.altitudeF;
-			this.flightInfoColorEventApogee = colors.event.apogee;
-			this.flightInfoColorEventApogeeBorder = colors.event.apogeeBorder;
-			this.flightInfoColorEventDrogue = colors.event.drogue;
-			this.flightInfoColorEventDrogueBorder = colors.event.drogueBorder;
-			this.flightInfoColorEventMain = colors.event.main;
-			this.flightInfoColorEventMainBorder = colors.event.mainBorder;
-			this.flightInfoColorVelocity = colors.velocity;
-			this.flightInfoColorVelocityF = colors.velocityF;
+			this.flightInfoStyleAltitudeColor = style.altitude.color;
+			this.flightInfoStyleAltitudeFColor = style.altitudeF.color;
+			this.flightInfoStyleEventApogeeColor = style.event.apogee.color;
+			this.flightInfoStyleEventApogeeBorderColor = style.event.apogeeBorder.color;
+			this.flightInfoStyleEventDrogueColor = style.event.drogue.color;
+			this.flightInfoStyleEventDrogueBorderColor = style.event.drogueBorder.color;
+			this.flightInfoStyleEventMainColor = style.event.main.color;
+			this.flightInfoStyleEventMainBorderColor = style.event.mainBorder.color;
+			this.flightInfoStyleVelocityColor = style.velocity.color;
+			this.flightInfoStyleVelocityFColor = style.velocityF.color;
 		},
-		flightInfoColorReset() {
-			this.flightInfoColorAltitude = this.serviceFlightInfo.colorsDefault.altitude;
-			this.flightInfoColorAltitudeF = this.serviceFlightInfo.colorsDefault.altitudeF;
-			this.flightInfoColorEventApogee = this.serviceFlightInfo.colorsDefault.event.apogee;
-			this.flightInfoColorEventApogeeBorder = this.serviceFlightInfo.colorsDefault.event.apogeeBorder;
-			this.flightInfoColorEventDrogue = this.serviceFlightInfo.colorsDefault.event.drogue;
-			this.flightInfoColorEventDrogueBorder = this.serviceFlightInfo.colorsDefault.event.drogueBorder;
-			this.flightInfoColorEventMain = this.serviceFlightInfo.colorsDefault.event.main;
-			this.flightInfoColorEventMainBorder = this.serviceFlightInfo.colorsDefault.event.mainBorder;
-			this.flightInfoColorVelocity = this.serviceFlightInfo.colorsDefault.velocity;
-			this.flightInfoColorVelocityF = this.serviceFlightInfo.colorsDefault.velocityF;
+		flightInfoStyleReset() {
+			this.flightInfoStyleAltitudeColor = this.serviceFlightInfo.styleDefault.altitude.color;
+			this.flightInfoStyleAltitudeFColor = this.serviceFlightInfo.styleDefault.altitudeF.color;
+			this.flightInfoStyleEventApogeeColor = this.serviceFlightInfo.styleDefault.event.apogee.color;
+			this.flightInfoStyleEventApogeeBorderColor = this.serviceFlightInfo.styleDefault.event.apogeeBorder.color;
+			this.flightInfoStyleEventDrogueColor = this.serviceFlightInfo.styleDefault.event.drogue.color;
+			this.flightInfoStyleEventDrogueBorderColor = this.serviceFlightInfo.styleDefault.event.drogueBorder.color;
+			this.flightInfoStyleEventMainColor = this.serviceFlightInfo.styleDefault.event.main.color;
+			this.flightInfoStyleEventMainBorderColor = this.serviceFlightInfo.styleDefault.event.mainBorder.color;
+			this.flightInfoStyleVelocityColor = this.serviceFlightInfo.styleDefault.velocity.color;
+			this.flightInfoStyleVelocityFColor = this.serviceFlightInfo.styleDefault.velocityF.color;
 
 			this.notify('messages.reset');
 		},
-		flightInfoColorSave() {
+		flightInfoStyleSave() {
 			if (String.isNullOrEmpty(this.flightInfoProcessor))
 				return;
 
-			const colors = {
+			const style = {
 				id: this.flightInfoProcessor,
-				altitude: this.flightInfoColorAltitude,
-				altitudeF: this.flightInfoColorAltitudeF,
-				event: {
-					apogee: this.flightInfoColorEventApogee,
-					apogeeBorder: this.flightInfoColorEventApogeeBorder,
-					drogue: this.flightInfoColorEventDrogue,
-					drogueBorder: this.flightInfoColorEventDrogueBorder,
-					main: this.flightInfoColorEventMain,
-					mainBorder: this.flightInfoColorEventMainBorder
+				altitude: {
+					color: this.flightInfoStyleAltitudeColor
 				},
-				velocity: this.flightInfoColorVelocity,
-				velocityF: this.flightInfoColorVelocityF
+				altitudeF: {
+					color: this.flightInfoStyleAltitudeFColor
+				},
+				event: {
+					apogee: {
+						color: this.flightInfoStyleEventApogeeColor
+					},
+					apogeeBorder: {
+						color: this.flightInfoStyleEventApogeeBorderColor
+					},
+					drogue: {
+						color: this.flightInfoStyleEventDrogueColor
+					},
+					drogueBorder: {
+						color: this.flightInfoStyleEventDrogueBorderColor
+					},
+					main: {
+						color: this.flightInfoStyleEventMainColor
+					},
+					mainBorder: {
+						color: this.flightInfoStyleEventMainBorderColor
+					}
+				},
+				velocity: {
+					color: this.flightInfoStyleVelocityColor
+				},
+				velocityF: {
+					color: this.flightInfoStyleVelocityFColor
+				}
 			};
 
-			AppUtility.$store.dispatch('setFlightInfoColors', colors);
+			AppUtility.$store.dispatch('setFlightInfoStyle', style);
 
 			this.notify('messages.saved');
 		},
@@ -725,16 +745,16 @@ export default defineComponent({
 			if (!String.isNullOrEmpty(this.flightInfoMeasurementUnit))
 				flightInfoResults.info.measurementUnits = this.flightInfoMeasurementUnits;
 
-			flightInfoResults.info.color.altitude = this.flightInfoColorAltitude;
-			flightInfoResults.info.color.altitudeF = this.flightInfoColorAltitudeF;
-			flightInfoResults.info.color.event.apogee = this.flightInfoColorEventApogee;
-			flightInfoResults.info.color.event.apogeeBorder = this.flightInfoColorEventApogeeBorder;
-			flightInfoResults.info.color.event.drogue = this.flightInfoColorEventDrogue;
-			flightInfoResults.info.color.event.drogueBorder = this.flightInfoColorEventDrogueBorder;
-			flightInfoResults.info.color.event.main = this.flightInfoColorEventMain;
-			flightInfoResults.info.color.event.mainBorder = this.flightInfoColorEventMainBorder;
-			flightInfoResults.info.color.velocity = this.flightInfoColorVelocity;
-			flightInfoResults.info.color.velocityF = this.flightInfoColorVelocityF;
+			flightInfoResults.info.style.altitude = this.flightInfoStyleAltitude;
+			flightInfoResults.info.style.altitudeF = this.flightInfoStyleAltitudeF;
+			flightInfoResults.info.style.event.apogee = this.flightInfoStyleEventApogee;
+			flightInfoResults.info.style.event.apogeeBorder = this.flightInfoStyleEventApogeeBorder;
+			flightInfoResults.info.style.event.drogue = this.flightInfoStyleEventDrogue;
+			flightInfoResults.info.style.event.drogueBorder = this.flightInfoStyleEventDrogueBorder;
+			flightInfoResults.info.style.event.main = this.flightInfoStyleEventMain;
+			flightInfoResults.info.style.event.mainBorder = this.flightInfoStyleEventMainBorder;
+			flightInfoResults.info.style.velocity = this.flightInfoStyleVelocity;
+			flightInfoResults.info.style.velocityF = this.flightInfoStyleVelocityF;
 
 			this.flightInfoChartData = flightInfoResults.info;
 			this.flightInfo = flightInfoResults.info;

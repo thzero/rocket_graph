@@ -41,14 +41,14 @@ export default store(function () {
 	const store = createStore({
 		state () {
 			return {
-				flightInfoColors: [],
+				flightInfoStyle: [],
 				flightPathStyle: [],
 				measurementUnits: AppUtility.measurementUnitEnglish
 			}
 		},
 		actions: {
-			async setFlightInfoColors({ commit }, value) {
-				commit('setFlightInfoColors', value);
+			async setFlightInfoStyle({ commit }, value) {
+				commit('setFlightInfoStyle', value);
 			},
 			async setFlightPathStyle({ commit }, value) {
 				commit('setFlightPathStyle', value);
@@ -58,10 +58,10 @@ export default store(function () {
 			}
 		},
 		getters: {
-			getFlightInfoColors: (state) => (id) => {
-				if (!state.flightInfoColors)
+			getFlightInfoStyle: (state) => (id) => {
+				if (!state.flightInfoStyle)
 					return null;
-				return state.flightInfoColors.find(l => l.id);
+				return state.flightInfoStyle.find(l => l.id);
 			},
 			getFlightPathStyle: (state) => (id) => {
 				if (!state.flightPathStyle)
@@ -73,12 +73,12 @@ export default store(function () {
 			}
 		},
 		mutations: {
-			setFlightInfoColors (state, value) {
+			setFlightInfoStyle (state, value) {
 				if (String.isNullOrEmpty(value.id))
 					return;
-				if (!state.flightInfoColors)
-					state.flightInfoColors = [];
-				state.flightInfoColors = AppUtility.updateArrayByObject(state.flightInfoColors, value);
+				if (!state.flightInfoStyle)
+					state.flightInfoStyle = [];
+				state.flightInfoStyle = AppUtility.updateArrayByObject(state.flightInfoStyle, value);
 			},
 			setFlightPathStyle (state, value) {
 				if (String.isNullOrEmpty(value.id))

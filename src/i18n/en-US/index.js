@@ -63,8 +63,8 @@ export default {
 	},
 	flightInfo: {
 		title: 'Flight Title',
-		color: {
-			title: 'Chart Colors',
+		style: {
+			title: 'Chart Styles',
 			altitude: {
 				title: 'Altitude',
 				filtered: 'Altitude (Filtered)'

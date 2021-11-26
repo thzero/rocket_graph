@@ -106,7 +106,7 @@ export default defineComponent({
 						type: 'line',
 						data: flightInfo.altitude.dataF,
 						label: this.$t('charts.flightInfo.altitude.titleF'),
-						borderColor: flightInfo.color.altitude,
+						borderColor: flightInfo.style.altitude,
 						fill: false,
 						pointRadius: 0
 					});
@@ -116,7 +116,7 @@ export default defineComponent({
 						type: 'line',
 						data: flightInfo.altitude.data,
 						label: this.$t('charts.flightInfo.altitude.title'),
-						borderColor: flightInfo.color.altitudeF,
+						borderColor: flightInfo.style.altitudeF,
 						fill: false,
 						pointRadius: 0
 					});
@@ -127,7 +127,7 @@ export default defineComponent({
 						type: 'line',
 						data: flightInfo.velocity.dataF,
 						label: this.$t('charts.flightInfo.velocity.titleF'),
-						borderColor: flightInfo.color.velocity,
+						borderColor: flightInfo.style.velocity,
 						fill: false,
 						pointRadius: 0
 					});
@@ -137,7 +137,7 @@ export default defineComponent({
 						type: 'line',
 						data: flightInfo.velocity.data,
 						label: this.$t('charts.flightInfo.velocity.title'),
-						borderColor: flightInfo.color.velocityF,
+						borderColor: flightInfo.style.velocityF,
 						fill: false,
 						pointRadius: 0
 					});
@@ -147,8 +147,8 @@ export default defineComponent({
 					type: 'scatter',
 					data: flightInfo.events.apogee.data,
 					label: this.$t('charts.flightInfo.events.apogee'),
-					borderColor: flightInfo.color.event.apogeeBorder,
-					backgroundColor: flightInfo.color.event.apogee + '7F',
+					borderColor: flightInfo.style.event.apogeeBorder,
+					backgroundColor: flightInfo.style.event.apogee + '7F',
 					borderWidth: 2,
 					pointRadius: 10
 				});
@@ -163,16 +163,16 @@ export default defineComponent({
 					type: 'scatter',
 					data: flightInfo.events.drogue.data,
 					label: this.$t('charts.flightInfo.events.drogue'),
-					borderColor: flightInfo.color.event.drogueBorder,
-					backgroundColor: flightInfo.color.event.drogue + '7F',
+					borderColor: flightInfo.style.event.drogueBorder,
+					backgroundColor: flightInfo.style.event.drogue + '7F',
 					pointRadius: 10
 				});
 				chart.data.datasets.push({
 					type: 'scatter',
 					data: flightInfo.events.main.data,
 					label: this.$t('charts.flightInfo.events.main'),
-					borderColor: flightInfo.color.event.mainBorder,
-					backgroundColor: flightInfo.color.event.main + '7F',
+					borderColor: flightInfo.style.event.mainBorder,
+					backgroundColor: flightInfo.style.event.main + '7F',
 					pointRadius: 10
 				});
 
