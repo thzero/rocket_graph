@@ -28,16 +28,6 @@ export default defineComponent({
 		this.serviceDownload = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_DOWNLOAD);
 	},
 	methods: {
-		setError(message) {
-			this.buttons.export.disabled = true;
-			this.errorMessage = message;
-
-			this.errorTimer = setTimeout(() => {
-				this.errorMessage = null;
-				clearTimeout(this.errorTimer);
-			},
-			3000);
-		},
 		notify(message) {
 			if (String.isNullOrEmpty(message))
 				return;
@@ -47,6 +37,16 @@ export default defineComponent({
 				textColor: 'white',
 				message: AppUtility.$t(message)
 			});
+		},
+		setError(message) {
+			this.buttons.export.disabled = true;
+			this.errorMessage = message;
+
+			this.errorTimer = setTimeout(() => {
+				this.errorMessage = null;
+				clearTimeout(this.errorTimer);
+			},
+			3000);
 		}
 	}
 });
