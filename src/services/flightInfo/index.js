@@ -22,7 +22,7 @@ class FlightInfoService extends Service {
 	get styleDefault() {
 		return {
 			altitude: {
-				color: '#0066FF'
+				color: '#00FFFF'
 			},
 			altitudeF: {
 				color: '#0000FF'
@@ -48,7 +48,7 @@ class FlightInfoService extends Service {
 				}
 			},
 			velocity: {
-				color: '#00FFFF'
+				color: '#00FF00'
 			},
 			velocityF: {
 				color: '#00AA00'
