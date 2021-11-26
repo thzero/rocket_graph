@@ -19,6 +19,23 @@ class FlightInfoService extends Service {
 		this.registerProcessor(serviceFlightInfoProcessorEggtimer);
 	}
 
+	get colorsDefault() {
+		return {
+			altitude: '#0066FF',
+			altitudeF: '#0000FF',
+			event: {
+				apogee: '#000000',
+				apogeeBorder: '#000000',
+				drogue: '#FF0000',
+				drogueBorder: '#FF0000',
+				main: '#FF8C00',
+				mainBorder: '#FF8C00'
+			},
+			velocity: '#00FFFF',
+			velocityF: '#00AA00'
+		};
+	}
+
 	get serviceProcessors() {
 		return this._serviceProcessors;
 	}
@@ -147,6 +164,20 @@ class FlightInfoService extends Service {
 				dataF: [],
 				max: 0,
 				maxF: 0
+			},
+			color: {
+				altitude: this.colorsDefault.altitude,
+				altitudeF: this.colorsDefault.altitudeF,
+				event: {
+					apogee: this.colorsDefault.event.apogee,
+					apogeeBorder: this.colorsDefault.event.apogeeBorder,
+					drogue: this.colorsDefault.event.drogue,
+					drogueBorder: this.colorsDefault.event.drogueBorder,
+					main: this.colorsDefault.event.main,
+					mainBorder: this.colorsDefault.event.mainBorder
+				},
+				velocity: this.colorsDefault.velocity,
+				velocityF: this.colorsDefault.velocityF
 			},
 			date: null,
 			dataTypes: {

@@ -128,7 +128,7 @@
 								<q-separator></q-separator>
 								<q-card-section class="text-subitle2">
 									<div class="row">
-										<div class="col-6 col-md-12">
+										<div class="col-lg-6 col-12">
 											<q-input
 												v-model="flightInfoColorAltitudeF"
 												filled
@@ -148,7 +148,7 @@
 												</template>
 											</q-input>
 										</div>
-										<div class="col-6 col-md-12">
+										<div class="col-lg-6 col-12">
 											<q-input
 												v-model="flightInfoColorAltitude"
 												filled
@@ -170,7 +170,7 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-6 col-md-12">
+										<div class="col-lg-6 col-12">
 											<q-input
 												v-model="flightInfoColorVelocityF"
 												filled
@@ -190,7 +190,7 @@
 												</template>
 											</q-input>
 										</div>
-										<div class="col-6 col-md-12">
+										<div class="col-lg-6 col-12">
 											<q-input
 												v-model="flightInfoColorVelocity"
 												filled
@@ -212,7 +212,7 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-6 col-md-12">
+										<div class="col-lg-6 col-12">
 											<q-input
 												v-model="flightInfoColorEventApogee"
 												filled
@@ -232,7 +232,7 @@
 												</template>
 											</q-input>
 										</div>
-										<div class="col-6 col-md-12">
+										<div class="col-lg-6 col-12">
 											<q-input
 												v-model="flightInfoColorEventApogeeBorder"
 												filled
@@ -254,7 +254,7 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-6 col-md-12">
+										<div class="col-lg-6 col-12">
 											<q-input
 												v-model="flightInfoColorEventDrogue"
 												filled
@@ -274,7 +274,7 @@
 												</template>
 											</q-input>
 										</div>
-										<div class="col-6 col-md-12">
+										<div class="col-lg-6 col-12">
 											<q-input
 												v-model="flightInfoColorEventDrogueBorder"
 												filled
@@ -296,7 +296,7 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-6 col-md-12">
+										<div class="col-lg-6 col-12">
 											<q-input
 												v-model="flightInfoColorEventMain"
 												filled
@@ -316,7 +316,7 @@
 												</template>
 											</q-input>
 										</div>
-										<div class="col-6 col-md-12">
+										<div class="col-lg-6 col-12">
 											<q-input
 												v-model="flightInfoColorEventMainBorder"
 												filled
@@ -335,6 +335,19 @@
 													</q-icon>
 												</template>
 											</q-input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12">
+											<div class="float-right">
+												<q-btn
+													class="q-pa-sm"
+													dense
+													color="primary"
+													:label="$t('button.reset')"
+													@click="flightInfoColorReset"
+												/>
+											</div>
 										</div>
 									</div>
 								</q-card-section>
@@ -471,11 +484,11 @@ export default defineComponent({
 		flightInfoChartData: null,
 		flightInfoColorAltitude: '#0066FF',
 		flightInfoColorAltitudeF: '#0000FF',
-		flightInfoColorEventApogee: '#00007F',
+		flightInfoColorEventApogee: '#000000',
 		flightInfoColorEventApogeeBorder: '#000000',
-		flightInfoColorEventDrogue: '#00007F',
+		flightInfoColorEventDrogue: '#FF0000',
 		flightInfoColorEventDrogueBorder: '#FF0000',
-		flightInfoColorEventMain: '#8C007F',
+		flightInfoColorEventMain: '#FF8C00',
 		flightInfoColorEventMainBorder: '#FF8C00',
 		flightInfoColorVelocity: '#00FFFF',
 		flightInfoColorVelocityF: '#00AA00',
@@ -620,6 +633,18 @@ Events
 			);
 */
 		},
+		flightInfoColorReset() {
+			this.flightInfoColorAltitude = this.serviceFlightInfo.colorsDefault.altitude;
+			this.flightInfoColorAltitudeF = this.serviceFlightInfo.colorsDefault.altitudeF;
+			this.flightInfoColorEventApogee = this.serviceFlightInfo.colorsDefault.event.apogee;
+			this.flightInfoColorEventApogeeBorder = this.serviceFlightInfo.colorsDefault.event.apogeeBorder;
+			this.flightInfoColorEventDrogue = this.serviceFlightInfo.colorsDefault.event.drogue;
+			this.flightInfoColorEventDrogueBorder = this.serviceFlightInfo.colorsDefault.event.drogueBorder;
+			this.flightInfoColorEventMain = this.serviceFlightInfo.colorsDefault.event.main;
+			this.flightInfoColorEventMainBorder = this.serviceFlightInfo.colorsDefault.event.mainBorder;
+			this.flightInfoColorVelocity = this.serviceFlightInfo.colorsDefault.velocity;
+			this.flightInfoColorVelocityF = this.serviceFlightInfo.colorsDefault.velocityF;
+		},
 		flightInfoExport() {
 			const el = document.getElementById('flight-info');
 			this.getScreenshotOfElement(el, ((data) => {
@@ -691,6 +716,17 @@ Events
 				flightInfoResults.info.location = this.flightInfoLocation;
 			if (!String.isNullOrEmpty(this.flightInfoMeasurementUnit))
 				flightInfoResults.info.measurementUnits = this.flightInfoMeasurementUnits;
+
+			flightInfoResults.info.color.altitude = this.flightInfoColorAltitude;
+			flightInfoResults.info.color.altitudeF = this.flightInfoColorAltitudeF;
+			flightInfoResults.info.color.event.apogee = this.flightInfoColorEventApogee;
+			flightInfoResults.info.color.event.apogeeBorder = this.flightInfoColorEventApogeeBorder;
+			flightInfoResults.info.color.event.drogue = this.flightInfoColorEventDrogue;
+			flightInfoResults.info.color.event.drogueBorder = this.flightInfoColorEventDrogueBorder;
+			flightInfoResults.info.color.event.main = this.flightInfoColorEventMain;
+			flightInfoResults.info.color.event.mainBorder = this.flightInfoColorEventMainBorder;
+			flightInfoResults.info.color.velocity = this.flightInfoColorVelocity;
+			flightInfoResults.info.color.velocityF = this.flightInfoColorVelocityF;
 
 			this.flightInfoChartData = flightInfoResults.info;
 			this.flightInfo = flightInfoResults.info;
