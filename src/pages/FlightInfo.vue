@@ -501,16 +501,16 @@ export default defineComponent({
 		flightInfoMeasurementUnitsOptions: [],
 		flightInfoProcessor: null,
 		flightInfoProcessors: [],
-		flightInfoStyleAltitudeColor: '#0066FF',
-		flightInfoStyleAltitudeFColor: '#0000FF',
-		flightInfoStyleEventApogeeColor: '#000000',
-		flightInfoStyleEventApogeeBorderColor: '#000000',
-		flightInfoStyleEventDrogueColor: '#FF0000',
-		flightInfoStyleEventDrogueBorderColor: '#FF0000',
-		flightInfoStyleEventMainColor: '#FF8C00',
-		flightInfoStyleEventMainBorderColor: '#FF8C00',
-		flightInfoStyleVelocityColor: '#00FFFF',
-		flightInfoStyleVelocityFColor: '#00AA00',
+		flightInfoStyleAltitudeColor: null,
+		flightInfoStyleAltitudeFColor: null,
+		flightInfoStyleEventApogeeColor: null,
+		flightInfoStyleEventApogeeBorderColor: null,
+		flightInfoStyleEventDrogueColor: null,
+		flightInfoStyleEventDrogueBorderColor: null,
+		flightInfoStyleEventMainColor: null,
+		flightInfoStyleEventMainBorderColor: null,
+		flightInfoStyleVelocityColor: null,
+		flightInfoStyleVelocityFColor: null,
 		flightInfoTitle: null,
 		serviceFlightInfo: null
 	}),
@@ -530,9 +530,12 @@ export default defineComponent({
 	},
 	created() {
 		this.serviceFlightInfo = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_FLIGHT_INFO);
+
+		this.flightInfoStyleReset();
 	},
 	mounted() {
 		this.reset();
+		this.flightInfoStyleReset();
 
 		this.flightInfoProcessors = AppUtility.selectOptions(this.serviceFlightInfo.serviceProcessors, this.$t, 'flightInfo.processors', (l) => { return l.id; }, null, (l) => { return l.id; });
 		this.flightInfoMeasurementUnitsOptions = AppUtility.selectOptions(AppUtility.measurementUnits(), this.$t, 'measurementUnits');

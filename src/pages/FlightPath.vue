@@ -307,10 +307,10 @@ export default defineComponent({
 		flightPathMeasurementUnitsOptions: [],
 		flightPathProcessor: null,
 		flightPathProcessors: [],
-		flightPathStylePathFlightColor: '#0000ff',
-		flightPathStylePathGroundColor: '#000000',
-		flightPathStylePinLaunchColor: '#ff0000',
-		flightPathStylePinTouchdownColor: '#00ff00',
+		flightPathStylePathFlightColor: null,
+		flightPathStylePathGroundColor: null,
+		flightPathStylePinLaunchColor: null,
+		flightPathStylePinTouchdownColor: null,
 		flightPathTitle: null,
 		output: null,
 		serviceFlightPath: null
@@ -325,9 +325,12 @@ export default defineComponent({
 	},
 	created() {
 		this.serviceFlightPath = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_FLIGHT_PATH);
+
+		this.flightPathStyleReset();
 	},
 	mounted() {
 		this.reset();
+		this.flightPathStyleReset();
 
 		this.flightPathProcessors = AppUtility.selectOptions(this.serviceFlightPath.serviceProcessors, this.$t, 'flightPath.processors', (l) => { return l.id; }, null, (l) => { return l.id; });
 		this.flightPathMeasurementUnitsOptions = AppUtility.selectOptions(AppUtility.measurementUnits(), this.$t, 'measurements', null, (l) => { return l + '.altitude.name'; });
