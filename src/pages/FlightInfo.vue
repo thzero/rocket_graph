@@ -65,9 +65,9 @@
 						@update:model-value="checkErrors"
 					/>
 					<q-select
-						ref="flightInfoDataType"
-						v-model="flightInfoDataType"
-						:options="flightInfoDataTypes"
+						ref="flightInfoProcessor"
+						v-model="flightInfoProcessor"
+						:options="flightInfoProcessors"
 						filled
 						dense
 						option-value="id"
@@ -75,55 +75,337 @@
 						emit-value
 						map-options
 						hide-bottom-space
-						:label="$t('flightInfo.dataTypes')"
+						:label="$t('flightInfo.processors.title')"
 						:rules="[val => !!val || $t('validation.required')]"
 						@update:model-value="checkErrors"
 					/>
+					<div class="row">
+						<div class="q-pr-xl">
+							<q-checkbox
+								v-model="flightInfoDataTypeActual"
+								label="Actual"
+								@update:model-value="checkErrors"
+							/>
+							<q-checkbox
+								v-model="flightInfoDataTypeFiltered"
+								label="Filtered"
+								@update:model-value="checkErrors"
+							/>
+						</div>
+						<div>
+							<span
+								:class="!flightInfoDataTypeActual ? 'disabled' : ''"
+							>
+								Actual
+							</span>
+							<q-toggle
+								v-model="flightInfoDataTypeUse"
+								:disable="flightInfoDataTypeUseDisabled"
+							/>
+							<span
+								:class="!flightInfoDataTypeFiltered ? 'disabled' : ''"
+							>
+								Filtered
+							</span>
+						</div>
+					</div>
+					<q-card
+						flat
+						bordered
+						dense>
+						<q-card-actions>
+							{{ $t('flightInfo.style.title') }}
+							<q-space></q-space>
+							<q-btn
+								color="grey"
+								round
+								dense
+								flat
+								:icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
+								@click="expanded = !expanded"
+							></q-btn>
+						</q-card-actions>
+
+						<q-slide-transition>
+							<div v-show="expanded">
+								<q-separator></q-separator>
+								<q-card-section class="text-subitle2">
+									<div class="row">
+										<div class="col-lg-6 col-12">
+											<q-input
+												v-model="flightInfoStyleAltitudeFColor"
+												filled
+												dense
+												:label="$t('flightInfo.style.altitude.filtered')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleAltitudeFColor">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoStyleAltitudeFColor" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+										<div class="col-lg-6 col-12">
+											<q-input
+												v-model="flightInfoStyleAltitudeColor"
+												filled
+												dense
+												:label="$t('flightInfo.style.altitude.title')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleAltitudeColor">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoStyleAltitudeColor" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-6 col-12">
+											<q-input
+												v-model="flightInfoStyleVelocityFColor"
+												filled
+												dense
+												:label="$t('flightInfo.style.velocity.filtered')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleVelocityFColor">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoStyleVelocityFColor" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+										<div class="col-lg-6 col-12">
+											<q-input
+												v-model="flightInfoStyleVelocityColor"
+												filled
+												dense
+												:label="$t('flightInfo.style.velocity.title')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleVelocityColor">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoStyleVelocityColor" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-6 col-12">
+											<q-input
+												v-model="flightInfoStyleEventApogeeColor"
+												filled
+												dense
+												:label="$t('flightInfo.style.event.apogee.title')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleEventApogeeColor">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoStyleEventApogeeColor" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+										<div class="col-lg-6 col-12">
+											<q-input
+												v-model="flightInfoStyleEventApogeeBorderColor"
+												filled
+												dense
+												:label="$t('flightInfo.style.event.apogee.border')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleEventApogeeBorderColor">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoStyleEventApogeeBorderColor" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-6 col-12">
+											<q-input
+												v-model="flightInfoStyleEventDrogueColor"
+												filled
+												dense
+												:label="$t('flightInfo.style.event.drogue.title')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleEventDrogueColor">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoStyleEventDrogueColor" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+										<div class="col-lg-6 col-12">
+											<q-input
+												v-model="flightInfoStyleEventDrogueBorderColor"
+												filled
+												dense
+												:label="$t('flightInfo.style.event.drogue.border')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleEventDrogueBorderColor">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoStyleEventDrogueBorderColor" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-6 col-12">
+											<q-input
+												v-model="flightInfoStyleEventMainColor"
+												filled
+												dense
+												:label="$t('flightInfo.style.event.main.title')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleEventMainColor">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoStyleEventMainColor" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+										<div class="col-lg-6 col-12">
+											<q-input
+												v-model="flightInfoStyleEventMainBorderColor"
+												filled
+												dense
+												:label="$t('flightInfo.style.event.main.border')"
+											>
+												<template v-slot:prepend>
+													<div :style="'height: 25px; width: 25px; background-color: ' + flightInfoStyleEventMainBorderColor">
+													</div>
+												</template>
+												<template v-slot:append>
+													<q-icon name="colorize" class="cursor-pointer">
+														<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+															<q-color v-model="flightInfoStyleEventMainBorderColor" />
+														</q-popup-proxy>
+													</q-icon>
+												</template>
+											</q-input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12">
+											<div class="float-right q-mt-sm">
+												<q-btn
+													class="q-mr-sm"
+													dense
+													color="primary"
+													:label="$t('button.save')"
+													:disable="!flightInfoProcessor"
+													@click="flightInfoStyleSave"
+												/>
+												<q-btn
+													dense
+													color="primary"
+													:label="$t('button.reset')"
+													@click="flightInfoStyleReset"
+												/>
+											</div>
+										</div>
+									</div>
+								</q-card-section>
+							</div>
+						</q-slide-transition>
+					</q-card>
 				</div>
 				<div class="q-pb-md float-right">
-					<q-btn-group>
-						<q-btn
-							class="q-pa-sm"
-							dense
-							color="primary"
-							:label="$t('button.process')"
-							:disabled="buttons.process.disabled"
-							@click="flightInfoProcess"
-							@focus="checkErrors"
-						/>
-						<q-btn-dropdown
-							class="q-pa-sm"
-							dense
-							color="primary"
-							:label="$t('button.export')"
-							:disabled="buttons.export.disabled"
-						>
-							<q-list>
-								<q-item clickable v-close-popup @click="flightInfoExport">
-									<q-item-section>
-										<q-item-label>{{ $t('flightInfo.export.image') }}</q-item-label>
-									</q-item-section>
-								</q-item>
-								<q-item clickable v-close-popup @click="flightInfoExportJson">
-									<q-item-section>
-										<q-item-label>{{ $t('flightInfo.export.json') }}</q-item-label>
-									</q-item-section>
-								</q-item>
-								<!-- <q-item clickable v-close-popup @click="flightInfoExportText">
-									<q-item-section>
-										<q-item-label>{{ $t('flightInfo.export.text') }}</q-item-label>
-									</q-item-section>
-								</q-item> -->
-							</q-list>
-						</q-btn-dropdown>
-						<q-btn
-							class="q-pa-sm"
-							dense
-							color="primary"
-							:label="$t('button.reset')"
-							@click="resetInput"
-						/>
-					</q-btn-group>
+					<q-btn
+						class="q-mr-sm"
+						dense
+						color="primary"
+						:label="$t('button.process')"
+						:disabled="buttons.process.disabled"
+						@click="flightInfoProcess"
+						@focus="checkErrors"
+					/>
+					<q-btn-dropdown
+						class="q-mr-sm"
+						dense
+						color="primary"
+						:label="$t('button.export')"
+						:disabled="buttons.export.disabled"
+					>
+						<q-list>
+							<q-item clickable v-close-popup @click="flightInfoExport">
+								<q-item-section>
+									<q-item-label>{{ $t('flightInfo.export.image') }}</q-item-label>
+								</q-item-section>
+							</q-item>
+							<q-item clickable v-close-popup @click="flightInfoExportJson">
+								<q-item-section>
+									<q-item-label>{{ $t('flightInfo.export.json') }}</q-item-label>
+								</q-item-section>
+							</q-item>
+							<!-- <q-item clickable v-close-popup @click="flightInfoExportText">
+								<q-item-section>
+									<q-item-label>{{ $t('flightInfo.export.text') }}</q-item-label>
+								</q-item-section>
+							</q-item> -->
+						</q-list>
+					</q-btn-dropdown>
+					<q-btn
+						dense
+						color="primary"
+						:label="$t('button.reset')"
+						@click="resetInput"
+					/>
 				</div>
 				<q-input
 					ref="flightInfoInput"
@@ -204,34 +486,158 @@ export default defineComponent({
 				disabled: true
 			}
 		},
+		expanded: false,
 		flightInfo: null,
 		flightInfoChartData: null,
-		flightInfoDataType: null,
-		flightInfoDataTypes: [],
+		flightInfoDataTypeActual: true,
+		flightInfoDataTypeError: false,
+		flightInfoDataTypeFiltered: true,
+		flightInfoDataTypeUse: true,
+		flightInfoDataTypeUseDisabled: false,
 		flightInfoDate: null,
 		flightInfoInput: null,
 		flightInfoLocation: null,
 		flightInfoMeasurementUnits: null,
 		flightInfoMeasurementUnitsOptions: [],
+		flightInfoProcessor: null,
+		flightInfoProcessors: [],
+		flightInfoStyleAltitudeColor: null,
+		flightInfoStyleAltitudeFColor: null,
+		flightInfoStyleEventApogeeColor: null,
+		flightInfoStyleEventApogeeBorderColor: null,
+		flightInfoStyleEventDrogueColor: null,
+		flightInfoStyleEventDrogueBorderColor: null,
+		flightInfoStyleEventMainColor: null,
+		flightInfoStyleEventMainBorderColor: null,
+		flightInfoStyleVelocityColor: null,
+		flightInfoStyleVelocityFColor: null,
 		flightInfoTitle: null,
 		serviceFlightInfo: null
 	}),
+	watch: {
+		flightInfoDataTypeActual: function (value) {
+			this.checkFlightInfoDataTypeUse();
+		},
+		flightInfoDataTypeFiltered: function (value) {
+			this.checkFlightInfoDataTypeUse();
+		},
+		flightInfoProcessor: function (value) {
+			if (!value)
+				return;
+
+			this.flightInfoStyleLoad(value);
+		}
+	},
 	created() {
 		this.serviceFlightInfo = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_FLIGHT_INFO);
+
+		this.flightInfoStyleReset(false);
 	},
 	mounted() {
 		this.reset();
+		this.flightInfoStyleReset(false);
 
-		this.flightInfoDataTypes = AppUtility.selectOptions(this.serviceFlightInfo.serviceProcessors, this.$t, 'flightInfo.processors', (l) => { return l.id; }, null, (l) => { return l.id; });
+		this.flightInfoProcessors = AppUtility.selectOptions(this.serviceFlightInfo.serviceProcessors, this.$t, 'flightInfo.processors', (l) => { return l.id; }, null, (l) => { return l.id; });
 		this.flightInfoMeasurementUnitsOptions = AppUtility.selectOptions(AppUtility.measurementUnits(), this.$t, 'measurementUnits');
 		this.flightInfoMeasurementUnits = AppUtility.$store.state.measurementUnits;
 	},
 	methods: {
 		checkErrors() {
 			this.$refs.flightInfoInput.validate();
-			this.$refs.flightInfoDataType.validate();
 			this.$refs.flightInfoMeasurementUnits.validate();
+			this.$refs.flightInfoProcessor.validate();
+
+			this.flightInfoDataTypeError = !(this.flightInfoDataTypeActual || this.flightInfoDataTypeFiltered);
+
 			this.buttons.process.disabled = this.hasError();
+		},
+		flightInfoStyleLoad() {
+			if (String.isNullOrEmpty(this.flightInfoProcessor))
+				return;
+
+			const style = AppUtility.$store.getters.getFlightInfoStyle(this.flightInfoProcessor);
+			if (!style)
+				return;
+
+			this.flightInfoStyleAltitudeColor = style.altitude.color;
+			this.flightInfoStyleAltitudeFColor = style.altitudeF.color;
+			this.flightInfoStyleEventApogeeColor = style.event.apogee.color;
+			this.flightInfoStyleEventApogeeBorderColor = style.event.apogeeBorder.color;
+			this.flightInfoStyleEventDrogueColor = style.event.drogue.color;
+			this.flightInfoStyleEventDrogueBorderColor = style.event.drogueBorder.color;
+			this.flightInfoStyleEventMainColor = style.event.main.color;
+			this.flightInfoStyleEventMainBorderColor = style.event.mainBorder.color;
+			this.flightInfoStyleVelocityColor = style.velocity.color;
+			this.flightInfoStyleVelocityFColor = style.velocityF.color;
+		},
+		flightInfoStyleReset(notify) {
+			this.flightInfoStyleAltitudeColor = this.serviceFlightInfo.styleDefault.altitude.color;
+			this.flightInfoStyleAltitudeFColor = this.serviceFlightInfo.styleDefault.altitudeF.color;
+			this.flightInfoStyleEventApogeeColor = this.serviceFlightInfo.styleDefault.event.apogee.color;
+			this.flightInfoStyleEventApogeeBorderColor = this.serviceFlightInfo.styleDefault.event.apogeeBorder.color;
+			this.flightInfoStyleEventDrogueColor = this.serviceFlightInfo.styleDefault.event.drogue.color;
+			this.flightInfoStyleEventDrogueBorderColor = this.serviceFlightInfo.styleDefault.event.drogueBorder.color;
+			this.flightInfoStyleEventMainColor = this.serviceFlightInfo.styleDefault.event.main.color;
+			this.flightInfoStyleEventMainBorderColor = this.serviceFlightInfo.styleDefault.event.mainBorder.color;
+			this.flightInfoStyleVelocityColor = this.serviceFlightInfo.styleDefault.velocity.color;
+			this.flightInfoStyleVelocityFColor = this.serviceFlightInfo.styleDefault.velocityF.color;
+
+			notify = (notify !== null && notify !== undefined) ? notify : true;
+			if (notify)
+				this.notify('messages.reset');
+		},
+		flightInfoStyleSave() {
+			if (String.isNullOrEmpty(this.flightInfoProcessor))
+				return;
+
+			const style = {
+				id: this.flightInfoProcessor,
+				altitude: {
+					color: this.flightInfoStyleAltitudeColor
+				},
+				altitudeF: {
+					color: this.flightInfoStyleAltitudeFColor
+				},
+				event: {
+					apogee: {
+						color: this.flightInfoStyleEventApogeeColor
+					},
+					apogeeBorder: {
+						color: this.flightInfoStyleEventApogeeBorderColor
+					},
+					drogue: {
+						color: this.flightInfoStyleEventDrogueColor
+					},
+					drogueBorder: {
+						color: this.flightInfoStyleEventDrogueBorderColor
+					},
+					main: {
+						color: this.flightInfoStyleEventMainColor
+					},
+					mainBorder: {
+						color: this.flightInfoStyleEventMainBorderColor
+					}
+				},
+				velocity: {
+					color: this.flightInfoStyleVelocityColor
+				},
+				velocityF: {
+					color: this.flightInfoStyleVelocityFColor
+				}
+			};
+
+			AppUtility.$store.dispatch('setFlightInfoStyle', style);
+
+			this.notify('messages.saved');
+		},
+		checkFlightInfoDataTypeUse() {
+			this.flightInfoDataTypeUseDisabled = true;
+			if (this.flightInfoDataTypeActual && this.flightInfoDataTypeFiltered)
+				this.flightInfoDataTypeUseDisabled = false;
+			else if (this.flightInfoDataTypeActual)
+				this.flightInfoDataTypeUse = false;
+			else if (this.flightInfoDataTypeFiltered)
+				this.flightInfoDataTypeUse = true;
 		},
 		flightInfoExportName(extension) {
 			extension = !String.isNullOrEmpty(extension) ? extension : 'png';
@@ -243,10 +649,8 @@ export default defineComponent({
 
 			return 'flight-input-' + day + '-' + month + '-' + year + '.' + extension;
 		},
-		flightInfoExportJson() {
-			const output = JSON.stringify(this.flightInfo);
-
-			const name = this.flightInfoExportName('json');
+		flightInfoExportDownload(output, extension) {
+			const name = this.flightInfoExportName(extension);
 			const barRef = this.$refs.bar;
 			barRef.start();
 
@@ -266,61 +670,13 @@ export default defineComponent({
 				}
 			);
 		},
+		flightInfoExportJson() {
+			const output = this.serviceFlightInfo.processOutputJson(this.flightInfo);
+			this.flightInfoExportDownload(output, 'json');
+		},
 		flightInfoExportText() {
-			/*
-			const output = `
-Flight Time			${this.flightInfo?.events?.ground?.time}
-Max. Altitude		${flightTime}
-Velocity
-	Ascent
-		Max.		${flightTime}
-		Avg.		${flightTime}
-	Descent
-		Drogue
-			Max.	${flightTime}
-			Avg.	${flightTime}
-		Main
-			Max.	${flightTime}
-			Avg.	${flightTime}
-Acceleration
-	Max.			${flightTime}
-	Min.			${flightTime}
-	Descent
-		Drogue
-			Max.	${flightTime}
-			Min.	${flightTime}
-			Avg.	${flightTime}
-		Main
-			Max.	${flightTime}
-			Min.	${flightTime}
-			Avg.	${flightTime}
-Events
-	Apogee			${flightTime}
-	Nose Over		${flightTime}
-	Drogue			${flightTime}
-	Main			${flightTime}
-`;
-
-			const name = this.flightInfoExportName('txt');
-			const barRef = this.$refs.bar;
-			barRef.start();
-
-			this.serviceDownload.download(output,
-				name,
-				() => {
-					console.log('completed');
-					barRef.stop();
-				},
-				() => {
-					console.log('cancelled');
-					barRef.stop();
-				},
-				(arg) => {
-					console.log('progress');
-					console.log(arg);
-				}
-			);
-*/
+			const output = this.serviceFlightInfo.processOutputText(this.flightInfo);
+			this.flightInfoExportDownload(output, 'txt');
 		},
 		flightInfoExport() {
 			const el = document.getElementById('flight-info');
@@ -351,8 +707,8 @@ Events
 			this.reset();
 
 			this.$refs.flightInfoInput.validate();
-			this.$refs.flightInfoDataType.validate();
 			this.$refs.flightInfoMeasurementUnits.validate();
+			this.$refs.flightInfoProcessor.validate();
 
 			if (this.hasError()) {
 				this.setError(this.$t('errors.process.required'));
@@ -370,7 +726,13 @@ Events
 				return;
 			}
 
-			const flightInfoResults = this.serviceFlightInfo.process(data, this.flightInfoDataType, this.flightInfoMeasurementUnits);
+			const flightInfoDataTypes = {
+				actual: this.flightInfoDataTypeActual,
+				filtered: this.flightInfoDataTypeFiltered,
+				use: this.flightInfoDataTypeUse
+			};
+
+			const flightInfoResults = this.serviceFlightInfo.process(data, this.flightInfoProcessor, this.flightInfoMeasurementUnits, flightInfoDataTypes);
 			console.log(flightInfoResults);
 			if (flightInfoResults.errors && data.errors.length > 0) {
 				const errors = flightInfoResults.errors.map(e => this.$t(e) + '<br/>');
@@ -388,13 +750,31 @@ Events
 			if (!String.isNullOrEmpty(this.flightInfoMeasurementUnit))
 				flightInfoResults.info.measurementUnits = this.flightInfoMeasurementUnits;
 
+			flightInfoResults.info.style.altitude = this.flightInfoStyleAltitudeColor;
+			flightInfoResults.info.style.altitudeF = this.flightInfoStyleAltitudeFColor;
+			flightInfoResults.info.style.event.apogee = this.flightInfoStyleEventApogeeColor;
+			flightInfoResults.info.style.event.apogeeBorder = this.flightInfoStyleEventApogeeBorderColor;
+			flightInfoResults.info.style.event.drogue = this.flightInfoStyleEventDrogueColor;
+			flightInfoResults.info.style.event.drogueBorder = this.flightInfoStyleEventDrogueBorderColor;
+			flightInfoResults.info.style.event.main = this.flightInfoStyleEventMainColor;
+			flightInfoResults.info.style.event.mainBorder = this.flightInfoStyleEventMainBorderColor;
+			flightInfoResults.info.style.velocity = this.flightInfoStyleVelocityColor;
+			flightInfoResults.info.style.velocityF = this.flightInfoStyleVelocityFColor;
+
 			this.flightInfoChartData = flightInfoResults.info;
 			this.flightInfo = flightInfoResults.info;
+
+			this.notify('messages.processed');
 
 			this.buttons.export.disabled = false;
 		},
 		hasError() {
-			return (this.$refs.flightInfoInput.hasError || this.$refs.flightInfoDataType.hasError || this.$refs.flightInfoMeasurementUnits.hasError);
+			return (
+				this.$refs.flightInfoInput.hasError ||
+				this.$refs.flightInfoProcessor.hasError ||
+				this.$refs.flightInfoMeasurementUnits.hasError ||
+				this.flightInfoDataTypeError
+			);
 		},
 		reset() {
 			this.buttons.export.disabled = true;
@@ -406,12 +786,18 @@ Events
 		},
 		resetInput() {
 			this.reset();
-			this.flightInfoDataType = null;
+			this.flightInfoDataTypeActual = true;
+			this.flightInfoDataTypeFiltered = true;
+			this.flightInfoDataTypeUse = true;
+			this.flightInfoDataTypeUseDisabled = false;
 			this.flightInfoDate = null;
 			this.flightInfoInput = null;
 			this.flightInfoLocation = null;
+			this.flightInfoProcessor = null;
 			this.flightInfoTitle = null;
 			this.buttons.process.disabled = true;
+
+			this.notify('messages.reset');
 		},
 		setError(message) {
 			this.buttons.export.disabled = true;

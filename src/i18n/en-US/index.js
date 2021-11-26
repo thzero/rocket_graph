@@ -7,19 +7,46 @@ export default {
 		export: 'Export',
 		process: 'Process',
 		reset: 'Reset',
+		save: 'Save',
 		submit: 'Submit'
 	},
 	charts: {
 		flightInfo: {
 			title: 'Flight Info',
-			altitude: 'Altitude',
+			acceleration: 'Acceleration',
+			altitude: {
+				title: 'Altitude',
+				titleF: 'Altitude (F)',
+				max: 'Max. Altitude',
+				min: 'Min. Altitude'
+			},
+			ascent: 'Ascent',
+			avg: {
+				title: 'Average',
+				abbr: 'Avg.'
+			},
+			descent: 'Descent',
 			events: {
+				title: 'Events',
 				apogee: 'Apogee',
-				drogue: 'Drogue',
+				drogue: 'Drogue/Freefall',
+				notDetected: 'Event not detected',
 				noseOver: 'Nose Over',
 				main: 'Main'
 			},
-			velocity: 'Velocity'
+			flightTime: 'Flight Time',
+			max: {
+				title: 'Maximum',
+				abbr: 'Max.'
+			},
+			min: {
+				title: 'Minimum',
+				abbr: 'Min.'
+			},
+			velocity: {
+				title: 'Velocity',
+				titleF: 'Velocity (F)'
+			}
 		}
 	},
 	errors: {
@@ -37,8 +64,35 @@ export default {
 	},
 	flightInfo: {
 		title: 'Flight Title',
+		style: {
+			title: 'Chart Styles',
+			altitude: {
+				title: 'Altitude',
+				filtered: 'Altitude (Filtered)'
+			},
+			event: {
+				apogee: {
+					title: 'Apogee',
+					border: 'Apogee Border'
+				},
+				drogue: {
+					title: 'Drogue/Freefall',
+					border: 'Drogue/Freefall Border'
+				},
+				main: {
+					title: 'Main',
+					border: 'Main Border'
+				}
+			},
+			velocity: {
+				title: 'Velocity',
+				filtered: 'Velocity (Filtered)'
+			}
+		},
 		csv: 'CSV Flight Data',
-		dataTypes: 'Flight Data Type',
+		dataTypes: {
+			showActual: 'Show Actual'
+		},
 		date: 'Flight Date',
 		export: {
 			image: 'image',
@@ -48,19 +102,28 @@ export default {
 		location: 'Flight Location',
 		measurementUnits: 'Flight Measurement Units',
 		processors: {
+			title: 'Flight Data Type',
 			eggtimer: 'Eggtimer'
 		}
 	},
 	flightPath: {
 		title: 'Flight Title',
-		color: {
-			flight: 'Flight Path Color',
-			ground: 'Ground Path Color',
-			launch: 'Launch Pin Color',
-			touchdown: 'Touchdown Pin Color'
+		style: {
+			title: 'Flight Path Styles',
+			flight: {
+				color: 'Flight Path Color'
+			},
+			ground: {
+				color: 'Ground Path Color'
+			},
+			launch: {
+				color: 'Launch Pin Color'
+			},
+			touchdown: {
+				color: 'Touchdown Pin Color'
+			}
 		},
 		csv: 'CSV GPS Flight Data',
-		dataTypes: 'Flight Data Type',
 		date: 'Flight Date',
 		flightPath: 'Flight Path',
 		groundPath: 'Ground Path',
@@ -68,6 +131,7 @@ export default {
 		location: 'Flight Location',
 		measurementUnits: 'Altitude Measurement Units',
 		processors: {
+			title: 'Flight Data Type',
 			eggtimer: 'Eggtimer',
 			featherweight: 'Featherweight'
 		},
@@ -122,6 +186,8 @@ export default {
 		}
 	},
 	messages: {
+		processed: 'Processed',
+		reset: 'Reset',
 		saved: 'Saved'
 	},
 	openSource: {

@@ -15,16 +15,16 @@ class EggtimerFlightInfoProcessorService extends FlightInfoProcessorService {
 
 		for (const data of input.data) {
 			this._publish(
-				data[0],
-				data[1],
-				data[3],
-				data[2],
-				data[4],
-				data[7],
-				data[8],
-				data[9],
-				data[10],
-				data.length < 1
+				data[0], // time
+				data[1], // altitude
+				data[3], // altitudeF
+				data[2], // velocity
+				data[4], // velocityF
+				data[7], // apogee
+				data[8], // noseOver
+				data[9], // drogue
+				data[10], // main
+				data.length < 1 // ground
 			);
 		}
 	}

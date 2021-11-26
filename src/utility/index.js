@@ -64,6 +64,26 @@ class AppUtility {
 		return output;
 	}
 
+	static updateArrayByObject(array, object, forceNew) {
+		if (!object)
+			return;
+
+		if (!forceNew) {
+			const index = array.findIndex(l => l.id === object.id);
+			if (index === -1)
+				array.push(object);
+			else
+				array[index] = object;
+			return array;
+		}
+
+		const result = [
+			...array.filter(element => element.id !== object.id),
+			object
+		];
+		return result;
+	}
+
 	static version() {
 		console.log(packageJson);
 		return packageJson.version + ' ' + packageJson.version_date;

@@ -1,5 +1,6 @@
 <script>
 import { defineComponent } from 'vue';
+// import { useQuasar } from 'quasar';
 
 import Constants from '../constants';
 
@@ -27,6 +28,16 @@ export default defineComponent({
 		this.serviceDownload = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_DOWNLOAD);
 	},
 	methods: {
+		notify(message) {
+			if (String.isNullOrEmpty(message))
+				return;
+
+			this.$q.notify({
+				color: 'green-4',
+				textColor: 'white',
+				message: AppUtility.$t(message)
+			});
+		},
 		setError(message) {
 			this.buttons.export.disabled = true;
 			this.errorMessage = message;

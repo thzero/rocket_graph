@@ -31,7 +31,7 @@
 						<q-btn
 							type="submit"
 							color="primary"
-							:label="$t('button.submit')"
+							:label="$t('button.save')"
 							:disabled="disabled"
 						/>
 						<q-btn
@@ -49,18 +49,24 @@
 </template>
 
 <script>
-import { useQuasar } from 'quasar';
-
 import AppUtility from '../utility';
+
+import basePage from './basePage.vue';
 
 export default {
 	name: 'Settings',
+	extends: basePage,
 	data: () => ({
 		dirty: false,
-		disabled: true,
 		measurementUnits: null,
-		measurementUnitsOptions: []
+		measurementUnitsOptions: [],
+		saving: false
 	}),
+	computed: {
+		disabled() {
+			return this.saving || !this.dirty;
+		}
+	},
 	mounted() {
 		this.onReset();
 		this.measurementUnits = AppUtility.$store.state.measurementUnits;
@@ -68,14 +74,14 @@ export default {
 	},
 	methods: {
 		onReset() {
-			this.dirty = false;
 			this.$refs.settingsForm.resetValidation();
-			this.disabled = false;
+			this.dirty = false;
 			this.measurementUnits = AppUtility.$store.state.measurementUnits;
+			this.saving = false;
 		},
 		onSubmit() {
 			try {
-				this.disabled = true;
+				this.saving = true;
 
 				if (!this.dirty)
 					return;
@@ -86,27 +92,16 @@ export default {
 
 				AppUtility.$store.dispatch('setMeasurementUnits', this.measurementUnits);
 
-				this.notifySaved();
+				this.notify('messages.saved');
 			}
 			finally {
-				this.disabled = false;
+				this.$refs.settingsForm.resetValidation();
+				this.dirty = false;
+				this.saving = false;
 			}
 		},
 		setDirty() {
 			this.dirty = true;
-		}
-	},
-	setup () {
-		const $q = useQuasar();
-
-		return {
-			notifySaved() {
-				$q.notify({
-					color: 'green-4',
-					textColor: 'white',
-					message: AppUtility.$t('messages.saved')
-				});
-			}
 		}
 	}
 };

@@ -55,10 +55,10 @@ class FlightPathProcessorService extends Service {
 		this._enforceNotNull('FlightPathProcessorService', '_kml', flightInfo, 'flightInfo');
 		this._enforceNotNull('FlightPathProcessorService', '_kml', data, 'data');
 
-		flightInfo.flightPathColor = this._reverseRgb(flightInfo.flightPathColor);
-		flightInfo.groundPathColor = this._reverseRgb(flightInfo.groundPathColor);
-		flightInfo.launchPinColor = this._reverseRgb(flightInfo.launchPinColor);
-		flightInfo.touchdownPinColor = this._reverseRgb(flightInfo.touchdownPinColor);
+		flightInfo.style.path.flight.color = this._reverseRgb(flightInfo.style.path.flight.color);
+		flightInfo.style.path.ground.color = this._reverseRgb(flightInfo.style.path.ground.color);
+		flightInfo.style.pin.launch.color = this._reverseRgb(flightInfo.style.pin.launch.color);
+		flightInfo.style.pin.touchdown.color = this._reverseRgb(flightInfo.style.pin.touchdown.color);
 
 		let temp;
 		let pins = '';
@@ -69,7 +69,7 @@ class FlightPathProcessorService extends Service {
 				<name><![CDATA[${temp}]]></name>
 				<Style id="normalPlacemark">
 					<IconStyle>
-						<color>ff${flightInfo.launchPinColor}</color>
+						<color>ff${flightInfo.style.pin.launch.color}</color>
 					</IconStyle>
 				</Style>
 				<Point>
@@ -86,7 +86,7 @@ ${flightInfo.launch}
 				<name><![CDATA[${temp}]]></name>
 				<Style id="normalPlacemark">
 					<IconStyle>
-						<color>ff${flightInfo.touchdownPinColor}</color>
+						<color>ff${flightInfo.style.pin.touchdown.color}</color>
 					</IconStyle>
 				</Style>
 				<Point>
@@ -129,7 +129,7 @@ ${flightInfo.touchdown}
 				<name><![CDATA[${AppUtility.$t('flightPath.flightPath')}]]></name>
 				<Style>
 					<LineStyle>
-						<color>ff${flightInfo.flightPathColor}</color>
+						<color>ff${flightInfo.style.path.flight.color}</color>
 						<width>4</width>
 					</LineStyle>
 				</Style>
@@ -147,7 +147,7 @@ ${flightInfo.coords}
 				<name><![CDATA[${AppUtility.$t('flightPath.groundPath')}]]></name>
 				<Style>
 					<LineStyle>
-						<color>ff${flightInfo.groundPathColor}</color>
+						<color>ff${flightInfo.style.path.ground.color}</color>
 						<width>4</width>
 					</LineStyle>
 				</Style>

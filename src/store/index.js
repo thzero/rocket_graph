@@ -41,20 +41,52 @@ export default store(function () {
 	const store = createStore({
 		state () {
 			return {
+				flightInfoStyle: [],
+				flightPathStyle: [],
 				measurementUnits: AppUtility.measurementUnitEnglish
 			}
 		},
 		actions: {
+			async setFlightInfoStyle({ commit }, value) {
+				commit('setFlightInfoStyle', value);
+			},
+			async setFlightPathStyle({ commit }, value) {
+				commit('setFlightPathStyle', value);
+			},
 			async setMeasurementUnits({ commit }, value) {
 				commit('setMeasurementUnits', value);
 			}
 		},
 		getters: {
+			getFlightInfoStyle: (state) => (id) => {
+				if (!state.flightInfoStyle)
+					return null;
+				return state.flightInfoStyle.find(l => l.id);
+			},
+			getFlightPathStyle: (state) => (id) => {
+				if (!state.flightPathStyle)
+					return null;
+				return state.flightPathStyle.find(l => l.id);
+			},
 			getMeasurementUnit: (state) => () => {
 				return state.measurementUnits ?? AppUtility.measurementUnitEnglish
 			}
 		},
 		mutations: {
+			setFlightInfoStyle (state, value) {
+				if (String.isNullOrEmpty(value.id))
+					return;
+				if (!state.flightInfoStyle)
+					state.flightInfoStyle = [];
+				state.flightInfoStyle = AppUtility.updateArrayByObject(state.flightInfoStyle, value);
+			},
+			setFlightPathStyle (state, value) {
+				if (String.isNullOrEmpty(value.id))
+					return;
+				if (!state.flightPathStyle)
+					state.flightPathStyle = [];
+				state.flightPathStyle = AppUtility.updateArrayByObject(state.flightPathStyle, value);
+			},
 			setMeasurementUnits (state, value) {
 				state.measurementUnits = value;
 			}
