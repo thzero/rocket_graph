@@ -59,6 +59,19 @@
 							>
 								<q-item-section>{{ $t('titles.openSource') }}</q-item-section>
 							</q-item>
+							<q-separator />
+							<q-item
+								clickable
+								@click="launchIssues"
+							>
+								<q-item-section>{{ $t('titles.issues') }}</q-item-section>
+							</q-item>
+							<q-item
+								clickable
+								@click="launchHelp"
+							>
+								<q-item-section>{{ $t('titles.help') }}</q-item-section>
+							</q-item>
 						</q-list>
 					</q-menu>
 				</q-btn>
@@ -113,6 +126,7 @@
 
 // import { defineComponent, ref } from 'vue';
 import { defineComponent } from 'vue';
+import { openURL } from 'quasar';
 
 import Constants from '../constants';
 
@@ -133,6 +147,27 @@ export default defineComponent({
 			if (serviceWindow)
 				serviceWindow.closeApp();
 		}
+		function launchHelp() {
+			// openURL('https://github.com/thzero/rocket_graph/wiki',
+			openURL('https://github.com/thzero/rocket_graph',
+				null,
+				{
+					location: true,
+					menubar: true,
+					status: true,
+					toolbar: true
+				});
+		}
+		function launchIssues() {
+			openURL('https://github.com/thzero/rocket_graph/issues',
+				null,
+				{
+					location: true,
+					menubar: true,
+					status: true,
+					toolbar: true
+				});
+		}
 		function minimize() {
 			if (serviceWindow)
 				serviceWindow.minimize();
@@ -146,6 +181,8 @@ export default defineComponent({
 			closeApp,
 			// drawerOpenLeft,
 			// essentialLinks: linksList,
+			launchHelp,
+			launchIssues,
 			minimize,
 			// toggleDrawerLeft () {
 			// 	drawerOpenLeft.value = !drawerOpenLeft.value
