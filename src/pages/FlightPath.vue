@@ -15,180 +15,220 @@
 		<div class="row">
 			<div class="col-5">
 				<div class="row">
-					<div class="col-7">
-						<div class="q-pb-md q-pr-md">
-							<q-input
-								v-model="flightPathTitle"
-								filled
-								dense
-								:label="$t('flightPath.title')"
-							/>
-							<q-input
-								v-model="flightPathLocation"
-								filled
-								dense
-								:label="$t('flightPath.location')"
-							/>
-							<q-input
-								v-model="flightPathDate"
-								filled
-								dense
-								:mask="dateFormatMask"
-								:label="$t('flightPath.date')"
-							>
-								<template v-slot:append>
-									<q-icon name="event" class="cursor-pointer">
-									<q-popup-proxy ref="qDateProxy" cover transition-show="scale" transition-hide="scale">
-										<q-date
-											v-model="flightPathDate"
-											:mask="dateFormat"
-										>
-										<div class="row items-center justify-end">
-											<q-btn v-close-popup label="Close" color="primary" flat />
-										</div>
-										</q-date>
-									</q-popup-proxy>
-									</q-icon>
-								</template>
-							</q-input>
-							<q-select
-								ref="flightPathMeasurementUnits"
-								v-model="flightPathMeasurementUnits"
-								:options="flightPathMeasurementUnitsOptions"
-								filled
-								dense
-								option-value="id"
-								option-label="name"
-								emit-value
-								map-options
-								hide-bottom-space
-								:label="$t('flightPath.measurementUnits')"
-								:rules="[val => !!val || $t('validation.required')]"
-								@update:model-value="checkErrors"
-							/>
-							<q-select
-								ref="flightPathProcessor"
-								v-model="flightPathProcessor"
-								:options="flightPathProcessors"
-								filled
-								dense
-								option-value="id"
-								option-label="name"
-								emit-value
-								map-options
-								hide-bottom-space
-								:label="$t('flightPath.processors.title')"
-								:rules="[val => !!val || $t('validation.required')]"
-								@update:model-value="checkErrors"
-							/>
-						</div>
+					<div class="col-12">
+						<q-input
+							v-model="flightPathTitle"
+							filled
+							dense
+							:label="$t('flightPath.title')"
+						/>
+						<q-input
+							v-model="flightPathLocation"
+							filled
+							dense
+							:label="$t('flightPath.location')"
+						/>
+						<q-input
+							v-model="flightPathDate"
+							filled
+							dense
+							:mask="dateFormatMask"
+							:label="$t('flightPath.date')"
+						>
+							<template v-slot:append>
+								<q-icon name="event" class="cursor-pointer">
+								<q-popup-proxy ref="qDateProxy" cover transition-show="scale" transition-hide="scale">
+									<q-date
+										v-model="flightPathDate"
+										:mask="dateFormat"
+									>
+									<div class="row items-center justify-end">
+										<q-btn v-close-popup label="Close" color="primary" flat />
+									</div>
+									</q-date>
+								</q-popup-proxy>
+								</q-icon>
+							</template>
+						</q-input>
+						<q-select
+							ref="flightPathMeasurementUnits"
+							v-model="flightPathMeasurementUnits"
+							:options="flightPathMeasurementUnitsOptions"
+							filled
+							dense
+							option-value="id"
+							option-label="name"
+							emit-value
+							map-options
+							hide-bottom-space
+							:label="$t('flightPath.measurementUnits')"
+							:rules="[val => !!val || $t('validation.required')]"
+							@update:model-value="checkErrors"
+						/>
+						<q-select
+							ref="flightPathProcessor"
+							v-model="flightPathProcessor"
+							:options="flightPathProcessors"
+							filled
+							dense
+							option-value="id"
+							option-label="name"
+							emit-value
+							map-options
+							hide-bottom-space
+							:label="$t('flightPath.processors.title')"
+							:rules="[val => !!val || $t('validation.required')]"
+							@update:model-value="checkErrors"
+						/>
 					</div>
-					<div class="col-5">
-						<div class="q-pb-md">
-							<q-input
-								v-model="flightPathStylePinLaunchColor"
-								filled
-								dense
-								:label="$t('flightPath.style.launch.color')"
-							>
-								<template v-slot:prepend>
-									<div :style="'height: 25px; width: 25px; background-color: ' + flightPathStylePinLaunchColor">
-									</div>
-								</template>
-								<template v-slot:append>
-									<q-icon name="colorize" class="cursor-pointer">
-										<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-											<q-color v-model="flightPathStylePinLaunchColor" />
-										</q-popup-proxy>
-									</q-icon>
-								</template>
-							</q-input>
-							<q-input
-								v-model="flightPathStylePathFlightColor"
-								filled
-								dense
-								:label="$t('flightPath.style.flight.color')"
-							>
-								<template v-slot:prepend>
-									<div :style="'height: 25px; width: 25px; background-color: ' + flightPathStylePathFlightColor">
-									</div>
-								</template>
-								<template v-slot:append>
-									<q-icon name="colorize" class="cursor-pointer">
-										<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-											<q-color v-model="flightPathStylePathFlightColor" />
-										</q-popup-proxy>
-									</q-icon>
-								</template>
-							</q-input>
-							<q-input
-								v-model="flightPathStylePathGroundColor"
-								filled
-								dense
-								:label="$t('flightPath.style.ground.color')"
-							>
-								<template v-slot:prepend>
-									<div :style="'height: 25px; width: 25px; background-color: ' + flightPathStylePathGroundColor">
-									</div>
-								</template>
-								<template v-slot:append>
-									<q-icon name="colorize" class="cursor-pointer">
-										<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-											<q-color v-model="flightPathStylePathGroundColor" />
-										</q-popup-proxy>
-									</q-icon>
-								</template>
-							</q-input>
-							<q-input
-								v-model="flightPathStylePinTouchdownColor"
-								filled
-								dense
-								:label="$t('flightPath.style.touchdown.color')"
-							>
-								<template v-slot:prepend>
-									<div :style="'height: 25px; width: 25px; background-color: ' + flightPathStylePinTouchdownColor">
-									</div>
-								</template>
-								<template v-slot:append>
-									<q-icon name="colorize" class="cursor-pointer">
-										<q-popup-proxy cover transition-show="scale" transition-hide="scale">
-											<q-color v-model="flightPathStylePinTouchdownColor" />
-										</q-popup-proxy>
-									</q-icon>
-								</template>
-							</q-input>
-						</div>
+				</div>
+				<div class="row q-pb-md">
+					<div class="col-12">
+						<q-card flat bordered>
+							<q-card-actions>
+								{{ $t('flightPath.style.title') }}
+								<q-space></q-space>
+								<q-btn
+									color="grey"
+									round
+									flat
+									dense
+									:icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
+									@click="expanded = !expanded"
+								></q-btn>
+							</q-card-actions>
+
+							<q-slide-transition>
+								<div v-show="expanded">
+									<q-separator></q-separator>
+									<q-card-section class="text-subitle2">
+										<div class="row">
+											<div class="col-12">
+												<q-input
+													v-model="flightPathStylePinLaunchColor"
+													filled
+													dense
+													:label="$t('flightPath.style.launch.color')"
+												>
+													<template v-slot:prepend>
+														<div :style="'height: 25px; width: 25px; background-color: ' + flightPathStylePinLaunchColor">
+														</div>
+													</template>
+													<template v-slot:append>
+														<q-icon name="colorize" class="cursor-pointer">
+															<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+																<q-color v-model="flightPathStylePinLaunchColor" />
+															</q-popup-proxy>
+														</q-icon>
+													</template>
+												</q-input>
+												<q-input
+													v-model="flightPathStylePathFlightColor"
+													filled
+													dense
+													:label="$t('flightPath.style.flight.color')"
+												>
+													<template v-slot:prepend>
+														<div :style="'height: 25px; width: 25px; background-color: ' + flightPathStylePathFlightColor">
+														</div>
+													</template>
+													<template v-slot:append>
+														<q-icon name="colorize" class="cursor-pointer">
+															<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+																<q-color v-model="flightPathStylePathFlightColor" />
+															</q-popup-proxy>
+														</q-icon>
+													</template>
+												</q-input>
+												<q-input
+													v-model="flightPathStylePathGroundColor"
+													filled
+													dense
+													:label="$t('flightPath.style.ground.color')"
+												>
+													<template v-slot:prepend>
+														<div :style="'height: 25px; width: 25px; background-color: ' + flightPathStylePathGroundColor">
+														</div>
+													</template>
+													<template v-slot:append>
+														<q-icon name="colorize" class="cursor-pointer">
+															<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+																<q-color v-model="flightPathStylePathGroundColor" />
+															</q-popup-proxy>
+														</q-icon>
+													</template>
+												</q-input>
+												<q-input
+													v-model="flightPathStylePinTouchdownColor"
+													filled
+													dense
+													:label="$t('flightPath.style.touchdown.color')"
+												>
+													<template v-slot:prepend>
+														<div :style="'height: 25px; width: 25px; background-color: ' + flightPathStylePinTouchdownColor">
+														</div>
+													</template>
+													<template v-slot:append>
+														<q-icon name="colorize" class="cursor-pointer">
+															<q-popup-proxy cover transition-show="scale" transition-hide="scale">
+																<q-color v-model="flightPathStylePinTouchdownColor" />
+															</q-popup-proxy>
+														</q-icon>
+													</template>
+												</q-input>
+											</div>
+											<div class="col-12 q-mt-sm">
+												<div class="float-right q-mb-sm">
+													<q-btn
+														class="q-pa-sm q-mr-sm"
+														dense
+														color="primary"
+														:label="$t('button.save')"
+														:disable="!flightPathProcessor"
+														@click="flightPathStyleSave"
+													/>
+													<q-btn
+														class="q-pa-sm"
+														dense
+														color="primary"
+														:label="$t('button.reset')"
+														@click="flightPathStyleReset"
+													/>
+												</div>
+											</div>
+										</div>
+									</q-card-section>
+								</div>
+							</q-slide-transition>
+						</q-card>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12">
 						<div class="q-pb-md float-right">
-							<q-btn-group>
-								<q-btn
-									class="q-pa-sm"
-									dense
-									color="primary"
-									:label="$t('process')"
-									:disabled="buttons.process.disabled"
-									@click="flightPathProcess"
-									@focus="checkErrors"
-								/>
-								<q-btn
-									class="q-pa-sm"
-									dense
-									color="primary"
-									:label="$t('export')"
-									:disabled="buttons.export.disabled"
-									@click="flightPathExport"
-								/>
-								<q-btn
-									class="q-pa-sm"
-									dense
-									color="primary"
-									:label="$t('reset')"
-									@click="resetInput"
-								/>
-							</q-btn-group>
+							<q-btn
+								class="q-mr-sm"
+								dense
+								color="primary"
+								:label="$t('process')"
+								:disabled="buttons.process.disabled"
+								@click="flightPathProcess"
+								@focus="checkErrors"
+							/>
+							<q-btn
+								class="q-mr-sm"
+								dense
+								color="primary"
+								:label="$t('export')"
+								:disabled="buttons.export.disabled"
+								@click="flightPathExport"
+							/>
+							<q-btn
+								dense
+								color="primary"
+								:label="$t('reset')"
+								@click="resetInput"
+							/>
 						</div>
 					</div>
 				</div>
@@ -257,6 +297,7 @@ export default defineComponent({
 				disabled: true
 			}
 		},
+		expanded: false,
 		flightPath: null,
 		flightPathData: null,
 		flightPathDate: null,
@@ -292,10 +333,10 @@ export default defineComponent({
 			this.buttons.process.disabled = this.hasError();
 		},
 		flightPathStyleLoad() {
-			if (String.isNullOrEmpty(this.flightInfoProcessor))
+			if (String.isNullOrEmpty(this.flightPathProcessor))
 				return;
 
-			const style = AppUtility.$store.getters.flightPathStyle(this.flightInfoProcessor);
+			const style = AppUtility.$store.getters.flightPathStyle(this.flightPathProcessor);
 			if (!style)
 				return;
 
@@ -305,13 +346,15 @@ export default defineComponent({
 			this.flightPathStylePinTouchdownColor = style.pin.touchdown.color;
 		},
 		flightPathStyleReset() {
-			this.flightPathStylePathFlightColor = this.serviceFlightInfo.styleDefault.path.flight.color;
-			this.flightPathStylePathGroundColor = this.serviceFlightInfo.styleDefault.path.ground.color;
-			this.flightPathStylePinLaunchColor = this.serviceFlightInfo.styleDefault.event.pin.launch.color;
-			this.flightPathStylePinTouchdownColor = this.serviceFlightInfo.styleDefault.event.pin.touchdown.color;
+			this.flightPathStylePathFlightColor = this.serviceFlightPath.styleDefault.path.flight.color;
+			this.flightPathStylePathGroundColor = this.serviceFlightPath.styleDefault.path.ground.color;
+			this.flightPathStylePinLaunchColor = this.serviceFlightPath.styleDefault.pin.launch.color;
+			this.flightPathStylePinTouchdownColor = this.serviceFlightPath.styleDefault.pin.touchdown.color;
+
+			this.notify('messages.reset');
 		},
 		flightPathStyleSave() {
-			if (String.isNullOrEmpty(this.flightInfoProcessor))
+			if (String.isNullOrEmpty(this.flightPathProcessor))
 				return;
 
 			const style = {
@@ -335,6 +378,8 @@ export default defineComponent({
 			};
 
 			AppUtility.$store.dispatch('setFlightPathStyle', style);
+
+			this.notify('messages.saved');
 		},
 		flightPathExport() {
 			if (AppUtility.isNull(this.flightPathData))
@@ -441,6 +486,8 @@ export default defineComponent({
 			this.flightPathLocation = null;
 			this.flightPathTitle = null;
 			this.buttons.process.disabled = true;
+
+			this.notify('messages.reset');
 		},
 		setError(message) {
 			this.buttons.export.disabled = true;

@@ -186,6 +186,7 @@ export default {
 	},
 	messages: {
 		processed: 'Processed',
+		reset: 'Reset',
 		saved: 'Saved'
 	},
 	openSource: {
