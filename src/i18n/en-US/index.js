@@ -12,14 +12,39 @@ export default {
 	charts: {
 		flightInfo: {
 			title: 'Flight Info',
-			altitude: 'Altitude',
+			acceleration: 'Acceleration',
+			altitude: {
+				title: 'Altitude',
+				titleF: 'Altitude (F)',
+				max: 'Max. Altitude',
+				min: 'Min. Altitude'
+			},
+			ascent: 'Ascent',
+			avg: {
+				title: 'Average',
+				abbr: 'Avg.'
+			},
+			descent: 'Descent',
 			events: {
+				title: 'Events',
 				apogee: 'Apogee',
 				drogue: 'Drogue/Freefall',
 				noseOver: 'Nose Over',
 				main: 'Main'
 			},
-			velocity: 'Velocity'
+			flightTime: 'Flight Time',
+			max: {
+				title: 'Maximum',
+				abbr: 'Max.'
+			},
+			min: {
+				title: 'Minimum',
+				abbr: 'Min.'
+			},
+			velocity: {
+				title: 'Velocity',
+				titleF: 'Velocity (F)'
+			}
 		}
 	},
 	errors: {
