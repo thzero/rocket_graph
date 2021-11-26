@@ -72,6 +72,71 @@ class FlightInfoService extends Service {
 		return results;
 	}
 
+	processOutputJson(flightInfo) {
+		this._enforceNotNull('FlightInfoService', 'processOutputJson', flightInfo, 'flightInfo');
+
+		return JSON.stringify(flightInfo);
+	}
+
+	processOutputText(flightInfo) {
+		this._enforceNotNull('FlightInfoService', 'processOutputJson', flightInfo, 'flightInfo');
+
+		/*
+			const output = `
+Flight Time			${this.flightInfo?.events?.ground?.time}
+Max. Altitude		${flightTime}
+Velocity
+	Ascent
+		Max.		${flightTime}
+		Avg.		${flightTime}
+	Descent
+		Drogue
+			Max.	${flightTime}
+			Avg.	${flightTime}
+		Main
+			Max.	${flightTime}
+			Avg.	${flightTime}
+Acceleration
+	Max.			${flightTime}
+	Min.			${flightTime}
+	Descent
+		Drogue
+			Max.	${flightTime}
+			Min.	${flightTime}
+			Avg.	${flightTime}
+		Main
+			Max.	${flightTime}
+			Min.	${flightTime}
+			Avg.	${flightTime}
+Events
+	Apogee			${flightTime}
+	Nose Over		${flightTime}
+	Drogue			${flightTime}
+	Main			${flightTime}
+`;
+
+			const name = this.flightInfoExportName('txt');
+			const barRef = this.$refs.bar;
+			barRef.start();
+
+			this.serviceDownload.download(output,
+				name,
+				() => {
+					console.log('completed');
+					barRef.stop();
+				},
+				() => {
+					console.log('cancelled');
+					barRef.stop();
+				},
+				(arg) => {
+					console.log('progress');
+					console.log(arg);
+				}
+			);
+*/
+	}
+
 	_determineProcessor(processorId) {
 		this._enforceNotEmpty('FlightInfoService', '_determineProcessor', processorId, 'processorId');
 

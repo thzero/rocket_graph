@@ -554,10 +554,8 @@ export default defineComponent({
 
 			return 'flight-input-' + day + '-' + month + '-' + year + '.' + extension;
 		},
-		flightInfoExportJson() {
-			const output = JSON.stringify(this.flightInfo);
-
-			const name = this.flightInfoExportName('json');
+		flightInfoExportDownload(output, extension) {
+			const name = this.flightInfoExportName(extension);
 			const barRef = this.$refs.bar;
 			barRef.start();
 
@@ -577,61 +575,13 @@ export default defineComponent({
 				}
 			);
 		},
+		flightInfoExportJson() {
+			const output = this.serviceFlightInfo.processOutputJson(this.flightInfo);
+			this.flightInfoExportDownload(output, 'json');
+		},
 		flightInfoExportText() {
-			/*
-			const output = `
-Flight Time			${this.flightInfo?.events?.ground?.time}
-Max. Altitude		${flightTime}
-Velocity
-	Ascent
-		Max.		${flightTime}
-		Avg.		${flightTime}
-	Descent
-		Drogue
-			Max.	${flightTime}
-			Avg.	${flightTime}
-		Main
-			Max.	${flightTime}
-			Avg.	${flightTime}
-Acceleration
-	Max.			${flightTime}
-	Min.			${flightTime}
-	Descent
-		Drogue
-			Max.	${flightTime}
-			Min.	${flightTime}
-			Avg.	${flightTime}
-		Main
-			Max.	${flightTime}
-			Min.	${flightTime}
-			Avg.	${flightTime}
-Events
-	Apogee			${flightTime}
-	Nose Over		${flightTime}
-	Drogue			${flightTime}
-	Main			${flightTime}
-`;
-
-			const name = this.flightInfoExportName('txt');
-			const barRef = this.$refs.bar;
-			barRef.start();
-
-			this.serviceDownload.download(output,
-				name,
-				() => {
-					console.log('completed');
-					barRef.stop();
-				},
-				() => {
-					console.log('cancelled');
-					barRef.stop();
-				},
-				(arg) => {
-					console.log('progress');
-					console.log(arg);
-				}
-			);
-*/
+			const output = this.serviceFlightInfo.processOutputText(this.flightInfo);
+			this.flightInfoExportDownload(output, 'txt');
 		},
 		flightInfoColorReset() {
 			this.flightInfoColorAltitude = this.serviceFlightInfo.colorsDefault.altitude;
