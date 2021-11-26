@@ -19,11 +19,8 @@ class FlightInfoProcessorService extends Service {
 		let altitude;
 		let altitudeF;
 		let apogee;
-		let apogeeAchieved = false;
 		let drogue;
-		let drogueFired = false;
 		let main;
-		let mainFired = false;
 		let noseOver;
 		let time;
 		let velocity;
@@ -35,6 +32,12 @@ class FlightInfoProcessorService extends Service {
 		let deltaV;
 		let acceleration;
 		let accelerationF;
+
+		results.info.events.apogee.achieved = false;
+		results.info.events.drogue.fired = false;
+		results.info.events.noseOver.achieved = false;
+		results.info.mainFired = false;
+
 		for (const data of this._data.rows) {
 			time = data.time;
 
@@ -54,7 +57,7 @@ class FlightInfoProcessorService extends Service {
 
 			apogee = data.apogee;
 			if (apogee) {
-				apogeeAchieved = true;
+				results.info.events.apogee.achieved = true;
 				apogee = this._convertAltitude(apogee, measurementUnits);
 				results.info.altitude.max = altitude;
 				results.info.altitude.maxF = altitudeF;
@@ -72,6 +75,7 @@ class FlightInfoProcessorService extends Service {
 
 			noseOver = data.noseOver;
 			if (noseOver) {
+				results.info.events.noseOver.achieved = true;
 				noseOver = this._convertAltitude(noseOver, measurementUnits);
 				results.info.events.noseOver.altitude = altitude;
 				results.info.events.noseOver.altitudeF = altitudeF;
@@ -87,7 +91,7 @@ class FlightInfoProcessorService extends Service {
 
 			drogue = data.drogue;
 			if (drogue) {
-				drogueFired = true;
+				results.info.events.drogue.fired = true;
 				drogue = this._convertAltitude(drogue, measurementUnits);
 				results.info.events.drogue.altitude = altitude;
 				results.info.events.drogue.time = altitudeF;
@@ -102,7 +106,7 @@ class FlightInfoProcessorService extends Service {
 
 			main = data.main;
 			if (main) {
-				mainFired = true;
+				results.info.events.main.fired = true;
 				main = this._convertAltitude(main, measurementUnits);
 				results.info.events.main.altitude = altitude;
 				results.info.events.main.altitudeF = altitudeF;
@@ -141,14 +145,14 @@ class FlightInfoProcessorService extends Service {
 				results.info.velocity.min.valueF = velocityF;
 			}
 
-			if (apogeeAchieved) {
+			if (results.info.events.apogee.achieved) {
 				results.info.velocity.avg.temp += velocity;
 				results.info.velocity.avg.count++;
 				results.info.velocity.avg.tempF += velocityF;
 				results.info.velocity.avg.countF++;
 			}
 
-			if (mainFired) {
+			if (results.info.events.main.fired) {
 				if (velocity < results.info.velocity.min.main.max.value) {
 					results.info.velocity.min.main.max.altitude = altitude;
 					results.info.velocity.min.main.max.time = time;
@@ -187,7 +191,7 @@ class FlightInfoProcessorService extends Service {
 					value: velocityF
 				});
 			}
-			else if (drogueFired) {
+			else if (results.info.events.drogue.fired || results.info.events.noseOver.achieved) {
 				if (velocity < results.info.velocity.min.drogue.max.value) {
 					results.info.velocity.min.drogue.max.altitude = altitude;
 					results.info.velocity.min.drogue.max.time = time;
@@ -273,7 +277,7 @@ class FlightInfoProcessorService extends Service {
 					results.info.acceleration.min.value = acceleration;
 				}
 
-				if (mainFired) {
+				if (results.info.events.main.fired) {
 					// if (acceleration < results.info.acceleration.min.main.value) {
 					// 	results.info.acceleration.min.main.altitude = altitude;
 					// 	results.info.acceleration.min.main.time = time;
@@ -295,7 +299,7 @@ class FlightInfoProcessorService extends Service {
 					results.info.acceleration.min.main.avg.temp += acceleration;
 					results.info.acceleration.min.main.avg.count++;
 				}
-				else if (drogueFired) {
+				else if (results.info.events.drogue.fired || results.info.events.noseOver.achieved) {
 					// if (acceleration < results.info.acceleration.min.drogue.value) {
 					// 	results.info.acceleration.min.drogue.altitude = altitude;
 					// 	results.info.acceleration.min.drogue.time = time;
@@ -332,7 +336,7 @@ class FlightInfoProcessorService extends Service {
 					results.info.acceleration.min.valueF = accelerationF;
 				}
 
-				if (mainFired) {
+				if (results.info.events.main.fired) {
 					// if (acceleration < results.info.acceleration.min.main.value) {
 					// 	results.info.acceleration.min.main.altitudeF = altitudeF;
 					// 	results.info.acceleration.min.main.timeF = time;
@@ -354,7 +358,7 @@ class FlightInfoProcessorService extends Service {
 					results.info.acceleration.min.main.avg.tempF += accelerationF;
 					results.info.acceleration.min.main.avg.countF++;
 				}
-				else if (drogueFired) {
+				else if (results.info.events.drogue.fired || results.info.events.noseOver.achieved) {
 					// if (acceleration < results.info.acceleration.min.drogue.value) {
 					// 	results.info.acceleration.min.drogue.altitudeF = altitudeF;
 					// 	results.info.acceleration.min.drogue.timeF = time;
@@ -385,17 +389,31 @@ class FlightInfoProcessorService extends Service {
 
 		results.info.acceleration.avg.value = this._round(results.info.acceleration.avg.temp / results.info.acceleration.avg.count);
 		results.info.acceleration.avg.valueF = this._round(results.info.acceleration.avg.tempF / results.info.acceleration.avg.countF);
-		results.info.acceleration.min.drogue.avg.value = this._round(results.info.acceleration.min.drogue.avg.temp / results.info.acceleration.min.drogue.avg.count);
-		results.info.acceleration.min.drogue.avg.valueF = this._round(results.info.acceleration.min.drogue.avg.tempF / results.info.acceleration.min.drogue.avg.countF);
-		results.info.acceleration.min.main.avg.value = this._round(results.info.acceleration.min.main.avg.temp / results.info.acceleration.min.main.avg.count);
-		results.info.acceleration.min.main.avg.valueF = this._round(results.info.acceleration.min.main.avg.tempF / results.info.acceleration.min.main.avg.countF);
+		results.info.acceleration.min.drogue.avg.value = (results.info.events.drogue.fired || results.info.events.noseOver.achieved) ? this._round(results.info.acceleration.min.drogue.avg.temp / results.info.acceleration.min.drogue.avg.count) : 0;
+		results.info.acceleration.min.drogue.avg.valueF = (results.info.events.drogue.fired || results.info.events.noseOver.achieved) ? this._round(results.info.acceleration.min.drogue.avg.tempF / results.info.acceleration.min.drogue.avg.countF) : 0;
+		results.info.acceleration.min.main.avg.value = (results.info.events.main.fired) ? this._round(results.info.acceleration.min.main.avg.temp / results.info.acceleration.min.main.avg.count) : 0;
+		results.info.acceleration.min.main.avg.valueF = (results.info.events.main.fired) ? this._round(results.info.acceleration.min.main.avg.tempF / results.info.acceleration.min.main.avg.countF) : 0;
 
 		results.info.velocity.avg.value = this._round(results.info.velocity.avg.temp / results.info.velocity.avg.count);
 		results.info.velocity.avg.valueF = this._round(results.info.velocity.avg.tempF / results.info.velocity.avg.countF);
-		results.info.velocity.min.drogue.avg.value = this._round(results.info.velocity.min.drogue.avg.temp / results.info.velocity.min.drogue.avg.count);
-		results.info.velocity.min.drogue.avg.valueF = this._round(results.info.velocity.min.drogue.avg.tempF / results.info.velocity.min.drogue.avg.countF);
-		results.info.velocity.min.main.avg.value = this._round(results.info.velocity.min.main.avg.temp / results.info.velocity.min.main.avg.count);
-		results.info.velocity.min.main.avg.valueF = this._round(results.info.velocity.min.main.avg.tempF / results.info.velocity.min.main.avg.countF);
+		results.info.velocity.min.drogue.avg.value = (results.info.events.drogue.fired || results.info.events.noseOver.achieved) ? this._round(results.info.velocity.min.drogue.avg.temp / results.info.velocity.min.drogue.avg.count) : 0;
+		results.info.velocity.min.drogue.avg.valueF = (results.info.events.drogue.fired || results.info.events.noseOver.achieved) ? this._round(results.info.velocity.min.drogue.avg.tempF / results.info.velocity.min.drogue.avg.countF) : 0;
+		results.info.velocity.min.main.avg.value = (results.info.events.main.fired) ? this._round(results.info.velocity.min.main.avg.temp / results.info.velocity.min.main.avg.count) : 0;
+		results.info.velocity.min.main.avg.valueF = (results.info.events.main.fired) ? this._round(results.info.velocity.min.main.avg.tempF / results.info.velocity.min.main.avg.countF) : 0;
+
+		if (!results.info.events.drogue.fired && !results.info.events.noseOver.achieved) {
+			results.info.velocity.min.drogue.min.value = 0;
+			results.info.velocity.min.drogue.min.valueF = 0;
+			results.info.acceleration.min.drogue.min.value = 0;
+			results.info.acceleration.min.drogue.min.valueF = 0;
+		}
+
+		if (!results.info.events.main.fired) {
+			results.info.velocity.min.main.min.value = 0;
+			results.info.velocity.min.main.min.valueF = 0;
+			results.info.acceleration.min.main.min.value = 0;
+			results.info.acceleration.min.main.min.valueF = 0;
+		}
 
 		return results;
 	}

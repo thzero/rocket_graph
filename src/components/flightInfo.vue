@@ -25,10 +25,33 @@
 		<tr>
 			<th class="subTitleSep">{{ $t('charts.flightInfo.events.drogue') }}</th>
 			<td><span>{{ formatNumber(valueType(flightInfo?.events?.drogue?.altitude, flightInfo?.events?.drogue?.altitude)) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.events?.drogue?.time, flightInfo?.events?.drogue?.timeF) }}</span>{{ measurementTime }}</td>
+			<td>
+				<span
+					v-if="flightInfo?.events?.drogue?.fired"
+				>
+					<span>{{ formatNumber(valueType(flightInfo?.events?.drogue?.altitude, flightInfo?.events?.drogue?.altitude)) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.events?.drogue?.time, flightInfo?.events?.drogue?.timeF) }}</span>{{ measurementTime }}
+				</span>
+				<span
+					v-if="!flightInfo?.events?.drogue?.fired"
+				>
+					{{ $t('charts.flightInfo.events.notDetected') }}
+				</span>
+			</td>
 		</tr>
 		<tr>
 			<th class="subTitleSep">{{ $t('charts.flightInfo.events.main') }}</th>
-			<td><span>{{ formatNumber(valueType(flightInfo?.events?.main?.altitude, flightInfo?.events?.main?.altitudeF)) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.events?.main?.time, flightInfo?.events?.main?.time) }}</span>{{ measurementTime }}</td>
+			<td>
+				<span
+					v-if="flightInfo?.events?.main?.fired"
+				>
+					<span>{{ formatNumber(valueType(flightInfo?.events?.main?.altitude, flightInfo?.events?.main?.altitudeF)) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.events?.main?.time, flightInfo?.events?.main?.time) }}</span>{{ measurementTime }}
+				</span>
+				<span
+					v-if="!flightInfo?.events?.main?.fired"
+				>
+					{{ $t('charts.flightInfo.events.notDetected') }}
+				</span>
+			</td>
 		</tr>
 		<tr>
 			<th colspan="2"></th>
@@ -55,32 +78,64 @@
 			<th class="subTitleSep" colspan="2">{{ $t('charts.flightInfo.descent') }}</th>
 		</tr>
 		<tr>
-			<th class="subTitleSep2" colspan="2">{{ $t('charts.flightInfo.events.drogue') }}</th>
+			<th
+				class="subTitleSep2"
+				:colspan="flightInfo?.events?.drogue?.fired ? 2 : 0"
+			>
+				{{ $t('charts.flightInfo.events.drogue') }}
+			</th>
+			<td
+				v-if="!flightInfo?.events?.drogue?.fired"
+			>
+				{{ $t('charts.flightInfo.events.notDetected') }}
+			</td>
 		</tr>
-		<tr>
+		<tr
+			v-if="flightInfo?.events?.drogue?.fired || flightInfo?.events?.noseOver?.achieved"
+		>
 			<th class="subSep3">{{ $t('charts.flightInfo.max.abbr') }}</th>
 			<td><span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.drogue?.max?.value, flightInfo?.velocity?.min?.drogue?.max?.valueF)) }}</span>{{ measurementVelocity }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.velocity?.min?.drogue?.max?.time, flightInfo?.velocity?.min?.drogue?.max?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.drogue?.max?.altitude, flightInfo?.velocity?.min?.drogue?.max?.altitude)) }}</span>{{ measurementAltitude }}</td>
 		</tr>
-		<tr>
+		<tr
+			v-if="flightInfo?.events?.drogue?.fired || flightInfo?.events?.noseOver?.achieved"
+		>
 			<th class="subSep3">{{ $t('charts.flightInfo.min.abbr') }}</th>
 			<td><span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.drogue?.min?.value, flightInfo?.velocity?.min?.drogue?.min?.valueF)) }}</span>{{ measurementVelocity }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.velocity?.min?.drogue?.min?.time, flightInfo?.velocity?.min?.drogue?.min?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.drogue?.min?.altitude, flightInfo?.velocity?.min?.drogue?.min?.altitude)) }}</span>{{ measurementAltitude }}</td>
 		</tr>
-		<tr>
+		<tr
+			v-if="flightInfo?.events?.drogue?.fired || flightInfo?.events?.noseOver?.achieved"
+		>
 			<th class="subSep3">{{ $t('charts.flightInfo.avg.abbr') }}</th>
 			<td><span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.drogue?.avg?.value, flightInfo?.velocity?.min?.drogue?.avg?.valueF)) }}</span>{{ measurementVelocity }}</td>
 		</tr>
 		<tr>
-			<th class="subTitleSep2" colspan="2">{{ $t('charts.flightInfo.events.main') }}</th>
+			<th
+				class="subTitleSep2"
+				:colspan="flightInfo?.events?.main?.fired ? 2 : 0"
+			>
+				{{ $t('charts.flightInfo.events.main') }}
+			</th>
+			<td
+				v-if="!flightInfo?.events?.main?.fired"
+			>
+				{{ $t('charts.flightInfo.events.notDetected') }}
+			</td>
 		</tr>
-		<tr>
+		<tr
+			v-if="flightInfo?.events?.main?.fired"
+		>
 			<th class="subSep3">{{ $t('charts.flightInfo.max.abbr') }}</th>
 			<td><span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.main?.max?.value, flightInfo?.velocity?.min?.main?.max?.valueF)) }}</span>{{ measurementVelocity }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.velocity?.min?.main?.max?.time, flightInfo?.velocity?.min?.main?.max?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.main?.max?.altitude, flightInfo?.velocity?.min?.main?.max?.altitude)) }}</span>{{ measurementAltitude }}</td>
 		</tr>
-		<tr>
+		<tr
+			v-if="flightInfo?.events?.main?.fired"
+		>
 			<th class="subSep3">{{ $t('charts.flightInfo.min.abbr') }}</th>
 			<td><span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.main?.min?.value, flightInfo?.velocity?.min?.main?.min?.valueF)) }}</span>{{ measurementVelocity }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.velocity?.min?.main?.min?.time, flightInfo?.velocity?.min?.main?.min?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.main?.min?.altitude, flightInfo?.velocity?.min?.main?.min?.altitude)) }}</span>{{ measurementAltitude }}</td>
 		</tr>
-		<tr>
+		<tr
+			v-if="flightInfo?.events?.main?.fired"
+		>
 			<th class="subSep3">{{ $t('charts.flightInfo.avg.abbr') }}</th>
 			<td><span>{{ formatNumber(valueType(flightInfo?.velocity?.min?.main?.avg?.value, flightInfo?.velocity?.min?.main?.avg?.valueF)) }}</span>{{ measurementVelocity }}</td>
 		</tr>
@@ -102,32 +157,64 @@
 			<th class="subTitleSep" colspan="2">{{ $t('charts.flightInfo.descent') }}</th>
 		</tr>
 		<tr>
-			<th class="subTitleSep2" colspan="2">{{ $t('charts.flightInfo.events.drogue') }}</th>
+			<th
+				class="subTitleSep2"
+				:colspan="flightInfo?.events?.drogue?.fired ? 2 : 0"
+			>
+				{{ $t('charts.flightInfo.events.drogue') }}
+			</th>
+			<td
+				v-if="!flightInfo?.events?.drogue?.fired"
+			>
+				{{ $t('charts.flightInfo.events.notDetected') }}
+			</td>
 		</tr>
-		<tr>
+		<tr
+			v-if="flightInfo?.events?.drogue?.fired"
+		>
 			<th class="subSep3">{{ $t('charts.flightInfo.max.abbr') }}</th>
 			<td><span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.drogue?.max?.value, flightInfo?.acceleration?.min?.drogue?.max?.valueF)) }}</span>{{ measurementAcceleration }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.acceleration?.min?.drogue?.max?.time, flightInfo?.acceleration?.min?.drogue?.max?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.drogue?.max?.altitude, flightInfo?.acceleration?.min?.drogue?.max?.altitudeF)) }}</span>{{ measurementAltitude }}</td>
 		</tr>
-		<tr>
+		<tr
+			v-if="flightInfo?.events?.drogue?.fired"
+		>
 			<th class="subSep3">{{ $t('charts.flightInfo.min.abbr') }}</th>
 			<td><span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.drogue?.min?.value, flightInfo?.acceleration?.min?.drogue?.min?.valueF)) }}</span>{{ measurementAcceleration }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.acceleration?.min?.drogue?.min?.time, flightInfo?.acceleration?.min?.drogue?.min?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.drogue?.min?.altitude, flightInfo?.acceleration?.min?.drogue?.min?.altitudeF)) }}</span>{{ measurementAltitude }}</td>
 		</tr>
-		<tr>
+		<tr
+			v-if="flightInfo?.events?.drogue?.fired"
+		>
 			<th class="subSep3">{{ $t('charts.flightInfo.avg.abbr') }}</th>
 			<td><span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.drogue?.avg?.value, flightInfo?.acceleration?.min?.drogue?.avg?.valueF)) }}</span>{{ measurementAcceleration }}</td>
 		</tr>
 		<tr>
-			<th class="subTitleSep2" colspan="2">{{ $t('charts.flightInfo.events.main') }}</th>
+			<th
+				class="subTitleSep2"
+				:colspan="flightInfo?.events?.main?.fired ? 2 : 0"
+			>
+				{{ $t('charts.flightInfo.events.main') }}
+			</th>
+			<td
+				v-if="!flightInfo?.events?.main?.fired"
+			>
+				{{ $t('charts.flightInfo.events.notDetected') }}
+			</td>
 		</tr>
-		<tr>
+		<tr
+			v-if="flightInfo?.events?.main?.fired"
+		>
 			<th class="subSep3">{{ $t('charts.flightInfo.max.abbr') }}</th>
 			<td><span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.main?.max?.value, flightInfo?.acceleration?.min?.main?.max?.valueF)) }}</span>{{ measurementAcceleration }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.acceleration?.min?.main?.max?.time, flightInfo?.acceleration?.min?.main?.max?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.main?.max?.altitude, flightInfo?.acceleration?.min?.main?.max?.altitudeF)) }}</span>{{ measurementAltitude }}</td>
 		</tr>
-		<tr>
+		<tr
+			v-if="flightInfo?.events?.main?.fired"
+		>
 			<th class="subSep3">{{ $t('charts.flightInfo.min.abbr') }}</th>
 			<td><span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.main?.min?.value, flightInfo?.acceleration?.min?.main?.min?.valueF)) }}</span>{{ measurementAcceleration }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.acceleration?.min?.main?.min?.time, flightInfo?.acceleration?.min?.main?.min?.timeF) }}</span>{{ measurementTime }},&nbsp;<span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.main?.min?.altitude, flightInfo?.acceleration?.min?.main?.min?.altitudeF)) }}</span>{{ measurementAltitude }}</td>
 		</tr>
-		<tr>
+		<tr
+			v-if="flightInfo?.events?.main?.fired"
+		>
 			<th class="subSep3">{{ $t('charts.flightInfo.avg.abbr') }}</th>
 			<td><span>{{ formatNumber(valueType(flightInfo?.acceleration?.min?.main?.avg?.value, flightInfo?.acceleration?.min?.main?.avg?.valueF)) }}</span>{{ measurementAcceleration }}</td>
 		</tr>

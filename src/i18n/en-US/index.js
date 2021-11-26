@@ -30,6 +30,7 @@ export default {
 				title: 'Events',
 				apogee: 'Apogee',
 				drogue: 'Drogue/Freefall',
+				notDetected: 'Event not detected',
 				noseOver: 'Nose Over',
 				main: 'Main'
 			},
