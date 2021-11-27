@@ -31,6 +31,7 @@ class Injector {
 }
 
 export default async () => {
+	AppUtility.isDebug = process.env.NODE_ENV === 'development';
 	AppUtility.injector = new Injector();
 
 	let StoreService;
