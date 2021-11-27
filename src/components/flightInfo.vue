@@ -24,7 +24,6 @@
 		</tr>
 		<tr>
 			<th class="subTitleSep">{{ $t('charts.flightInfo.events.drogue') }}</th>
-			<td><span>{{ formatNumber(valueType(flightInfo?.events?.drogue?.altitude, flightInfo?.events?.drogue?.altitude)) }}</span>{{ measurementAltitude }}&nbsp;@&nbsp;<span>{{ valueType(flightInfo?.events?.drogue?.time, flightInfo?.events?.drogue?.timeF) }}</span>{{ measurementTime }}</td>
 			<td>
 				<span
 					v-if="flightInfo?.events?.drogue?.fired"
