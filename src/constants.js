@@ -1,4 +1,7 @@
 const Constants = {
+	FlightInfo: {
+		Resolution: 1024
+	},
 	InjectorKeys: {
 		SERVICE_DOWNLOAD: 'serviceDownload',
 

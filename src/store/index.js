@@ -41,12 +41,16 @@ export default store(function () {
 	const store = createStore({
 		state () {
 			return {
+				flightInfoResolution: Constants.FlightInfo.Resolution,
 				flightInfoStyle: [],
 				flightPathStyle: [],
 				measurementUnits: AppUtility.measurementUnitEnglish
 			}
 		},
 		actions: {
+			async setFlightInfoResolution({ commit }, value) {
+				commit('setFlightInfoResolution', value);
+			},
 			async setFlightInfoStyle({ commit }, value) {
 				commit('setFlightInfoStyle', value);
 			},
@@ -73,21 +77,24 @@ export default store(function () {
 			}
 		},
 		mutations: {
-			setFlightInfoStyle (state, value) {
+			setFlightInfoResolution(state, value) {
+				state.flightInfoResolution = value;
+			},
+			setFlightInfoStyle(state, value) {
 				if (String.isNullOrEmpty(value.id))
 					return;
 				if (!state.flightInfoStyle)
 					state.flightInfoStyle = [];
 				state.flightInfoStyle = AppUtility.updateArrayByObject(state.flightInfoStyle, value);
 			},
-			setFlightPathStyle (state, value) {
+			setFlightPathStyle(state, value) {
 				if (String.isNullOrEmpty(value.id))
 					return;
 				if (!state.flightPathStyle)
 					state.flightPathStyle = [];
 				state.flightPathStyle = AppUtility.updateArrayByObject(state.flightPathStyle, value);
 			},
-			setMeasurementUnits (state, value) {
+			setMeasurementUnits(state, value) {
 				state.measurementUnits = value;
 			}
 		},

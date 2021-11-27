@@ -425,24 +425,54 @@
 				/>
 			</div>
 			<div class="col-9 q-pl-md">
-				<div
-					id="flight-info"
-					class="row" style="color: black; background-color: white"
-				>
-					<div class="col-9">
-						<flightInfoChart
-							ref="flightInfoChart"
-							:chart-data="flightInfoChartData"
-						/>
-					</div>
-					<div class="col-3 q-pa-sm">
-						<flightInfo
-							id="flight-info"
-							ref="flightInfo"
-							:flight-info="flightInfo"
-						/>
-					</div>
+				<div>
+					<table style="width: 100%;">
+						<tr>
+							<td style="white-space: nowrap;">
+								<q-badge color="secondary">
+									{{ $t('flightInfo.resolution')}}: {{ resolution }}
+								</q-badge>
+								<q-btn dense flat label="720" color="primary" @click="clickResolution(720)" />
+								<q-btn dense flat label="1080" color="primary" @click="clickResolution(1080)" />
+								<q-btn dense flat label="1440" color="primary" @click="clickResolution(1440)" />
+								<q-btn dense flat label="1920" color="primary" @click="clickResolution(1920)" />
+								<q-btn dense flat label="2048" color="primary" @click="clickResolution(2048)" />
+							</td>
+							<td style="width: 100%;">
+								<table style="width: 100%;">
+									<tr>
+										<td style="width: 100%;">
+											<q-slider v-model="resolution" dense :min="720" :max="2048" style="width: 100%;" />
+										</td>
+										<td style="white-space: nowrap;">
+											<q-btn dense flat label="set" color="primary" @click="clickResolution(this.resolution)" />
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
 				</div>
+				<table
+					id="flight-info"
+					:style="'color: black; background-color: white; width: ' + resolution2 + 'px;'"
+				>
+					<tr>
+						<td>
+							<flightInfoChart
+								ref="flightInfoChart"
+								:chart-data="flightInfoChartData"
+							/>
+						</td>
+						<td >
+							<flightInfo
+								id="flight-info"
+								ref="flightInfo"
+								:flight-info="flightInfo"
+							/>
+						</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -512,6 +542,9 @@ export default defineComponent({
 		flightInfoStyleVelocityColor: null,
 		flightInfoStyleVelocityFColor: null,
 		flightInfoTitle: null,
+		processing: false,
+		resolution: Constants.FlightInfo.Resolution,
+		resolution2: Constants.FlightInfo.Resolution,
 		serviceFlightInfo: null
 	}),
 	watch: {
@@ -532,6 +565,9 @@ export default defineComponent({
 		this.serviceFlightInfo = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_FLIGHT_INFO);
 
 		this.flightInfoStyleReset(false);
+
+		this.resolution = Constants.FlightInfo.Resolution;
+		this.resolution2 = this.resolution;
 	},
 	mounted() {
 		this.reset();
@@ -540,6 +576,9 @@ export default defineComponent({
 		this.flightInfoProcessors = AppUtility.selectOptions(this.serviceFlightInfo.serviceProcessors, this.$t, 'flightInfo.processors', (l) => { return l.id; }, null, (l) => { return l.id; });
 		this.flightInfoMeasurementUnitsOptions = AppUtility.selectOptions(AppUtility.measurementUnits(), this.$t, 'measurementUnits');
 		this.flightInfoMeasurementUnits = AppUtility.$store.state.measurementUnits;
+
+		this.resolution = AppUtility.$store.state.flightInfoResolution ?? Constants.FlightInfo.Resolution;
+		this.resolution2 = this.resolution;
 	},
 	methods: {
 		checkErrors() {
@@ -550,6 +589,14 @@ export default defineComponent({
 			this.flightInfoDataTypeError = !(this.flightInfoDataTypeActual || this.flightInfoDataTypeFiltered);
 
 			this.buttons.process.disabled = this.hasError();
+		},
+		clickResolution(resolution) {
+			this.resolution = resolution;
+
+			AppUtility.$store.dispatch('setFlightInfoResolution', resolution);
+
+			if (this.processing)
+				this.flightInfoProcess();
 		},
 		flightInfoStyleLoad() {
 			if (String.isNullOrEmpty(this.flightInfoProcessor))
@@ -706,67 +753,72 @@ export default defineComponent({
 		flightInfoProcess() {
 			this.reset();
 
-			this.$refs.flightInfoInput.validate();
-			this.$refs.flightInfoMeasurementUnits.validate();
-			this.$refs.flightInfoProcessor.validate();
+			this.resolution2 = this.resolution;
+			this.processing = true;
 
-			if (this.hasError()) {
-				this.setError(this.$t('errors.process.required'));
-				return;
-			}
+			setTimeout(() => {
+				this.$refs.flightInfoInput.validate();
+				this.$refs.flightInfoMeasurementUnits.validate();
+				this.$refs.flightInfoProcessor.validate();
 
-			if (String.isNullOrEmpty(this.flightInfoInput)) {
-				this.setError(this.$t('errors.process.noInput'));
-				return;
-			}
+				if (this.hasError()) {
+					this.setError(this.$t('errors.process.required'));
+					return;
+				}
 
-			const data = Papa.parse(this.flightInfoInput.trim());
-			if (data.errors && data.errors.length > 0) {
-				this.setError(this.$t('errors.process.unableToConvert'));
-				return;
-			}
+				if (String.isNullOrEmpty(this.flightInfoInput)) {
+					this.setError(this.$t('errors.process.noInput'));
+					return;
+				}
 
-			const flightInfoDataTypes = {
-				actual: this.flightInfoDataTypeActual,
-				filtered: this.flightInfoDataTypeFiltered,
-				use: this.flightInfoDataTypeUse
-			};
+				const data = Papa.parse(this.flightInfoInput.trim());
+				if (data.errors && data.errors.length > 0) {
+					this.setError(this.$t('errors.process.unableToConvert'));
+					return;
+				}
 
-			const flightInfoResults = this.serviceFlightInfo.process(data, this.flightInfoProcessor, this.flightInfoMeasurementUnits, flightInfoDataTypes);
-			console.log(flightInfoResults);
-			if (flightInfoResults.errors && data.errors.length > 0) {
-				const errors = flightInfoResults.errors.map(e => this.$t(e) + '<br/>');
-				this.setError(errors);
-				return;
-			}
+				const flightInfoDataTypes = {
+					actual: this.flightInfoDataTypeActual,
+					filtered: this.flightInfoDataTypeFiltered,
+					use: this.flightInfoDataTypeUse
+				};
 
-			flightInfoResults.info.title = this.$t('charts.flightInfo.title');
-			if (!String.isNullOrEmpty(this.flightInfoTitle && this.flightInfoTitle))
-				flightInfoResults.info.title = this.flightInfoTitle;
-			if (!String.isNullOrEmpty(this.flightInfoDate))
-				flightInfoResults.info.date = this.flightInfoDate;
-			if (!String.isNullOrEmpty(this.flightInfoLocation))
-				flightInfoResults.info.location = this.flightInfoLocation;
-			if (!String.isNullOrEmpty(this.flightInfoMeasurementUnit))
-				flightInfoResults.info.measurementUnits = this.flightInfoMeasurementUnits;
+				const flightInfoResults = this.serviceFlightInfo.process(data, this.flightInfoProcessor, this.flightInfoMeasurementUnits, flightInfoDataTypes);
+				console.log(flightInfoResults);
+				if (flightInfoResults.errors && data.errors.length > 0) {
+					const errors = flightInfoResults.errors.map(e => this.$t(e) + '<br/>');
+					this.setError(errors);
+					return;
+				}
 
-			flightInfoResults.info.style.altitude = this.flightInfoStyleAltitudeColor;
-			flightInfoResults.info.style.altitudeF = this.flightInfoStyleAltitudeFColor;
-			flightInfoResults.info.style.event.apogee = this.flightInfoStyleEventApogeeColor;
-			flightInfoResults.info.style.event.apogeeBorder = this.flightInfoStyleEventApogeeBorderColor;
-			flightInfoResults.info.style.event.drogue = this.flightInfoStyleEventDrogueColor;
-			flightInfoResults.info.style.event.drogueBorder = this.flightInfoStyleEventDrogueBorderColor;
-			flightInfoResults.info.style.event.main = this.flightInfoStyleEventMainColor;
-			flightInfoResults.info.style.event.mainBorder = this.flightInfoStyleEventMainBorderColor;
-			flightInfoResults.info.style.velocity = this.flightInfoStyleVelocityColor;
-			flightInfoResults.info.style.velocityF = this.flightInfoStyleVelocityFColor;
+				flightInfoResults.info.title = this.$t('charts.flightInfo.title');
+				if (!String.isNullOrEmpty(this.flightInfoTitle && this.flightInfoTitle))
+					flightInfoResults.info.title = this.flightInfoTitle;
+				if (!String.isNullOrEmpty(this.flightInfoDate))
+					flightInfoResults.info.date = this.flightInfoDate;
+				if (!String.isNullOrEmpty(this.flightInfoLocation))
+					flightInfoResults.info.location = this.flightInfoLocation;
+				if (!String.isNullOrEmpty(this.flightInfoMeasurementUnit))
+					flightInfoResults.info.measurementUnits = this.flightInfoMeasurementUnits;
 
-			this.flightInfoChartData = flightInfoResults.info;
-			this.flightInfo = flightInfoResults.info;
+				flightInfoResults.info.style.altitude = this.flightInfoStyleAltitudeColor;
+				flightInfoResults.info.style.altitudeF = this.flightInfoStyleAltitudeFColor;
+				flightInfoResults.info.style.event.apogee = this.flightInfoStyleEventApogeeColor;
+				flightInfoResults.info.style.event.apogeeBorder = this.flightInfoStyleEventApogeeBorderColor;
+				flightInfoResults.info.style.event.drogue = this.flightInfoStyleEventDrogueColor;
+				flightInfoResults.info.style.event.drogueBorder = this.flightInfoStyleEventDrogueBorderColor;
+				flightInfoResults.info.style.event.main = this.flightInfoStyleEventMainColor;
+				flightInfoResults.info.style.event.mainBorder = this.flightInfoStyleEventMainBorderColor;
+				flightInfoResults.info.style.velocity = this.flightInfoStyleVelocityColor;
+				flightInfoResults.info.style.velocityF = this.flightInfoStyleVelocityFColor;
 
-			this.notify('messages.processed');
+				this.flightInfoChartData = flightInfoResults.info;
+				this.flightInfo = flightInfoResults.info;
 
-			this.buttons.export.disabled = false;
+				this.notify('messages.processed');
+
+				this.buttons.export.disabled = false;
+			}, 50);
 		},
 		hasError() {
 			return (
@@ -783,6 +835,7 @@ export default defineComponent({
 				clearTimeout(this.errorTimer);
 			this.flightInfo = null;
 			this.flightInfoChartData = null;
+			this.processing = false;
 		},
 		resetInput() {
 			this.reset();
