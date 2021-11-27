@@ -430,7 +430,7 @@
 						<tr>
 							<td style="white-space: nowrap;">
 								<q-badge color="secondary">
-									Resolution: {{ resolution }}
+									{{ $t('flightInfo.resolution')}}: {{ resolution }}
 								</q-badge>
 								<q-btn dense flat label="720" color="primary" @click="clickResolution(720)" />
 								<q-btn dense flat label="1080" color="primary" @click="clickResolution(1080)" />

@@ -64,6 +64,22 @@ export default {
 	},
 	flightInfo: {
 		title: 'Flight Title',
+		csv: 'CSV Flight Data',
+		dataTypes: {
+			showActual: 'Show Actual'
+		},
+		date: 'Flight Date',
+		export: {
+			image: 'image',
+			json: 'json',
+			text: 'text'
+		},
+		location: 'Flight Location',
+		measurementUnits: 'Flight Measurement Units',
+		processors: {
+			title: 'Flight Data Type',
+			eggtimer: 'Eggtimer'
+		},
 		style: {
 			title: 'Chart Styles',
 			altitude: {
@@ -89,22 +105,7 @@ export default {
 				filtered: 'Velocity (Filtered)'
 			}
 		},
-		csv: 'CSV Flight Data',
-		dataTypes: {
-			showActual: 'Show Actual'
-		},
-		date: 'Flight Date',
-		export: {
-			image: 'image',
-			json: 'json',
-			text: 'text'
-		},
-		location: 'Flight Location',
-		measurementUnits: 'Flight Measurement Units',
-		processors: {
-			title: 'Flight Data Type',
-			eggtimer: 'Eggtimer'
-		}
+		resolution: 'Resolution'
 	},
 	flightPath: {
 		title: 'Flight Title',
