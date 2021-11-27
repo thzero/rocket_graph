@@ -2,7 +2,7 @@
 class Service {
 	_enforce(clazz, method, value, name, correlationId) {
 		if (String.isNullOrEmpty(value)) {
-			console.log(`${clazz}.${method} Invalid ${name}`);
+			console.error(`${clazz}.${method} Invalid ${name}`);
 			const error = Error(`Invalid ${name}`, true);
 			error.correlationId = correlationId;
 			throw error;
@@ -11,7 +11,7 @@ class Service {
 
 	_enforceNotEmpty(clazz, method, value, name, correlationId) {
 		if (String.isNullOrEmpty(value)) {
-			console.log(`${clazz}.${method} ${name} is empty.`);
+			console.error(`${clazz}.${method} ${name} is empty.`);
 			const error = Error(`Invalid ${name}`, true);
 			error.correlationId = correlationId;
 			throw error;
@@ -20,7 +20,7 @@ class Service {
 
 	_enforceNotNull(clazz, method, value, name, correlationId) {
 		if (!value) {
-			console.log(`${clazz}.${method} ${name} is null.`);
+			console.error(`${clazz}.${method} ${name} is null.`);
 			const error = Error(`Invalid ${name}`, true);
 			error.correlationId = correlationId;
 			throw error;

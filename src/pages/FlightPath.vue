@@ -411,16 +411,16 @@ export default defineComponent({
 			this.serviceDownload.download(this.flightPathData,
 				name,
 				() => {
-					console.log('completed');
+					AppUtility.debug2('download', 'completed');
 					barRef.stop();
 				},
 				() => {
-					console.log('cancelled');
+					AppUtility.debug2('download', 'cancelled');
 					barRef.stop();
 				},
 				(arg) => {
-					console.log('progress');
-					console.log(arg);
+					AppUtility.debug2('download', 'progress');
+					AppUtility.debug2(arg);
 				}
 			);
 		},

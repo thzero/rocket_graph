@@ -79,7 +79,7 @@ export default defineComponent({
 	}),
 	watch: {
 		chartData: function (flightInfo) {
-			// console.log(value);
+			// AppUtility.debug2(flightInfo);
 			if (this.chart) {
 				this.chart.destroy();
 				this.chart = null;

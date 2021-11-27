@@ -32,8 +32,8 @@ export default store(function () {
 	if (serviceExternalStore) {
 		let initialState = {};
 		serviceExternalStore.initializeState((data) => {
-			console.log('render.initializeState.callback');
-			console.log(data);
+			// console.debug('render.initializeState.callback');
+			// console.debug(data);
 			initialState = data;
 		});
 		plugins = serviceExternalStore.intializePlugins(initialState);

@@ -9,9 +9,9 @@ class ElectronStoreService extends StoreService {
 				// called after every mutation.
 				// The mutation comes in the format of `{ type, payload }`.
 				// persistentStore.set('state', JSON.stringify(state));
-				console.log('renderer.store.subscribe');
-				console.log(mutation);
-				console.log(state);
+				// console.debug('renderer.store.subscribe');
+				// console.debug(mutation);
+				// console.debug(state);
 				window.rgStoreApi.setStore(JSON.stringify(state));
 			});
 		}];
@@ -19,8 +19,8 @@ class ElectronStoreService extends StoreService {
 
 	initializeState(callback) {
 		window.rgStoreApi.getStore((data) => {
-			console.log('render.initializeState.getStore');
-			console.log(data);
+			// console.debug('render.initializeState.getStore');
+			// console.debug(data);
 			callback(data);
 		});
 	}
