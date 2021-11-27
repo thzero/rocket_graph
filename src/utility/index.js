@@ -4,6 +4,29 @@ class AppUtility {
 	static measurementUnitEnglish = 'english';
 	static measurementUnitMetric = 'metric';
 
+	static isDebug = false;
+
+	// TODO: move to library
+	static debug(args) {
+		if (!AppUtility.isDebug)
+			return;
+		console.debug(args);
+	}
+
+	// TODO: move to library
+	static debug2(name, value) {
+		if (!AppUtility.isDebug)
+			return;
+
+		// eslint-disable-next-line no-unneeded-ternary
+		const output = name + ': ' + (value ? value : 'null');
+		console.debug(output);
+	}
+
+	static info(args) {
+		console.info(args);
+	}
+
 	static dateFormat(locale) {
 		locale = !String.isNullOrEmpty(locale) ? locale : AppUtility.getLocale();
 		const formatObj = new Intl.DateTimeFormat(locale).formatToParts(new Date());
@@ -85,7 +108,7 @@ class AppUtility {
 	}
 
 	static version() {
-		console.log(packageJson);
+		// console.debug(packageJson);
 		return packageJson.version + ' ' + packageJson.version_date;
 	}
 }

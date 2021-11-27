@@ -70,7 +70,7 @@ class FlightPathService extends Service {
 
 		results.info = this._initialize(flightInfo);
 		processor.process(results, data, measurementUnits);
-		console.log(results.info);
+		AppUtility.debug2('results.info', results.info);
 
 		return results;
 	}

@@ -704,16 +704,16 @@ export default defineComponent({
 			this.serviceDownload.download(output,
 				name,
 				() => {
-					console.log('completed');
+					AppUtility.debug2('download', 'completed');
 					barRef.stop();
 				},
 				() => {
-					console.log('cancelled');
+					AppUtility.debug2('download', 'cancelled');
 					barRef.stop();
 				},
 				(arg) => {
-					console.log('progress');
-					console.log(arg);
+					AppUtility.debug2('download', 'progress');
+					AppUtility.debug2(arg);
 				}
 			);
 		},
@@ -735,16 +735,16 @@ export default defineComponent({
 				this.serviceDownload.downloadUrl('data:image/png;base64,' + data,
 					name,
 					() => {
-						console.log('completed');
+						AppUtility.debug2('download', 'completed');
 						barRef.stop();
 					},
 					() => {
-						console.log('cancelled');
+						AppUtility.debug2('download', 'cancelled');
 						barRef.stop();
 					},
 					(arg) => {
-						console.log('progress');
-						console.log(arg);
+						AppUtility.debug2('download', 'progress');
+						AppUtility.debug2(arg);
 					}
 				);
 			// eslint-disable-next-line
@@ -784,7 +784,7 @@ export default defineComponent({
 				};
 
 				const flightInfoResults = this.serviceFlightInfo.process(data, this.flightInfoProcessor, this.flightInfoMeasurementUnits, flightInfoDataTypes);
-				console.log(flightInfoResults);
+				AppUtility.debug2('flightInfoResults', flightInfoResults);
 				if (flightInfoResults.errors && data.errors.length > 0) {
 					const errors = flightInfoResults.errors.map(e => this.$t(e) + '<br/>');
 					this.setError(errors);

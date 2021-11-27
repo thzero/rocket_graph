@@ -10,8 +10,8 @@ class Store {
 		this.path = path.join(userDataPath, (opts?.configName || 'store') + '.json');
 
 		this._data = parseDataFile(this.path, opts?.defaults || {});
-		console.log('main.store');
-		console.log(this._data);
+		// console.debug('main.store');
+		// console.debug(this._data);
 	}
 
 	get() {
@@ -20,8 +20,8 @@ class Store {
 
 	set(value) {
 		this._data = JSON.parse(value);
-		console.log('main.set');
-		console.log(this._data);
+		// console.debug('main.set');
+		// console.debug(this._data);
 		fs.writeFileSync(this.path, value);
 	}
 }

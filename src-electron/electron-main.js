@@ -62,18 +62,18 @@ function createWindow () {
 	});
 
 	ipcMain.on('getStore', (event, arg) => {
-		// console.log('main.getStore');
+		// console.debug('main.getStore');
 		event.returnValue = store.get();
 	});
 
 	ipcMain.on('setStore', (event, arg) => {
-		// console.log('main.setStore');
-		// console.log(arg);
+		// console.debug('main.setStore');
+		// console.debug(arg);
 		store.set(arg);
 	});
 
 	ipcMain.on('download-item', async (event, data) => {
-		// console.log(data);
+		// console.debug(data);
 		const options = {
 			openFolderWhenDone: true,
 			onCanceled: () => {
@@ -90,21 +90,21 @@ function createWindow () {
 			options.filename = data.name;
 
 		let url = data.url;
-		console.log('download-item...value');
-		console.log(data.value);
+		// console.debug('download-item...value');
+		// console.debug(data.value);
 		if (data.value && data.value !== undefined) {
 			const userDataPath = (app).getPath('userData');
 			const pathF = path.join(userDataPath, data.name);
-			console.log('download-item...path');
-			console.log(pathF);
+			// console.debug('download-item...path');
+			// console.debug(pathF);
 			fs.writeFileSync(pathF, data.value);
 			url = `file://${pathF}`;
-			console.log('download-item...url');
-			console.log(url);
+			// console.debug('download-item...url');
+			// console.debug(url);
 		}
 
-		console.log('download-item...url');
-		console.log(data.url);
+		// console.debug('download-item...url');
+		// console.debug(data.url);
 		if (String.isNullOrEmpty(url))
 			return;
 

@@ -87,7 +87,7 @@ class FlightInfoService extends Service {
 		results.info = this._initialize();
 		results.info.dataTypes = dataTypes;
 		processor.process(results, data, measurementUnits);
-		console.log(results.info);
+		AppUtility.debug2(results.info);
 
 		return results;
 	}
@@ -134,26 +134,6 @@ Events
 	Drogue			${flightTime}
 	Main			${flightTime}
 `;
-
-			const name = this.flightInfoExportName('txt');
-			const barRef = this.$refs.bar;
-			barRef.start();
-
-			this.serviceDownload.download(output,
-				name,
-				() => {
-					console.log('completed');
-					barRef.stop();
-				},
-				() => {
-					console.log('cancelled');
-					barRef.stop();
-				},
-				(arg) => {
-					console.log('progress');
-					console.log(arg);
-				}
-			);
 */
 	}
 

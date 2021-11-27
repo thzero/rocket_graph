@@ -21,12 +21,6 @@ import { BrowserWindow } from '@electron/remote';
 
 contextBridge.exposeInMainWorld('rgDownloadApi', {
 	download: (value, name, funcCompleted, funcCancelled, funcProgress) => {
-		console.log(value);
-		console.log(value);
-		console.log(value);
-		console.log(value);
-		console.log(value);
-		console.log(value);
 		if (!value)
 			return;
 
@@ -46,10 +40,6 @@ contextBridge.exposeInMainWorld('rgDownloadApi', {
 			});
 		}
 
-		console.log('download-item');
-		console.log('download-item');
-		console.log('download-item');
-		console.log('download-item');
 		ipcRenderer.send('download-item', { value: value, name: name });
 	},
 	downloadUrl: (url, name, funcCompleted, funcCancelled, funcProgress) => {
@@ -79,13 +69,13 @@ contextBridge.exposeInMainWorld('rgDownloadApi', {
 contextBridge.exposeInMainWorld('rgStoreApi', {
 	getStore: (func) => {
 		const data = ipcRenderer.sendSync('getStore');
-		// console.log('preload.getStore');
-		// console.log(data);
+		// console.debug('preload.getStore');
+		// console.debug(data);
 		func(data);
 	},
 	setStore: (state) => {
-		// console.log('preload.setStore');
-		// console.log(state);
+		// console.debug('preload.setStore');
+		// console.debug(state);
 		ipcRenderer.send('setStore', state);
 	}
 });
