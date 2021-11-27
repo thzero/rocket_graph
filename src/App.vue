@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import d from 'debug';
+const debug = d('app');
 import { defineComponent } from 'vue';
 import { useQuasar } from 'quasar';
 
@@ -13,9 +15,20 @@ export default defineComponent({
 	setup () {
 		const $q = useQuasar();
 		// get status
-		console.log($q.dark.isActive); // true, false
+		console.log('$q.dark.isActive');
+		console.log('$q.dark.isActive');
+		console.log('$q.dark.isActive');
+		console.log($q.dark.isActive);
+		debug($q.dark.isActive);
+		debug($q.dark.isActive);
+		debug($q.dark.isActive);
+		debug($q.dark.isActive);
+		console.log($q.dark.isActive);
+		console.log('$q.dark.isActive');
+		console.log('$q.dark.isActive');
+		console.log('$q.dark.isActive'); / // true, false
 		// get configured status
-		console.log($q.dark.mode); // "auto", true, false
+		debug($q.dark.mode); // "auto", true, false
 		// set status
 		$q.dark.set(true); // or false or "auto"
 	},
