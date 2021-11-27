@@ -5,7 +5,7 @@ import Constants from '../constants';
 
 import AppUtility from '../utility';
 
-import boot from '../boot/boot';
+import preload from '../boot/preload';
 
 // import example from './module-example'
 
@@ -23,8 +23,9 @@ export default store(function () {
 	// This is dumb, the very first thing that is avaialble in the
 	// .quasar/app.js from the @quasar/app template is the function
 	// call to the store.  There is no other pre-bootstrap function.
+	// Submitted a pull request with the preload hook.
 
-	boot();
+	preload();
 
 	let plugins = [];
 	const serviceExternalStore = AppUtility.injector.getService(Constants.InjectorKeys.SERVICE_STORE_EXTERNAL);
