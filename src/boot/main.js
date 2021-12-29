@@ -5,6 +5,8 @@ import Constants from '../constants';
 import AppUtility from '../utility';
 
 // TODO: Convert to library dependencies
+import FoamCalculatorService from '../services/calculators/foam';
+
 import FlightInfoService from '../services/flightInfo';
 import EggtimerFlightInfoProcessorService from '../services/flightInfo/processors/eggtimer';
 
@@ -39,16 +41,18 @@ export default boot(async ({ app, router, store }) => {
 	AppUtility.injector.registerService(Constants.InjectorKeys.SERVICE_WINDOW, new WindowService());
 
 	// TODO: Convert to library dependencies
+
+	const foamCalculatorService = new FoamCalculatorService();
+	AppUtility.injector.registerService(Constants.InjectorKeys.SERVICE_CALCULATOR_FOAM, foamCalculatorService);
+	foamCalculatorService.init(AppUtility.injector);
+
 	const flightInfoService = new FlightInfoService();
 	AppUtility.injector.registerService(Constants.InjectorKeys.SERVICE_FLIGHT_INFO, flightInfoService);
 	AppUtility.injector.registerService(Constants.InjectorKeys.SERVICE_FLIGHT_INFO_PROCESSOR_EGGTIMER, new EggtimerFlightInfoProcessorService());
-	// TODO: Convert to library dependencies
 	flightInfoService.init(AppUtility.injector);
 
-	// TODO: Convert to library dependencies
 	const flightPathService = new FlightPathService();
 	AppUtility.injector.registerService(Constants.InjectorKeys.SERVICE_FLIGHT_PATH, flightPathService);
 	AppUtility.injector.registerService(Constants.InjectorKeys.SERVICE_FLIGHT_PATH_PROCESSOR_FEATHERWEIGHT, new FeatherweightFlightPathProcessorService());
-	// TODO: Convert to library dependencies
 	flightPathService.init(AppUtility.injector);
 });

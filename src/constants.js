@@ -3,6 +3,8 @@ const Constants = {
 		Resolution: 1024
 	},
 	InjectorKeys: {
+		SERVICE_CALCULATOR_FOAM: 'serviceCalculatorFoam',
+
 		SERVICE_DOWNLOAD: 'serviceDownload',
 
 		SERVICE_FLIGHT_INFO: 'serviceFlightInfo',

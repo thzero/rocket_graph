@@ -22,6 +22,13 @@ const routes = [
 		]
 	},
 	{
+		path: '/utilities',
+		component: () => import('layouts/MainLayout.vue'),
+		children: [
+			{ path: '', component: () => import('src/pages/Utilities.vue') }
+		]
+	},
+	{
 		path: '/openSource',
 		component: () => import('layouts/MainLayout.vue'),
 		children: [

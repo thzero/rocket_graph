@@ -38,10 +38,17 @@
 					:label="$t('menu.flightInfo')"
 				/>
 				<q-btn
+					class="q-mr-sm"
 					color="secondary"
 					clickable
 					to="/flightPath"
 					:label="$t('menu.flightPath')"
+				/>
+				<q-btn
+					color="secondary"
+					clickable
+					to="/utilities"
+					:label="$t('menu.utilities.title')"
 				/>
 				<q-btn flat round dense icon="more_vert">
 					<q-menu auto-close>

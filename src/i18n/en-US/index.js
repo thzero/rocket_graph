@@ -180,10 +180,18 @@ export default {
 		metric: 'Metrics'
 	},
 	menu: {
+		calculators: {
+			foam: 'Foam',
+			ejectionCharge: 'Ejection Charge',
+			staticPorts: 'Static Ports'
+		},
 		flightInfo: 'Flight Info',
 		flightPath: 'Flight Path',
 		settings: {
 			title: 'Settings'
+		},
+		utilities: {
+			title: 'Utilities'
 		}
 	},
 	messages: {
@@ -204,7 +212,8 @@ export default {
 		home: 'Home',
 		issues: 'Issues',
 		settings: 'Settings',
-		openSource: 'Open Source'
+		openSource: 'Open Source',
+		utilities: 'Utilities'
 	},
 	validation: {
 		required: 'Field is required.'
