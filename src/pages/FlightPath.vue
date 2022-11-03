@@ -21,12 +21,14 @@
 							filled
 							dense
 							:label="$t('flightPath.title')"
+							@change="(v) => { onChangeTitle(v); }"
 						/>
 						<q-input
 							v-model="flightPathLocation"
 							filled
 							dense
 							:label="$t('flightPath.location')"
+							@change="(v) => { onChangeLocation(v); }"
 						/>
 						<q-input
 							v-model="flightPathDate"
@@ -41,6 +43,7 @@
 									<q-date
 										v-model="flightPathDate"
 										:mask="dateFormat"
+										@update:model-value="(v) => { onChangeDate(v); }"
 									>
 									<div class="row items-center justify-end">
 										<q-btn v-close-popup label="Close" color="primary" flat />
@@ -332,6 +335,10 @@ export default defineComponent({
 		this.reset();
 		this.flightPathStyleReset(false);
 
+		this.flightPathDate = AppUtility.$store.getters.getFlightDate();
+		this.flightPathLocation = AppUtility.$store.getters.getFlightLocation();
+		this.flightPathTitle = AppUtility.$store.getters.getFlightTitle();
+
 		this.flightPathProcessors = AppUtility.selectOptions(this.serviceFlightPath.serviceProcessors, this.$t, 'flightPath.processors', (l) => { return l.id; }, null, (l) => { return l.id; });
 		this.flightPathMeasurementUnitsOptions = AppUtility.selectOptions(AppUtility.measurementUnits(), this.$t, 'measurements', null, (l) => { return l + '.altitude.name'; });
 		this.flightPathMeasurementUnits = AppUtility.measurementUnitEnglish;
@@ -347,7 +354,7 @@ export default defineComponent({
 			if (String.isNullOrEmpty(this.flightPathProcessor))
 				return;
 
-			const style = AppUtility.$store.getters.flightPathStyle(this.flightPathProcessor);
+			const style = AppUtility.$store.getters.getFlightPathStyle(this.flightPathProcessor);
 			if (!style)
 				return;
 
@@ -482,6 +489,15 @@ export default defineComponent({
 		},
 		hasError() {
 			return (this.$refs.flightPathInput.hasError || this.$refs.flightPathProcessor.hasError || this.$refs.flightPathMeasurementUnits.hasError);
+		},
+		onChangeDate(value) {
+			AppUtility.$store.dispatch('setFlightDate', value);
+		},
+		onChangeLocation(value) {
+			AppUtility.$store.dispatch('setFlightLocation', value);
+		},
+		onChangeTitle(value) {
+			AppUtility.$store.dispatch('setFlightTitle', value);
 		},
 		reset() {
 			this.buttons.export.disabled = true;
