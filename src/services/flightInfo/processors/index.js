@@ -145,7 +145,7 @@ class FlightInfoProcessorService extends Service {
 				results.info.velocity.min.valueF = velocityF;
 			}
 
-			if (results.info.events.apogee.achieved) {
+			if (!results.info.events.apogee.achieved) {
 				results.info.velocity.avg.temp += velocity;
 				results.info.velocity.avg.count++;
 				results.info.velocity.avg.tempF += velocityF;
