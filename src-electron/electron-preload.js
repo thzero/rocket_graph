@@ -17,6 +17,7 @@
  */
 
 import { contextBridge, ipcRenderer } from 'electron';
+// eslint-disable-next-line no-unused-vars
 import { BrowserWindow } from '@electron/remote';
 
 contextBridge.exposeInMainWorld('rgDownloadApi', {
@@ -40,6 +41,7 @@ contextBridge.exposeInMainWorld('rgDownloadApi', {
 			});
 		}
 
+		// eslint-disable-next-line object-shorthand
 		ipcRenderer.send('download-item', { value: value, name: name });
 	},
 	downloadUrl: (url, name, funcCompleted, funcCancelled, funcProgress) => {
@@ -62,6 +64,7 @@ contextBridge.exposeInMainWorld('rgDownloadApi', {
 			});
 		}
 
+		// eslint-disable-next-line object-shorthand
 		ipcRenderer.send('download-item', { url: url, name: name });
 	}
 });

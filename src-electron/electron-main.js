@@ -37,6 +37,8 @@ function createWindow () {
 		useContentSize: true,
 		frame: false,
 		webPreferences: {
+			// required for @electron/remote to work with electron version 20+
+			sandbox: false,
 			contextIsolation: true,
 			// More info: /quasar-cli/developing-electron-apps/electron-preload-script
 			preload: path.resolve(__dirname, process.env.QUASAR_ELECTRON_PRELOAD)
