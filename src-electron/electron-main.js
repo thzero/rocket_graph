@@ -1,12 +1,12 @@
 import { app, BrowserWindow, nativeTheme, ipcMain } from 'electron';
-import { initialize, enable } from '@electron/remote/main';
+// import { initialize, enable } from '@electron/remote/main';
 import path from 'path';
 import os from 'os';
 import fs from 'fs';
 
 require('../src/utility/string');
 
-initialize();
+// initialize();
 
 import { download } from 'electron-dl';
 
@@ -45,7 +45,7 @@ function createWindow () {
 		}
 	});
 
-	enable(mainWindow.webContents);
+	// enable(mainWindow.webContents);
 
 	mainWindow.loadURL(process.env.APP_URL);
 
@@ -115,6 +115,24 @@ function createWindow () {
 			url,
 			options
 		);
+	});
+
+	ipcMain.on('window.close', () => {
+		mainWindow.close();
+	});
+
+	ipcMain.on('window.maximize', () => {
+		if (mainWindow.isMaximized()) {
+			console.log('window.maxmize' + 'mainWindow.unmaximize');
+			mainWindow.unmaximize();
+			return;
+		}
+
+		mainWindow.maximize();
+	});
+
+	ipcMain.on('window.minimize', () => {
+		mainWindow.minimize();
 	});
 }
 
