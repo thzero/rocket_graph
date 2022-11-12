@@ -1,12 +1,12 @@
 import { app, BrowserWindow, nativeTheme, ipcMain } from 'electron';
-import { initialize, enable } from '@electron/remote/main';
+// import { initialize, enable } from '@electron/remote/main';
 import path from 'path';
 import os from 'os';
 import fs from 'fs';
 
 require('../src/utility/string');
 
-initialize();
+// initialize();
 
 import { download } from 'electron-dl';
 
@@ -37,13 +37,15 @@ function createWindow () {
 		useContentSize: true,
 		frame: false,
 		webPreferences: {
+			// required for @electron/remote to work with electron version 20+
+			sandbox: false,
 			contextIsolation: true,
 			// More info: /quasar-cli/developing-electron-apps/electron-preload-script
 			preload: path.resolve(__dirname, process.env.QUASAR_ELECTRON_PRELOAD)
 		}
 	});
 
-	enable(mainWindow.webContents);
+	// enable(mainWindow.webContents);
 
 	mainWindow.loadURL(process.env.APP_URL);
 
@@ -113,6 +115,24 @@ function createWindow () {
 			url,
 			options
 		);
+	});
+
+	ipcMain.on('window.close', () => {
+		mainWindow.close();
+	});
+
+	ipcMain.on('window.maximize', () => {
+		if (mainWindow.isMaximized()) {
+			console.log('window.maxmize' + 'mainWindow.unmaximize');
+			mainWindow.unmaximize();
+			return;
+		}
+
+		mainWindow.maximize();
+	});
+
+	ipcMain.on('window.minimize', () => {
+		mainWindow.minimize();
 	});
 }
 

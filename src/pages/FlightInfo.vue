@@ -20,12 +20,14 @@
 						filled
 						dense
 						:label="$t('flightInfo.title')"
+						@change="(v) => { onChangeTitle(v); }"
 					/>
 					<q-input
 						v-model="flightInfoLocation"
 						filled
 						dense
 						:label="$t('flightInfo.location')"
+						@change="(v) => { onChangeLocation(v); }"
 					/>
 					<q-input
 						v-model="flightInfoDate"
@@ -40,6 +42,7 @@
 								<q-date
 									v-model="flightInfoDate"
 									:mask="dateFormat"
+									@update:model-value="(v) => { onChangeDate(v); }"
 								>
 								<div class="row items-center justify-end">
 									<q-btn v-close-popup label="Close" color="primary" flat />
@@ -573,6 +576,10 @@ export default defineComponent({
 		this.reset();
 		this.flightInfoStyleReset(false);
 
+		this.flightInfoDate = AppUtility.$store.getters.getFlightDate();
+		this.flightInfoLocation = AppUtility.$store.getters.getFlightLocation();
+		this.flightInfoTitle = AppUtility.$store.getters.getFlightTitle();
+
 		this.flightInfoProcessors = AppUtility.selectOptions(this.serviceFlightInfo.serviceProcessors, this.$t, 'flightInfo.processors', (l) => { return l.id; }, null, (l) => { return l.id; });
 		this.flightInfoMeasurementUnitsOptions = AppUtility.selectOptions(AppUtility.measurementUnits(), this.$t, 'measurementUnits');
 		this.flightInfoMeasurementUnits = AppUtility.$store.state.measurementUnits;
@@ -836,6 +843,15 @@ export default defineComponent({
 			this.flightInfo = null;
 			this.flightInfoChartData = null;
 			this.processing = false;
+		},
+		onChangeDate(value) {
+			AppUtility.$store.dispatch('setFlightDate', value);
+		},
+		onChangeLocation(value) {
+			AppUtility.$store.dispatch('setFlightLocation', value);
+		},
+		onChangeTitle(value) {
+			AppUtility.$store.dispatch('setFlightTitle', value);
 		},
 		resetInput() {
 			this.reset();

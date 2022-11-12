@@ -42,42 +42,66 @@ export default store(function () {
 	const store = createStore({
 		state () {
 			return {
+				flightDate: '',
 				flightInfoResolution: Constants.FlightInfo.Resolution,
 				flightInfoStyle: [],
+				flightLocation: '',
 				flightPathStyle: [],
+				flightTitle: '',
 				measurementUnits: AppUtility.measurementUnitEnglish
 			}
 		},
 		actions: {
+			async setFlightDate({ commit }, value) {
+				commit('setFlightDate', value);
+			},
 			async setFlightInfoResolution({ commit }, value) {
 				commit('setFlightInfoResolution', value);
 			},
 			async setFlightInfoStyle({ commit }, value) {
 				commit('setFlightInfoStyle', value);
 			},
+			async setFlightLocation({ commit }, value) {
+				commit('setFlightLocation', value);
+			},
 			async setFlightPathStyle({ commit }, value) {
 				commit('setFlightPathStyle', value);
+			},
+			async setFlightTitle({ commit }, value) {
+				commit('setFlightTitle', value);
 			},
 			async setMeasurementUnits({ commit }, value) {
 				commit('setMeasurementUnits', value);
 			}
 		},
 		getters: {
+			getFlightDate: (state) => () => {
+				return state.flightDate;
+			},
 			getFlightInfoStyle: (state) => (id) => {
 				if (!state.flightInfoStyle)
 					return null;
 				return state.flightInfoStyle.find(l => l.id);
+			},
+			getFlightLocation: (state) => () => {
+				return state.flightLocation;
 			},
 			getFlightPathStyle: (state) => (id) => {
 				if (!state.flightPathStyle)
 					return null;
 				return state.flightPathStyle.find(l => l.id);
 			},
+			getFlightTitle: (state) => () => {
+				return state.flightTitle;
+			},
 			getMeasurementUnit: (state) => () => {
 				return state.measurementUnits ?? AppUtility.measurementUnitEnglish
 			}
 		},
 		mutations: {
+			setFlightDate(state, value) {
+				state.flightDate = value;
+			},
 			setFlightInfoResolution(state, value) {
 				state.flightInfoResolution = value;
 			},
@@ -88,12 +112,18 @@ export default store(function () {
 					state.flightInfoStyle = [];
 				state.flightInfoStyle = AppUtility.updateArrayByObject(state.flightInfoStyle, value);
 			},
+			setFlightLocation(state, value) {
+				state.flightLocation = value;
+			},
 			setFlightPathStyle(state, value) {
 				if (String.isNullOrEmpty(value.id))
 					return;
 				if (!state.flightPathStyle)
 					state.flightPathStyle = [];
 				state.flightPathStyle = AppUtility.updateArrayByObject(state.flightPathStyle, value);
+			},
+			setFlightTitle(state, value) {
+				state.flightTitle = value;
 			},
 			setMeasurementUnits(state, value) {
 				state.measurementUnits = value;

@@ -17,7 +17,7 @@
  */
 
 import { contextBridge, ipcRenderer } from 'electron';
-import { BrowserWindow } from '@electron/remote';
+// eslint-disable-next-line no-unused-vars
 
 contextBridge.exposeInMainWorld('rgDownloadApi', {
 	download: (value, name, funcCompleted, funcCancelled, funcProgress) => {
@@ -40,6 +40,7 @@ contextBridge.exposeInMainWorld('rgDownloadApi', {
 			});
 		}
 
+		// eslint-disable-next-line object-shorthand
 		ipcRenderer.send('download-item', { value: value, name: name });
 	},
 	downloadUrl: (url, name, funcCompleted, funcCancelled, funcProgress) => {
@@ -62,6 +63,7 @@ contextBridge.exposeInMainWorld('rgDownloadApi', {
 			});
 		}
 
+		// eslint-disable-next-line object-shorthand
 		ipcRenderer.send('download-item', { url: url, name: name });
 	}
 });
@@ -82,18 +84,12 @@ contextBridge.exposeInMainWorld('rgStoreApi', {
 
 contextBridge.exposeInMainWorld('rgWindowApi', {
 	close: () => {
-		BrowserWindow.getFocusedWindow().close()
+		ipcRenderer.send('window.close');
 	},
 	minimize: () => {
-		BrowserWindow.getFocusedWindow().minimize()
+		ipcRenderer.send('window.minimize');
 	},
 	toggleMaximize: () => {
-		const win = BrowserWindow.getFocusedWindow()
-		if (win.isMaximized()) {
-			win.unmaximize();
-			return;
-		}
-
-		win.maximize();
+		ipcRenderer.send('window.maximize');
 	}
 });
